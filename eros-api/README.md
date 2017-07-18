@@ -6,7 +6,7 @@
 | Method | URL       | Response                      | Payload     | Query Param |
 |-------|:-----------|:----------------------------- |:------------| :-----------|
 | GET | eros/v1/events/ | ListTO\<Event\> | None | None |
-| GET | eros/v1/events/ | Event | None | next_event={true|false} |
+| GET | eros/v1/events/ | Event | None | next_event={true\|false} |
 | GET | eros/v1/events/${event_id} | Event | None | None |
 | POST | eros/v1/events/ | Event | Event | None |
 | GET | eros/v1/events/${event_id}/daters/ | ListTO\<Dater\> | None | None |
@@ -27,7 +27,7 @@
 |-------|:-----------|:----------------------------- |:------------| :-----------|
 | GET | eros/v1/daters/ | ListTO\<Dater\> | None | None |
 | GET | eros/v1/daters/${dater_id} | Dater | None | None |
-| GET | eros/v1/daters/ | Dater | None | email={true|fale} |
+| GET | eros/v1/daters/ | Dater | None | email=${email}&pwd=${pwd} |
 | POST | eros/v1/daters/${dater_id} | Dater | Dater | None |
 | POST | eros/v1/daters/ | Dater | Dater | None |
 | GET | eros/v1/daters/${dater_id}/images | ListTO\<Image\> | None | None |
@@ -58,9 +58,9 @@
 | Method | URL       | Response                      | Payload     | Query Param |
 |-------|:-----------|:----------------------------- |:------------| :-----------|
 | GET | eros/v1/messages | ListTO\<Message\> | None | None |
-| GET | eros/v1/messages | ListTO\<Message\> | None | from=${from_dater_id}&to=${to_dater_id}|
-| GET | eros/v1/messages | ListTO\<Message\> | None | from=${from_dater_id}&to=${to_dater_id}&$(messagesReceived) |
-| GET | eros/v1/messages/${message_id} | Message | None | None |
+| GET | eros/v1/messages | ListTO\<Message\> | None | from=${fromDaterId}&to=${toDaterId}|
+| GET | eros/v1/messages | ListTO\<Message\> | None | from=${fromDaterId}&to=${toDaterId}&messagesReceived=${count} |
+| GET | eros/v1/messages/${id} | Message | None | None |
 | POST | eros/v1/messages | Message | Message | None |
 
 
