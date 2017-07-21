@@ -46,18 +46,11 @@ public class DaterService {
 				.findFirst();
 	}
 
-	public Dater getDater(String email, String pwd) {
-		 List<Dater> daters = erosDb.selectFrom(DATER)
-				 .where(DATER.EMAIL.eq(email)
-						 .and(DATER.PWD.eq(pwd)))
-				 .fetch()
-				 .map(Dater::of);
-		 
-		 if(daters.size() != 1) {
-			 throw new DaterNotFoundException("# of daters found for " + email + " is " + daters.size());
-		 } else {
-			return daters.get(0);
-		 }
+	public List<Dater> getDaters(String email, String pwd) {
+		return erosDb.selectFrom(DATER)
+				.where(DATER.EMAIL.eq(email).and(DATER.PWD.eq(pwd)))
+				.fetch()
+				.map(Dater::of);
 	}
 
 	public Dater updateDater(Dater dater) {

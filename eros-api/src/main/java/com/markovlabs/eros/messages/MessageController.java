@@ -1,5 +1,7 @@
 package com.markovlabs.eros.messages;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,19 +25,16 @@ public class MessageController {
 	}
 
 	@GET
-	public ListTO<Message> getMessages() {
-		return new ListTO<>("messages", messageService.getMessages());
-	}
-
-	@GET
-	public ListTO<Message> getMessages(@QueryParam("from") long fromDater, @QueryParam("to") long toDater) {
-		return new ListTO<>("messages", messageService.getLastMessages(fromDater, toDater, 0));
-	}
-
-	@GET
-	public ListTO<Message> getLastMessages(@QueryParam("from") long fromDater, @QueryParam("to") long toDater,
-			@QueryParam("messages_received") int messagesReceived) {
-		return new ListTO<>("messages", messageService.getLastMessages(fromDater, toDater, messagesReceived));
+	public ListTO<Message> getLastMessagesForDaters(@QueryParam("from") Long fromDater, @QueryParam("to") Long toDater,
+			@QueryParam("messages_received") Integer messagesReceived) {
+		List<Message> messages = null;
+		if(fromDater == null && toDater==null) {
+			messages = messageService.getMessages();
+		} else{
+			messagesReceived = (messagesReceived == null) ? 0 : messagesReceived;
+			messages =  messageService.getLastMessages(fromDater, toDater, messagesReceived);
+		}
+		return new ListTO<>("messages", messages);
 	}
 
 	@GET

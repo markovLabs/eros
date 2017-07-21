@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.google.common.collect.ImmutableList;
 import com.markovlabs.eros.ListTO;
 import com.markovlabs.eros.daters.Dater;
 import com.markovlabs.eros.daters.DaterService;
@@ -39,15 +40,11 @@ public class EventController {
 		this.matchesService = matchesService;
 		this.answerService = answerService;
 	}
-
-	@GET
-	public ListTO<Event> getEvents() {
-		return new ListTO<>("events", eventService.getEvents());
-	}
 	
 	@GET
-	public Event getEvents(@QueryParam("next_event") String nextEvent) {
-		return eventService.getNextEvent();
+	public ListTO<Event> getEvents(@QueryParam("next_event") String nextEvent) {
+		List<Event> events = nextEvent == null ? eventService.getEvents() : ImmutableList.of(eventService.getNextEvent());
+		return new ListTO<>("events", events);
 	}
 
 	@GET

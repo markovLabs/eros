@@ -1,4 +1,4 @@
-dbURL: jdbc:mysql://localhost:3306/pigeondb
+dbURL: jdbc:mysql://localhost:3306/eros
 dbUser: root
 dbPassword: MyNewPass
 imgQueue: /Users/victorr/markovLabs-wrk/imgs

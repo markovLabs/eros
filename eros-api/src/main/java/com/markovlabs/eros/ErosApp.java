@@ -80,6 +80,7 @@ public class ErosApp extends Application<ErosAppConfig> {
 		env.jersey().register(new MatchesController(matchesService));
 		env.jersey().register(new MessageController(messageService));
 		env.jersey().register(new QuestionController(questionService));
+		env.jersey().register(new ResponseInterceptor());
 	}
 
 	private MessageServiceFacade newMessageServiceFacade(DSLContext erosDb) {
