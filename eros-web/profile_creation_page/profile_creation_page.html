@@ -12,6 +12,15 @@
     <script src="profile_creation_page.js"></script>
     
     <div layout-gt-sm="column">
+         <md-input-container>
+            <h5>Which dating event are you signing up for?</h5>
+            <md-select ng-model="selectedEventDesc"> 
+                <md-optgroup label="Events">
+                    <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventIdsByDesc.keys()">{{eventDesc}}</md-option>
+                </md-optgroup> 
+            </md-select> 
+          </md-input-container>
+        
           <md-input-container>
             <h5>{{q1.content}}</h5>
             <input name="q1" ng-model="answer1" type="radio" value="{{q1.a}}" />{{q1.a}}

@@ -110,6 +110,21 @@ function updateDater($http, baseURL, id, $window){
     });
 }
 
+function getEventIdsByEventDescription(events){
+    var eventIdsByDesc = new Map();
+    for(i = 0; i < events.length; i++){
+        event = events[i];
+        desc = event.name + "," + event.location + "," + event.date;
+        eventIdsByDesc.set(desc, event.id);
+    }
+    return eventIdsByDesc;
+}
+
+function saveEventSelected($http, baseURL, daterId, selectedEventId){
+    dater = {id:daterId};
+    $http.post(baseURL + "/events/" + selectedEventId + "/daters", dater);
+}
+
 var app = angular.module("profileCreation", [ 'ngMaterial' ]);
 app.controller("profileCreationController", 
 		function($scope, $http, $window) {
@@ -125,12 +140,16 @@ app.controller("profileCreationController",
 	$scope.s6 = s6;
 	$scope.s7 = s7;
 	$scope.s8 = s8;
+	$http.get($scope.baseURL + "/events").then(function(response){
+	   $scope.eventIdsByDesc = getEventIdsByEventDescription(response.data.events);
+	});
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
         var id = $window.sessionStorage.getItem('dater_id');
+        var selectedEventId = $scope.eventIdsByDesc.get($scope.selectedEventDesc);
 	    saveAnswers($http, $scope, baseURL, id);
 	    saveStories($http, $scope, baseURL, id);
+	    saveEventSelected($http, baseURL, id, selectedEventId);
 	    updateDater($http, baseURL, id, $window);
 	}
-
 });
