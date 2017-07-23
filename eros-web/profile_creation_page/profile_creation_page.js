@@ -19,13 +19,13 @@ g:"Master's Degree",
 h:"Doctoral Degree or equivalent"
 };
 
-var q3:{id:10,
-a:"What is your ethnicity?",
-b:"Asian or Pacific Islander",
-c:"Black or African American",
-d:"Native American or American Indian",
-e:"White",
-f:"Other"
+var q3={id:10,
+content:"What is your ethnicity?",
+a:"Asian or Pacific Islander",
+b:"Black or African American",
+c:"Native American or American Indian",
+d:"White",
+e:"Other"
 };
 
 var q4={id:11,
@@ -35,7 +35,7 @@ b:"No"
 };
 
 var s1={id:1,
-content:"1.     Jack and Stephanie are on their first date. They are having a good time together and the hours pass by quickly. It’s getting late and they both need to work tomorrow. They agree they want to go on a second date. Jack suggests this coming Thursday. Stephanie says "sorry I can't; I have a date scheduled with someone else that day." Jack is bothered by this. Is his reaction to Stephanie’s response justified?",
+content:"1.     Jack and Stephanie are on their first date. They are having a good time together and the hours pass by quickly. It’s getting late and they both need to work tomorrow. They agree they want to go on a second date. Jack suggests this coming Thursday. Stephanie says: sorry I can't; I have a date scheduled with someone else that day. Jack is bothered by this. Is his reaction to Stephanie’s response justified?",
 a:"Yes, Jack should be bothered",
 b:"No, Jack should not be bothered"
 };
