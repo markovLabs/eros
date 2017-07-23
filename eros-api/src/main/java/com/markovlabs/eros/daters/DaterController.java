@@ -47,7 +47,7 @@ public class DaterController {
 	@POST
 	@Path("/{dater_id}")
 	public Dater updateDater(@PathParam("dater_id") long id, Dater dater) {
-		return daterService.updateDater(dater);
+		return daterService.updateDater(dater.setId(id));
 	}
 
 	@POST

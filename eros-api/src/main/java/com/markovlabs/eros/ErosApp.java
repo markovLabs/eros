@@ -1,5 +1,7 @@
 package com.markovlabs.eros;
 
+import java.text.SimpleDateFormat;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -8,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.markovlabs.eros.daters.DaterController;
 import com.markovlabs.eros.daters.DaterService;
@@ -22,6 +25,8 @@ import com.markovlabs.eros.messages.PollAndReadThroughMessagingService;
 import com.markovlabs.eros.questions.AnswerService;
 import com.markovlabs.eros.questions.QuestionController;
 import com.markovlabs.eros.questions.QuestionService;
+import com.markovlabs.eros.stories.StoryController;
+import com.markovlabs.eros.stories.StoryService;
 
 import io.dropwizard.Application;
 import io.dropwizard.bundles.version.VersionBundle;
@@ -51,6 +56,8 @@ public class ErosApp extends Application<ErosAppConfig> {
 	public void run(ErosAppConfig config, Environment env) throws Exception {
 		ObjectMapper jsonMapper = env.getObjectMapper();
 		jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		jsonMapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+		jsonMapper.setDateFormat(new SimpleDateFormat("YYYY-MM-DD"));
 		
 		DSLContext erosDb = newErosDb(config);
 		assemblyApp(env, erosDb, config.getImgQueue());
@@ -74,12 +81,14 @@ public class ErosApp extends Application<ErosAppConfig> {
 		MatchesService matchesService = new MatchesService(erosDb);
 		QuestionService questionService = new QuestionService(erosDb);
 		MessageServiceFacade messageService = newMessageServiceFacade(erosDb);
+		StoryService storyService = new StoryService(erosDb); 
 		
 		env.jersey().register(new DaterController(daterService, imageService, answerService));
 		env.jersey().register(new EventController(eventService, daterService, matchesService, answerService));
 		env.jersey().register(new MatchesController(matchesService));
 		env.jersey().register(new MessageController(messageService));
 		env.jersey().register(new QuestionController(questionService));
+		env.jersey().register(new StoryController(storyService));
 		env.jersey().register(new ResponseInterceptor());
 	}
 

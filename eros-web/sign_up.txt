@@ -1,6 +1,0 @@
-function onSubmit(){
-    POST /eros/v1/users/
-    {"email":"${email}","pwd":"${pwd}","gender":"${gender}","name":"${name}"}
-    
-    verify if email and pwd already exist by GET 
-}

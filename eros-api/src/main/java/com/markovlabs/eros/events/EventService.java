@@ -1,6 +1,8 @@
 package com.markovlabs.eros.events;
 
 import java.util.List;
+import java.util.Map;
+import static com.markovlabs.eros.JOOQRecordUtility.addRecord;
 import org.jooq.DSLContext;
 
 import com.markovlabs.eros.model.tables.records.EventDatersRecord;
@@ -46,10 +48,16 @@ public class EventService {
 	}
 
 	public Event addEvent(Event event) {
+		return addRecord(erosDb, EVENT, event);
+	}
+	
+	public Event updateEvent(long eventId, Event event) {
 		EventRecord record = erosDb.newRecord(EVENT);
-		record.from(event);
-		record.insert();
-		return getEvent(record.getId());
+		Map<String, Object> fieldValues = event.asMap();
+		fieldValues.put("Id", eventId);
+		record.fromMap(fieldValues);
+		record.update();
+		return getEvent(eventId);
 	}
 
 	public void addDaterForEvent(long daterId, long eventId) {

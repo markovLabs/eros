@@ -52,6 +52,12 @@ public class EventController {
 	public Event getEvent(@PathParam("event_id") long eventId) {
 		return eventService.getEvent(eventId);
 	}
+	
+	@POST
+	@Path("/{event_id}")
+	public Event updateEvent(@PathParam("event_id") long eventId, Event event) {
+		return eventService.updateEvent(eventId, event);
+	}
 
 	@POST
 	public Event addEvent(Event event) {
