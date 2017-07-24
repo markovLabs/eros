@@ -13,7 +13,7 @@
     
     <div layout-gt-sm="column">
          <md-input-container>
-            <h5>Which dating event are you signing up for?</h5>
+            <h5>1.Which dating event are you signing up for?</h5>
             <md-select ng-model="selectedEventDesc"> 
                 <md-optgroup label="Events">
                     <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventIdsByDesc.keys()">{{eventDesc}}</md-option>
@@ -53,6 +53,7 @@
 		      <input name="q4" ng-model="answer4" type="radio" value="{{q4.a}}" />{{q4.a}}
 		      <br><input name="q4" ng-model="answer4" type="radio" value="{{q4.b}}" />{{q4.b}}
 		  </md-input-container>
+		  <p> Read the following dating stories and select the answer choice that best aligns with your opinion for each story.</p>
 		<md-input-container>
 		  <h5>{{s1.content}}</h5>
 		  <input name="s1" ng-model="answer5" type="radio" value="{{s1.a}}" />{{s1.a}}

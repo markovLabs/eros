@@ -89,7 +89,7 @@ CREATE TABLE `STORY` (
      `ID` bigint(11) NOT NULL AUTO_INCREMENT,
      `CONTENT` text NOT NULL,
      `STORY_TYPE` enum('Prompted', 'Unprompted') DEFAULT 'Prompted',
-     `LABEL` enum('PA', 'PB', 'PC', 'PD', 'U') DEFAULT 'PA',
+     `LABEL` enum('PA', 'PB', 'PC', 'PD', 'U'),
      `QUESTION` text NOT NULL,
      `ANSWER_A` text NOT NULL,
      `ANSWER_B` text NOT NULL,

@@ -59,6 +59,7 @@ function main(){
     set_arguments "$@"
     scp ${ARTIFACT_PATH}/${ARTIFACT} ${USER}@${HOST}:~/
     ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}"
+    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}/web/eros* && rm ${ARTIFACT}/web/eros*gz && mv ${ARTIFACT}/web/eros*/* ${ARTIFACT}/web/ && rm -rf ${ARTIFACT}/web/eros*"
     ssh ${USER}@${HOST} "pid=$(ps -o pid,args -C bash | awk 'eros.api { print $1 }') && kill ${pid}"
     wait 10s
     ssh ${USER}@${HOST} "${ARTIFACT}/bin/run.sh"

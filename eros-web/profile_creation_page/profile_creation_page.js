@@ -1,5 +1,5 @@
 var q1={id:8,
-content:"How many total months have you been a user of at least one online dating system? (Online dating systems include mobile dating apps and online dating websites).",
+content:"2.How many total months have you been a user of at least one online dating system? (Online dating systems include mobile dating apps and online dating websites).",
 a:"0 months (I have never been a user of an online dating system before)",
 b:"1-3 months",
 c:"4-6 months",
@@ -8,7 +8,7 @@ e:"More than 12 months"
 };
 
 var q2={id:9,
-content:"What is your highest level of education completed?",
+content:"3.What is your highest level of education completed?",
 a:"Some High School",
 b:"High School Diploma or GED",
 c:"Some College",
@@ -20,7 +20,7 @@ h:"Doctoral Degree or equivalent"
 };
 
 var q3={id:10,
-content:"What is your ethnicity?",
+content:"4.What is your ethnicity?",
 a:"Asian or Pacific Islander",
 b:"Black or African American",
 c:"Native American or American Indian",
@@ -29,7 +29,7 @@ e:"Other"
 };
 
 var q4={id:11,
-content:"Are his Hispanic/Latino?",
+content:"5.Are his Hispanic/Latino?",
 a:"Yes",
 b:"No"
 };
