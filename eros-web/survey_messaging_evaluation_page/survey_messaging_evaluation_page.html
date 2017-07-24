@@ -11,9 +11,10 @@
 <body ng-app="surveyMsgEvaluation" ng-controller="surveyMsgEvaluationController" ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
     <script src="survey_messaging_evaluation_page.js"></script>
     <div layout-gt-sm="column">
-        <md-input-container>
+        
+        <md-input>
   <h5>{{q3.content}}</h5>
-  <md-input-container layout-gt-sm=row>
+  <md-input layout-gt-sm=row>
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.a}}" />{{q3.a}}
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.b}}" />{{q3.b}}
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.c}}" />{{q3.c}}
@@ -21,8 +22,9 @@
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.e}}" />{{q3.e}}
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.f}}" />{{q3.f}}
   <input name="q3" ng-model="answer3" type="radio" value="{{q3.g}}" />{{q3.g}}
-  </md-input-container>
-</md-input-container>
+  </md-input>
+</md-input>
+
 <md-input-container>
   <h5>{{q4.content}}</h5>
     <md-input-container layout-gt-sm=row>
