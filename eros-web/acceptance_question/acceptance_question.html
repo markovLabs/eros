@@ -12,27 +12,27 @@
     <script src="acceptance_question.js"></script>
     
          <div layout-gt-sm="column">
-          <md-input-container>
+          <md-input>
             <h5>{{question1.content}}</h5>
             <input name="question1" ng-model="answer1" type="radio" value="{{question1.answer1}}" />{{question1.answer1}}
             <br><input name="question1" ng-model="answer1" type="radio" value="{{question1.answer2}}" />{{question1.answer2}}
             <br><input name="question1" ng-model="answer1" type="radio" value="{{question1.answer3}}" />{{question1.answer3}}
-          </md-input-container>
+          </md-input>
 
-           <md-input-container >
+           <md-input >
             <h5>{{question2.content}}</h5>
             <input name="question2" ng-model="answer2"  type="radio" value="{{question2.answer1}}" /> {{question2.answer1}}<br>
             <input name="question2" ng-model="answer2" type="radio" value="{{question2.answer2}}" /> {{question2.answer2}}<br>
-          </md-input-container>
+          </md-input>
 
-		<md-input-container>
+		<md-input>
 		  <h5>{{question3.content}}</h5>
 		  <md-select ng-model="answer3"> 
 		  <md-optgroup label="AGE">
 		      <md-option ng-value="age" ng-repeat="age in ages">{{age}}</md-option>
 		  </md-optgroup> 
 		  </md-select> 
-		</md-input-container>
+		</md-input>
 
 	</div>
         <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>

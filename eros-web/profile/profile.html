@@ -10,9 +10,6 @@
 </head>
 <body ng-app="profile" ng-controller="profileController" ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
     <script src="profile.js"></script>
-    <div>
-<h1>Profile Page</h1>
-    </div>
-
+    <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
 </body>
 </html>
