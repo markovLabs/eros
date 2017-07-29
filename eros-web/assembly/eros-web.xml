@@ -8,10 +8,16 @@
 		<format>tar.gz</format>
 	</formats>
 	<fileSets>
+	    <fileSet>
+            <directory>imgs</directory>
+            <outputDirectory>imgs</outputDirectory>
+        </fileSet>
+		
 		<fileSet>
 			<directory>acceptance_question</directory>
 			<outputDirectory>acceptance_question</outputDirectory>
 		</fileSet>
+
 		<fileSet>
 			<directory>consent_page</directory>
 			<outputDirectory>consent_page</outputDirectory>

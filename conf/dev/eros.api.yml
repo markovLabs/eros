@@ -1,7 +1,7 @@
 dbURL: jdbc:mysql://localhost:3306/eros
 dbUser: root
 dbPassword: MyNewPass
-imgQueue: ${HOME}/markovLabs-wrk/imgs
+imgQueue: ../web/imgs
 
 server:
   adminContextPath: /eros/v1/
