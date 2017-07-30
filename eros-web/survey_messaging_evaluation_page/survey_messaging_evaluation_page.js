@@ -59,7 +59,7 @@ answers:[1,2,3,4,5,6,7]
 
 var app = angular.module("surveyMsgEvaluation", ['ngMaterial']); 
 app.controller("surveyMsgEvaluationController",function($scope, $http, $window){ 
-	
+	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
 	$scope.q2 = q2;
 	$scope.q3 = q3;
 	$scope.q4 = q4;

@@ -74,6 +74,7 @@ app.directive("fileread", [function () {
 
 app.controller("profileController",function($scope, $http, $window, $interval){
 	$scope.curImgIndex = 0;
+	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
 	$scope.daterId = $window.sessionStorage.getItem('dater_id');
 	$scope.file = "";
 	updateImages($http, $scope);

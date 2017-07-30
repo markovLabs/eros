@@ -28,6 +28,7 @@ function setEvent($scope, $http){
 
 var app = angular.module("eventInfo", ['ngMaterial']); 
 app.controller("eventInfoController",function($scope, $http, $window, $interval){ 
+	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
 	setEvent($scope, $http).apply();
 	$interval(setEvent($scope, $http), 3000);
 	$scope.onContinue=function(){

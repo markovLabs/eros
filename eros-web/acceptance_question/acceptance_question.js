@@ -55,8 +55,8 @@ app.controller("acceptanceQuestionController",
             $scope.question2 = question2;
             $scope.question3 = question3;
             $scope.ages = range(21, 65);
-            var loadRejectionPage = loadPage($window, "rejection.html");
-            var loadProfileCreation = loadPage($window, "../profile_creation_page.html");
+            var loadRejectionPage = loadPage($window, "../rejection/rejection.html");
+            var loadProfileCreation = loadPage($window, "../profile_creation_page/profile_creation_page.html");
             $scope.onContinue=function(){
                 var baseURL = $scope.erosBaseUrl
                 var id = $window.sessionStorage.getItem('dater_id')

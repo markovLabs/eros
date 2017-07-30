@@ -111,7 +111,7 @@ function updateDater($http, baseURL, id, $window){
 }
 
 function getEventIdsByEventDescription(events){
-    var eventIdsByDesc = new Map();
+    eventIdsByDesc = new Map();
     for(i = 0; i < events.length; i++){
         event = events[i];
         desc = event.name + "," + event.location + "," + event.date;
@@ -140,7 +140,8 @@ app.controller("profileCreationController",
 	$scope.s6 = s6;
 	$scope.s7 = s7;
 	$scope.s8 = s8;
-	$http.get($scope.baseURL + "/events").then(function(response){
+	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$http.get($scope.erosBaseUrl + "/events").then(function(response){
 	   $scope.eventIdsByDesc = getEventIdsByEventDescription(response.data.events);
 	});
 	$scope.onContinue=function(){

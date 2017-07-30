@@ -7,12 +7,30 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+   <link rel="stylesheet" href="../profile/jk-carousel.min.css" />
+  <link rel="stylesheet" href="messaging_evaluation_page.css" />
+  <script src="../profile/jk-carousel.min.js"></script>
 </head>
-<body ng-app="msgEvaluation" ng-controller="msgEvaluationController" ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
+<body ng-app="msgEvaluation" ng-controller="msgEvaluationController">
     <script src="messaging_evaluation_page.js"></script>
-    <div>
-<h1>Profile Page</h1>
+    <div layout-gt-sm="row">
+        <div layout-gt-sm="column">
+            <h3>{{matchName}}</h3>
+            <img src="{{profileImage}}" class="avatar">
+        </div>
+        <div layout="column" layout-align="center center">
+            <md-card layout="column" layout-align="center center">
+                 <jk-carousel data="imageSrcs" ci="curImgIndex" item-template-url="'item-template.html'" max-width="500" max-height="300"> 
+                 </jk-carousel> 
+            </md-card>
+        </div>
     </div>
+    <md-content>
+        <md-
+    </md-content>
+    
+     <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">{{buttonLabel}}</md-button>
+    
 
 </body>
 </html>
