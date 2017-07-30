@@ -16,7 +16,7 @@
             <h5>1.Which dating event are you signing up for?</h5>
             <md-select ng-model="selectedEventDesc" aria-label="Select"> 
                 <md-optgroup label="Events">
-                    <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventIdsByDesc.keys()">{{eventDesc}}</md-option>
+                    <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventDescriptions">{{eventDesc}}</md-option>
                 </md-optgroup> 
             </md-select> 
           </md-input>
