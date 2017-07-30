@@ -111,13 +111,13 @@ function updateDater($http, baseURL, id, $window){
 }
 
 function getEventIdsByEventDescription(events){
-    eventIdsByDesc = new Map();
+    var eventIdsByDescMap = new Map();
     for(i = 0; i < events.length; i++){
         event = events[i];
         desc = event.name + "," + event.location + "," + event.date;
-        eventIdsByDesc.set(desc, event.id);
+        eventIdsByDescMap.set(desc, event.id);
     }
-    return eventIdsByDesc;
+    return eventIdsByDescMap;
 }
 
 function saveEventSelected($http, baseURL, daterId, selectedEventId){
@@ -141,8 +141,11 @@ app.controller("profileCreationController",
 	$scope.s7 = s7;
 	$scope.s8 = s8;
 	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.eventIdsByDesc = {};
 	$http.get($scope.erosBaseUrl + "/events").then(function(response){
-	   $scope.eventIdsByDesc = getEventIdsByEventDescription(response.data.events);
+	    var idsByDec = getEventIdsByEventDescription(response.data.events);
+	    console.log(idsByDec);
+	    $scope.eventIdsByDesc = idsByDec;
 	});
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
