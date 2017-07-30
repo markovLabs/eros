@@ -1,5 +1,7 @@
 package com.markovlabs.eros.daters;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,10 +31,11 @@ public class DaterController {
 		this.imageService = imageService;
 		this.answerService = answerService;
 	}
-
+	
 	@GET
-	public ListTO<Dater> getDaters() {
-		return new ListTO<>("daters", daterService.getDaters());
+	public ListTO<Dater> getDater(@QueryParam("email") String email, @QueryParam("pwd") String pwd) {
+		List<Dater> daters = (email == null && pwd==null) ? daterService.getDaters() : daterService.getDaters(email, pwd);
+		return new ListTO<>("daters", daters);
 	}
 
 	@GET
@@ -41,15 +44,10 @@ public class DaterController {
 		return daterService.getDater(id);
 	}
 
-	@GET
-	public Dater getDater(@QueryParam("email") String email, @QueryParam("pwd") String pwd) {
-		return daterService.getDater(email, pwd);
-	}
-
 	@POST
 	@Path("/{dater_id}")
 	public Dater updateDater(@PathParam("dater_id") long id, Dater dater) {
-		return daterService.updateDater(dater);
+		return daterService.updateDater(dater.setId(id));
 	}
 
 	@POST

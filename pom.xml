@@ -20,6 +20,7 @@
 
 	<modules>
 		<module>eros-api</module>
+		<module>eros-web</module>
 	</modules>
 
 	<build>
@@ -44,6 +45,14 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/lib</outputDirectory>
 								</artifactItem>
+								<artifactItem>
+                                    <groupId>com.markovLabs</groupId>
+                                    <artifactId>eros-web</artifactId>
+                                    <version>RELEASE</version>
+                                    <type>tar.gz</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/web</outputDirectory>
+                                </artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>

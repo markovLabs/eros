@@ -15,3 +15,8 @@ hs_err_pid*
 .classpath
 .project
 *reduced-pom*
+
+eros-api/target/
+eros-web/target/
+eros-api/.project
+eros-web/.project

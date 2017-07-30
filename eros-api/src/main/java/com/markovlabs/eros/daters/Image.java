@@ -7,7 +7,7 @@ import com.markovlabs.eros.model.tables.records.ImageRecord;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "dater_id", "name" })
+@JsonPropertyOrder({ "id", "dater_id", "name", "content"})
 public class Image {
 
 	private long id;

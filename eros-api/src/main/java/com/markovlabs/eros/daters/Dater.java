@@ -1,26 +1,36 @@
 package com.markovlabs.eros.daters;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
+import com.markovlabs.eros.Deconstructable;
 import com.markovlabs.eros.model.enums.DaterGender;
 import com.markovlabs.eros.model.tables.records.DaterRecord;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"id", "email", "pwd", "name", "gender", "accepted_consent", "accepted_profile_questions", "rejected"})
-public class Dater {
+@JsonPropertyOrder({"id", "email", "pwd", "profile_name", "name", "last_name", "gender", "accepted_consent", "accepted_profile_questions", "profile_created", "rejected"})
+public class Dater implements Deconstructable {
 
-	private long id;
+	private Long id = -1L;
 	private String email;
 	private String pwd;
+	private String profileName;
 	private String name;
+	private String lastName;
 	private String gender;
-	private boolean acceptedConsent;
-	private boolean acceptedProfileQuestions;
-	private boolean rejected;
+	private Boolean acceptedConsent;
+	private Boolean acceptedProfileQuestions;
+	private Boolean rejected;
+	private Boolean profileCreated;
 
 	public Dater() {}
 
@@ -56,7 +66,7 @@ public class Dater {
 	}
 	@JsonIgnore
 	public DaterGender getGender() {
-		return DaterGender.valueOf(gender);
+		return gender == null ? null : DaterGender.valueOf(gender);
 	}
 	@JsonProperty("gender")
 	public Dater setGenderAsString(String gender) {
@@ -84,7 +94,7 @@ public class Dater {
 	}
 	@JsonIgnore
 	public Byte getAcceptConsentPageFlag() {
-		return (acceptedConsent) ? (byte) 1 : 0;
+		return acceptedConsent == null ? null : ((acceptedConsent) ? (byte) 1 : 0);
 	}
 	@JsonProperty("accepted_profile_questions")
 	public boolean isAcceptedProfileQuestions() {
@@ -97,7 +107,7 @@ public class Dater {
 	}
 	@JsonIgnore
 	public Byte getAcceptanceQuestionPageFlag() {
-		return (acceptedProfileQuestions) ? (byte) 1 : 0;
+		return acceptedProfileQuestions == null ? null : ((acceptedProfileQuestions) ? (byte) 1 : 0);
 	}
 	@JsonIgnore
 	public Dater setAcceptanceQuestionPageFlag(Byte acceptanceQuestionPageFlag) {
@@ -114,13 +124,13 @@ public class Dater {
 		return this;
 	}
 	@JsonIgnore
-	private Dater setRejected(Byte rejected) {
+	public Dater setRejected(Byte rejected) {
 		this.rejected = ((int) rejected) == 1;
 		return this;
 	}
 	@JsonIgnore
-	private Byte getRejected() {
-		return (rejected) ? (byte) 1 : 0;
+	public Byte getRejected() {
+		return (rejected == null) ? null : ((rejected) ? (byte) 1 : 0);
 	}
 
 	public Dater setId(long id) {
@@ -128,8 +138,8 @@ public class Dater {
 		return this;
 	}
 
-	public long getId() {
-		return id;
+	public Long getId() {
+		return id == -1 ? null : id;
 	}
 
 	public static Dater of(DaterRecord daterRecord) {
@@ -141,6 +151,67 @@ public class Dater {
 				.setGender(daterRecord.getGender())
 				.setAcceptConsentPageFlag(daterRecord.getAcceptConsentPageFlag())
 				.setAcceptanceQuestionPageFlag(daterRecord.getAcceptanceQuestionPageFlag())
-				.setRejected(daterRecord.getRejected());
+				.setRejected(daterRecord.getRejected())
+				.setLastName(daterRecord.getLastName())
+				.setProfileName(daterRecord.getProfileName())
+				.setProfileCreationPageFlag(daterRecord.getProfileCreationPageFlag());
+	}
+	@Override
+	public Map<String, Object> asMap() {
+		return getFieldValues().stream().filter(entry -> entry.getValue() != null)
+		.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+	}
+
+	private List<Map.Entry<String, Object>> getFieldValues() {
+		return ImmutableList.<Map.Entry<String, Object>>builder()
+				.add(Maps.immutableEntry("ACCEPTANCE_QUESTION_PAGE_FLAG", this.getAcceptanceQuestionPageFlag()))
+				.add(Maps.immutableEntry("ACCEPT_CONSENT_PAGE_FLAG", this.getAcceptConsentPageFlag()))
+				.add(Maps.immutableEntry("EMAIL", this.getEmail()))
+				.add(Maps.immutableEntry("GENDER", this.getGender()))
+				.add(Maps.immutableEntry("LAST_NAME", this.getLastName()))
+				.add(Maps.immutableEntry("NAME", this.getName()))
+				.add(Maps.immutableEntry("ID", this.getId()))
+				.add(Maps.immutableEntry("PROFILE_NAME", this.getProfileName()))
+				.add(Maps.immutableEntry("PWD", this.getPwd()))
+				.add(Maps.immutableEntry("REJECTED", this.getRejected()))
+				.add(Maps.immutableEntry("PROFILE_CREATION_PAGE_FLAG", this.getProfileCreationPageFlag()))
+				.build();
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public Dater setLastName(String lastName) {
+		this.lastName = lastName;
+		return this;
+	}
+
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public Dater setProfileName(String profileName) {
+		this.profileName = profileName;
+		return this;
+	}
+
+	public Boolean isProfileCreated() {
+		return profileCreated;
+	}
+	
+	@JsonIgnore
+	public Byte getProfileCreationPageFlag() {
+		return (this.profileCreated == null) ? null : (this.profileCreated ? (byte) 1 : 0);
+	}
+	@JsonIgnore
+	public Dater setProfileCreationPageFlag(Byte profileCreatedFlag) {
+		this.profileCreated = ((int) profileCreatedFlag) == 1;
+		return this;
+	}
+
+	public Dater setProfileCreated(Boolean profileCreated) {
+		this.profileCreated = profileCreated;
+		return this;
 	}
 }

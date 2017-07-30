@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+</head>
+<body ng-app="acceptanceQuestion" ng-controller="acceptanceQuestionController" ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
+    <script src="acceptance_question.js"></script>
+    
+         <div layout-gt-sm="column">
+          <md-input>
+            <h5>{{question1.content}}</h5>
+            <input name="question1" ng-model="answer1" type="radio" value="{{question1.answer1}}" />{{question1.answer1}}
+            <br><input name="question1" ng-model="answer1" type="radio" value="{{question1.answer2}}" />{{question1.answer2}}
+            <br><input name="question1" ng-model="answer1" type="radio" value="{{question1.answer3}}" />{{question1.answer3}}
+          </md-input>
+
+           <md-input >
+            <h5>{{question2.content}}</h5>
+            <input name="question2" ng-model="answer2"  type="radio" value="{{question2.answer1}}" /> {{question2.answer1}}<br>
+            <input name="question2" ng-model="answer2" type="radio" value="{{question2.answer2}}" /> {{question2.answer2}}<br>
+          </md-input>
+
+		<md-input>
+		  <h5>{{question3.content}}</h5>
+		  <md-select ng-model="answer3"> 
+		  <md-optgroup label="AGE">
+		      <md-option ng-value="age" ng-repeat="age in ages">{{age}}</md-option>
+		  </md-optgroup> 
+		  </md-select> 
+		</md-input>
+
+	</div>
+        <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
+    
+
+</body>
+</html>
+
+
+

@@ -35,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Dater extends TableImpl<DaterRecord> {
 
-	private static final long serialVersionUID = -1307991247;
+	private static final long serialVersionUID = -258178545;
 
 	/**
 	 * The reference instance of <code>eros.DATER</code>
@@ -66,9 +66,19 @@ public class Dater extends TableImpl<DaterRecord> {
 	public final TableField<DaterRecord, String> PWD = createField("PWD", org.jooq.impl.SQLDataType.VARCHAR.length(20), this, "");
 
 	/**
+	 * The column <code>eros.DATER.PROFILE_NAME</code>.
+	 */
+	public final TableField<DaterRecord, String> PROFILE_NAME = createField("PROFILE_NAME", org.jooq.impl.SQLDataType.VARCHAR.length(20), this, "");
+
+	/**
 	 * The column <code>eros.DATER.NAME</code>.
 	 */
 	public final TableField<DaterRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR.length(60), this, "");
+
+	/**
+	 * The column <code>eros.DATER.LAST_NAME</code>.
+	 */
+	public final TableField<DaterRecord, String> LAST_NAME = createField("LAST_NAME", org.jooq.impl.SQLDataType.VARCHAR.length(20), this, "");
 
 	/**
 	 * The column <code>eros.DATER.GENDER</code>.
@@ -84,6 +94,11 @@ public class Dater extends TableImpl<DaterRecord> {
 	 * The column <code>eros.DATER.ACCEPTANCE_QUESTION_PAGE_FLAG</code>.
 	 */
 	public final TableField<DaterRecord, Byte> ACCEPTANCE_QUESTION_PAGE_FLAG = createField("ACCEPTANCE_QUESTION_PAGE_FLAG", org.jooq.impl.SQLDataType.TINYINT.defaulted(true), this, "");
+
+	/**
+	 * The column <code>eros.DATER.PROFILE_CREATION_PAGE_FLAG</code>.
+	 */
+	public final TableField<DaterRecord, Byte> PROFILE_CREATION_PAGE_FLAG = createField("PROFILE_CREATION_PAGE_FLAG", org.jooq.impl.SQLDataType.TINYINT.defaulted(true), this, "");
 
 	/**
 	 * The column <code>eros.DATER.REJECTED</code>.

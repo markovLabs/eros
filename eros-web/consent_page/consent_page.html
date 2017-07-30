@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<link rel="stylesheet" href="consent_page.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+</head>
+<body ng-app="consentPage" ng-controller="consentPageController"
+  ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
+  <script src="consent_page.js"></script>
+<div layout="column" ng-cloak>
+  <md-toolbar class="md-warn">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">CONSENT TO PARTICIPATE IN A RESEARCH STUDY</h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+  
+<p>RESEARCH STUDY:
+I have been asked to participate in a research study under the direction of Dr. Quentin Jones. 
+Other professional persons who work with them as study staff may assist to act for them.<br><br>
+PURPOSE:
+To evaluate the usability of an online dating system prototype.<br><br>
+
+DURATION:
+My participation in this study will last for approximately 3 hours.<br><br>
+
+PROCEDURES:
+I have been told that, during the course of this study, the following will occur:
+I will exchange messages with opposite-sex users of the online dating system prototype and then meet them face-to-face for short “speed dates.”<br><br>
+
+PARTICIPANTS:
+I will be one of up to 100 participants in this study.<br><br>
+
+EXCLUSIONS:
+I will inform the researcher if any of the following apply to me:
+I am already in a committed romantic relationship with another person.
+I am under the age of 18.<br><br>
+
+RISKS/DISCOMFORTS:
+I have been told that the study described above may involve the following risks and/or discomforts:
+•   Unreciprocated romantic attraction (A user that I like may not like me in return)
+•   A user that I get along well with online may not be compatible with me when I meet them face-to-face
+•   Conversations that I have with daters in the online dating system may include disagreements, which I could find uncomfortable or unpleasant.
+•   There also may be risks and discomforts that are not yet known.<br><br>
+    
+I fully recognize that there are risks that I may be exposed to by volunteering in this study which are inherent in participating in any study; 
+I understand that I am not covered by NJIT’s insurance policy for any injury or loss I might sustain in the course of participating in the study.<br><br>
+
+CONFIDENTIALITY:
+I understand confidential is not the same as anonymous. 
+Confidential means that my name will not be disclosed if there exists a documented linkage between my identity and my responses as recorded in the research records.  
+Every effort will be made to maintain the confidentiality of my study records.  
+If the findings from the study are published, I will not be identified by name.  
+My identity will remain confidential unless disclosure is required by law.
+
+PAYMENT FOR PARTICIPATION:
+I have been told that I will receive $20 compensation for my participation in this study.<br><br>
+
+RIGHT TO REFUSE OR WITHDRAW:
+I understand that my participation is voluntary and I may refuse to participate, or may discontinue my participation at any time with no adverse consequence.  
+I also understand that the investigator has the right to withdraw me from the study at any time.<br><br>
+
+INDIVIDUAL TO CONTACT:
+If I have any questions about my treatment or research procedures, I understand that I should contact the principal investigator at:
+
+Quentin Jones
+GITC 5600
+150 Bleeker St. Newark, NJ 07102
+Phone: 973-596-5290
+e-mail: quentin.jones@njit.edu<br><br>
+
+If I have any addition questions about my rights as a research subject, I may contact:<br><br>
+
+    Farzan Nadim, IRB Chair
+New Jersey Institute of Technology
+323 Martin Luther King Boulevard
+Newark, NJ  07102
+(973) 596-5825
+irb@njit.edu/ farzan@njit.edu 
+
+SIGNATURE OF PARTICIPANT
+I have read this entire form, or it has been read to me, and I understand it completely.  All of my questions regarding this form or this study have been answered to my complete satisfaction.  I agree to participate in this research study. </p>
+
+  </md-content>
+
+</div>
+     <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="firstName">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Last Name </label>
+            <input ng-model="lastName">
+          </md-input-container>
+        </div>
+              <md-input-container class="md-block">
+        <md-checkbox ng-model="agree" required>
+          I agree to participate in this study.
+        </md-checkbox>
+         <br><md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
+        <md-input-container/>
+</body>
+</html>
+
+
+

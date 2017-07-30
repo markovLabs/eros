@@ -1,26 +1,33 @@
 package com.markovlabs.eros.events;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Maps;
 import com.markovlabs.eros.Builder;
+import com.markovlabs.eros.Deconstructable;
 
 @JsonDeserialize(builder = Event.EventBuilder.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "name", "location", "date", "started", "ended", "mapping_id" })
-public class Event {
+public class Event implements Deconstructable {
 
-	private final long id;
+	private final Long id;
 	private final String name;
 	private final String location;
 	private final String date;
-	private final boolean started;
-	private final boolean ended;
-	private final long mappingId;
+	private final Boolean started;
+	private final Boolean ended;
+	private final Long mappingId;
 
 	public Event(EventBuilder builder) {
 		this.id = builder.id;
@@ -32,7 +39,7 @@ public class Event {
 		this.mappingId = builder.mappingId;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -56,26 +63,26 @@ public class Event {
 		return ended;
 	}
 	@JsonIgnore
-	public int getStarted() {
-		return started ? 1 : 0;
+	public Integer getStarted() {
+		return started == null ? null : (started  ? 1 : 0);
 	}
 	@JsonIgnore
-	public int getEnded() {
-		return ended ? 1 : 0;
+	public Integer getEnded() {
+		return ended == null ? null : (ended  ? 1 : 0);
 	}
-	public long getMappingId() {
+	public Long getMappingId() {
 		return mappingId;
 	}
 
 	public static class EventBuilder implements Builder<Event> {
 
-		private long id;
+		private Long id = null;
 		private String name;
 		private String location;
 		private String date;
-		private boolean started = false;
-		private boolean ended = false;
-		private long mappingId;
+		private Boolean started = null;
+		private Boolean ended = null;
+		private Long mappingId =  null;
 
 		public EventBuilder withId(long id) {
 			this.id = id;
@@ -138,5 +145,23 @@ public class Event {
 					.withMappingId(eventRow.getMappingId())
 					.build();
 		}
+	}
+
+	@Override
+	public Map<String, Object> asMap() {
+		return getFieldValues().stream().filter(entry -> entry.getValue() != null)
+		.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+	}
+
+	private List<Map.Entry<String, Object>> getFieldValues() {
+		return ImmutableList.<Map.Entry<String, Object>>builder()
+				.add(Maps.immutableEntry("LOCATION", this.getLocation()))
+				.add(Maps.immutableEntry("EVENT_DATE", this.getDate()))
+				.add(Maps.immutableEntry("MAPPING_ID", this.getMappingId()))
+				.add(Maps.immutableEntry("NAME", this.getName()))
+				.add(Maps.immutableEntry("ID", this.getId()))
+				.add(Maps.immutableEntry("STARTED", this.getStarted()))
+				.add(Maps.immutableEntry("ENDED", this.getEnded()))
+				.build();
 	}
 }

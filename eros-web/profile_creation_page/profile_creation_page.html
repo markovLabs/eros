@@ -1,0 +1,100 @@
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+</head>
+<body ng-app="profileCreation" ng-controller="profileCreationController">
+    <script src="profile_creation_page.js"></script>
+    
+    <div layout-gt-sm="column">
+         <md-input>
+            <h5>1.Which dating event are you signing up for?</h5>
+            <md-select ng-model="selectedEventDesc" aria-label="Select"> 
+                <md-optgroup label="Events">
+                    <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventIdsByDesc.keys()">{{eventDesc}}</md-option>
+                </md-optgroup> 
+            </md-select> 
+          </md-input>
+        
+          <md-input>
+            <h5>{{q1.content}}</h5>
+            <input name="q1" ng-model="answer1" type="radio" value="{{q1.a}}" />{{q1.a}}
+            <br><input name="q1" ng-model="answer1" type="radio" value="{{q1.b}}" />{{q1.b}}
+            <br><input name="q1" ng-model="answer1" type="radio" value="{{q1.c}}" />{{q1.c}}
+            <br><input name="q1" ng-model="answer1" type="radio" value="{{q1.d}}" />{{q1.d}}
+            <br><input name="q1" ng-model="answer1" type="radio" value="{{q1.e}}" />{{q1.e}}
+          </md-input>
+          <md-input>
+            <h5>{{q2.content}}</h5>
+            <input name="q2" ng-model="answer2" type="radio" value="{{q2.a}}" />{{q2.a}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.b}}" />{{q2.b}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.c}}" />{{q2.c}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.d}}" />{{q2.d}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.e}}" />{{q2.e}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.f}}" />{{q2.f}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.g}}" />{{q2.g}}
+            <br><input name="q2" ng-model="answer2" type="radio" value="{{q2.h}}" />{{q2.h}}
+          </md-input>
+          <md-input>
+            <h5>{{q3.content}}</h5>
+            <input name="q3" ng-model="answer3" type="radio" value="{{q3.a}}" />{{q3.a}}
+            <br><input name="q3" ng-model="answer3" type="radio" value="{{q3.b}}" />{{q3.b}}
+            <br><input name="q3" ng-model="answer3" type="radio" value="{{q3.c}}" />{{q3.c}}
+            <br><input name="q3" ng-model="answer3" type="radio" value="{{q3.d}}" />{{q3.d}}
+            <br><input name="q3" ng-model="answer3" type="radio" value="{{q3.e}}" />{{q3.e}}
+          </md-input>
+		  <md-input>
+		      <h5>{{q4.content}}</h5>
+		      <input name="q4" ng-model="answer4" type="radio" value="{{q4.a}}" />{{q4.a}}
+		      <br><input name="q4" ng-model="answer4" type="radio" value="{{q4.b}}" />{{q4.b}}
+		  </md-input>
+		  <p> Read the following dating stories and select the answer choice that best aligns with your opinion for each story.</p>
+		<md-input>
+		  <h5>{{s1.content}}</h5>
+		  <input name="s1" ng-model="answer5" type="radio" value="{{s1.a}}" />{{s1.a}}
+		  <br><input name="s1" ng-model="answer5" type="radio" value="{{s1.b}}" />{{s1.b}}
+		</md-input>
+	   <md-input>
+    <h5>{{s2.content}}</h5>
+    <input name="s2" ng-model="answer6" type="radio" value="{{s2.a}}" />{{s2.a}}
+    <br><input name="s2" ng-model="answer6" type="radio" value="{{s2.b}}" />{{s2.b}}
+</md-input>
+<md-input>
+    <h5>{{s3.content}}</h5>
+    <input name="s3" ng-model="answer7" type="radio" value="{{s3.a}}" />{{s3.a}}
+    <br><input name="s3" ng-model="answer7" type="radio" value="{{s3.b}}" />{{s3.b}}
+</md-input>
+<md-input>
+    <h5>{{s4.content}}</h5>
+    <input name="s4" ng-model="answer8" type="radio" value="{{s4.a}}" />{{s4.a}}
+    <br><input name="s4" ng-model="answer8" type="radio" value="{{s4.b}}" />{{s4.b}}
+</md-input>
+<md-input>
+    <h5>{{s5.content}}</h5>
+    <input name="s5" ng-model="answer9" type="radio" value="{{s5.a}}" />{{s5.a}}
+    <br><input name="s5" ng-model="answer9" type="radio" value="{{s5.b}}" />{{s5.b}}
+</md-input>
+<md-input>
+    <h5>{{s6.content}}</h5>
+    <input name="s6" ng-model="answer10" type="radio" value="{{s6.a}}" />{{s6.a}}
+    <br><input name="s6" ng-model="answer10" type="radio" value="{{s6.b}}" />{{s6.b}}
+</md-input>
+<md-input>
+    <h5>{{s7.content}}</h5>
+    <input name="s7" ng-model="answer11" type="radio" value="{{s7.a}}" />{{s7.a}}
+    <br><input name="s7" ng-model="answer11" type="radio" value="{{s7.b}}" />{{s7.b}}
+</md-input>
+<md-input>
+    <h5>{{s8.content}}</h5>
+    <input name="s8" ng-model="answer12" type="radio" value="{{s8.a}}" />{{s8.a}}
+    <br><input name="s8" ng-model="answer12" type="radio" value="{{s8.b}}" />{{s8.b}}
+</md-input>
+	</div>
+        <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
+</body>
+</html>

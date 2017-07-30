@@ -24,10 +24,13 @@ CREATE TABLE `DATER` (
     `ID` bigint(11) NOT NULL AUTO_INCREMENT,
     `EMAIL` varchar(30) DEFAULT NULL,
     `PWD` varchar(20) DEFAULT NULL,
+    `PROFILE_NAME` varchar(20) DEFAULT NULL,
     `NAME` varchar(60) DEFAULT NULL,
-    `GENDER` enum('MALE', 'FEMALE'),
+    `LAST_NAME` varchar(20) DEFAULT NULL,
+    `GENDER` enum('MALE', 'FEMALE') DEFAULT 'MALE',
     `ACCEPT_CONSENT_PAGE_FLAG` tinyint DEFAULT 0,
    `ACCEPTANCE_QUESTION_PAGE_FLAG` tinyint DEFAULT 0, 
+   `PROFILE_CREATION_PAGE_FLAG` tinyint DEFAULT 0,
    `REJECTED` tinyint DEFAULT 0,
     PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,7 +89,7 @@ CREATE TABLE `STORY` (
      `ID` bigint(11) NOT NULL AUTO_INCREMENT,
      `CONTENT` text NOT NULL,
      `STORY_TYPE` enum('Prompted', 'Unprompted') DEFAULT 'Prompted',
-     `LABEL` enum('PA', 'PB', 'PC', 'PD', 'U') DEFAULT 'PA',
+     `LABEL` enum('PA', 'PB', 'PC', 'PD', 'U'),
      `QUESTION` text NOT NULL,
      `ANSWER_A` text NOT NULL,
      `ANSWER_B` text NOT NULL,
