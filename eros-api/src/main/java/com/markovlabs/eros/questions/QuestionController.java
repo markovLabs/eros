@@ -24,7 +24,7 @@ public final class QuestionController {
 	
 	@GET
 	public ListTO<Question> getQuestions() {
-		return new ListTO<>("events", questionService.getQuestions());
+		return new ListTO<>("questions", questionService.getQuestions());
 	}
 
 	@GET

@@ -9,6 +9,7 @@ import com.markovlabs.eros.model.tables.DatingMapping;
 import com.markovlabs.eros.model.tables.EvaluationAnswers;
 import com.markovlabs.eros.model.tables.Event;
 import com.markovlabs.eros.model.tables.EventDaters;
+import com.markovlabs.eros.model.tables.EventStories;
 import com.markovlabs.eros.model.tables.Image;
 import com.markovlabs.eros.model.tables.Messages;
 import com.markovlabs.eros.model.tables.ProfileAnswers;
@@ -56,6 +57,11 @@ public class Tables {
 	 * The table eros.EVENT_DATERS
 	 */
 	public static final EventDaters EVENT_DATERS = com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
+
+	/**
+	 * The table eros.EVENT_STORIES
+	 */
+	public static final EventStories EVENT_STORIES = com.markovlabs.eros.model.tables.EventStories.EVENT_STORIES;
 
 	/**
 	 * The table eros.IMAGE

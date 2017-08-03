@@ -9,6 +9,7 @@ import com.markovlabs.eros.model.tables.DatingMapping;
 import com.markovlabs.eros.model.tables.EvaluationAnswers;
 import com.markovlabs.eros.model.tables.Event;
 import com.markovlabs.eros.model.tables.EventDaters;
+import com.markovlabs.eros.model.tables.EventStories;
 import com.markovlabs.eros.model.tables.Image;
 import com.markovlabs.eros.model.tables.Messages;
 import com.markovlabs.eros.model.tables.ProfileAnswers;
@@ -20,6 +21,7 @@ import com.markovlabs.eros.model.tables.records.DatingMappingRecord;
 import com.markovlabs.eros.model.tables.records.EvaluationAnswersRecord;
 import com.markovlabs.eros.model.tables.records.EventDatersRecord;
 import com.markovlabs.eros.model.tables.records.EventRecord;
+import com.markovlabs.eros.model.tables.records.EventStoriesRecord;
 import com.markovlabs.eros.model.tables.records.ImageRecord;
 import com.markovlabs.eros.model.tables.records.MessagesRecord;
 import com.markovlabs.eros.model.tables.records.ProfileAnswersRecord;
@@ -58,6 +60,7 @@ public class Keys {
 	public static final Identity<EvaluationAnswersRecord, Long> IDENTITY_EVALUATION_ANSWERS = Identities0.IDENTITY_EVALUATION_ANSWERS;
 	public static final Identity<EventRecord, Long> IDENTITY_EVENT = Identities0.IDENTITY_EVENT;
 	public static final Identity<EventDatersRecord, Long> IDENTITY_EVENT_DATERS = Identities0.IDENTITY_EVENT_DATERS;
+	public static final Identity<EventStoriesRecord, Long> IDENTITY_EVENT_STORIES = Identities0.IDENTITY_EVENT_STORIES;
 	public static final Identity<ImageRecord, Long> IDENTITY_IMAGE = Identities0.IDENTITY_IMAGE;
 	public static final Identity<MessagesRecord, Long> IDENTITY_MESSAGES = Identities0.IDENTITY_MESSAGES;
 	public static final Identity<ProfileAnswersRecord, Long> IDENTITY_PROFILE_ANSWERS = Identities0.IDENTITY_PROFILE_ANSWERS;
@@ -74,6 +77,8 @@ public class Keys {
 	public static final UniqueKey<EvaluationAnswersRecord> KEY_EVALUATION_ANSWERS_PRIMARY = UniqueKeys0.KEY_EVALUATION_ANSWERS_PRIMARY;
 	public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = UniqueKeys0.KEY_EVENT_PRIMARY;
 	public static final UniqueKey<EventDatersRecord> KEY_EVENT_DATERS_PRIMARY = UniqueKeys0.KEY_EVENT_DATERS_PRIMARY;
+	public static final UniqueKey<EventStoriesRecord> KEY_EVENT_STORIES_PRIMARY = UniqueKeys0.KEY_EVENT_STORIES_PRIMARY;
+	public static final UniqueKey<EventStoriesRecord> KEY_EVENT_STORIES_EVENT_STORY_LABEL = UniqueKeys0.KEY_EVENT_STORIES_EVENT_STORY_LABEL;
 	public static final UniqueKey<ImageRecord> KEY_IMAGE_PRIMARY = UniqueKeys0.KEY_IMAGE_PRIMARY;
 	public static final UniqueKey<MessagesRecord> KEY_MESSAGES_PRIMARY = UniqueKeys0.KEY_MESSAGES_PRIMARY;
 	public static final UniqueKey<ProfileAnswersRecord> KEY_PROFILE_ANSWERS_PRIMARY = UniqueKeys0.KEY_PROFILE_ANSWERS_PRIMARY;
@@ -92,6 +97,8 @@ public class Keys {
 	public static final ForeignKey<EventRecord, DatingMappingRecord> DATING_MAPPING_FK_1 = ForeignKeys0.DATING_MAPPING_FK_1;
 	public static final ForeignKey<EventDatersRecord, EventRecord> EVENT_ID_FK_1 = ForeignKeys0.EVENT_ID_FK_1;
 	public static final ForeignKey<EventDatersRecord, DaterRecord> DATER_ID_FK_1 = ForeignKeys0.DATER_ID_FK_1;
+	public static final ForeignKey<EventStoriesRecord, EventRecord> EVENT_ID_FK_5 = ForeignKeys0.EVENT_ID_FK_5;
+	public static final ForeignKey<EventStoriesRecord, StoryRecord> STORY_ID_FK_2 = ForeignKeys0.STORY_ID_FK_2;
 	public static final ForeignKey<ImageRecord, DaterRecord> DATER_ID_FK_2 = ForeignKeys0.DATER_ID_FK_2;
 	public static final ForeignKey<MessagesRecord, DaterRecord> DATER_ID_FK_7 = ForeignKeys0.DATER_ID_FK_7;
 	public static final ForeignKey<MessagesRecord, DaterRecord> DATER_ID_FK_8 = ForeignKeys0.DATER_ID_FK_8;
@@ -111,6 +118,7 @@ public class Keys {
 		public static Identity<EvaluationAnswersRecord, Long> IDENTITY_EVALUATION_ANSWERS = createIdentity(EvaluationAnswers.EVALUATION_ANSWERS, EvaluationAnswers.EVALUATION_ANSWERS.ID);
 		public static Identity<EventRecord, Long> IDENTITY_EVENT = createIdentity(Event.EVENT, Event.EVENT.ID);
 		public static Identity<EventDatersRecord, Long> IDENTITY_EVENT_DATERS = createIdentity(EventDaters.EVENT_DATERS, EventDaters.EVENT_DATERS.ID);
+		public static Identity<EventStoriesRecord, Long> IDENTITY_EVENT_STORIES = createIdentity(EventStories.EVENT_STORIES, EventStories.EVENT_STORIES.ID);
 		public static Identity<ImageRecord, Long> IDENTITY_IMAGE = createIdentity(Image.IMAGE, Image.IMAGE.ID);
 		public static Identity<MessagesRecord, Long> IDENTITY_MESSAGES = createIdentity(Messages.MESSAGES, Messages.MESSAGES.ID);
 		public static Identity<ProfileAnswersRecord, Long> IDENTITY_PROFILE_ANSWERS = createIdentity(ProfileAnswers.PROFILE_ANSWERS, ProfileAnswers.PROFILE_ANSWERS.ID);
@@ -125,6 +133,8 @@ public class Keys {
 		public static final UniqueKey<EvaluationAnswersRecord> KEY_EVALUATION_ANSWERS_PRIMARY = createUniqueKey(EvaluationAnswers.EVALUATION_ANSWERS, EvaluationAnswers.EVALUATION_ANSWERS.ID);
 		public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = createUniqueKey(Event.EVENT, Event.EVENT.ID);
 		public static final UniqueKey<EventDatersRecord> KEY_EVENT_DATERS_PRIMARY = createUniqueKey(EventDaters.EVENT_DATERS, EventDaters.EVENT_DATERS.ID);
+		public static final UniqueKey<EventStoriesRecord> KEY_EVENT_STORIES_PRIMARY = createUniqueKey(EventStories.EVENT_STORIES, EventStories.EVENT_STORIES.ID);
+		public static final UniqueKey<EventStoriesRecord> KEY_EVENT_STORIES_EVENT_STORY_LABEL = createUniqueKey(EventStories.EVENT_STORIES, EventStories.EVENT_STORIES.EVENT_ID, EventStories.EVENT_STORIES.LABEL);
 		public static final UniqueKey<ImageRecord> KEY_IMAGE_PRIMARY = createUniqueKey(Image.IMAGE, Image.IMAGE.ID);
 		public static final UniqueKey<MessagesRecord> KEY_MESSAGES_PRIMARY = createUniqueKey(Messages.MESSAGES, Messages.MESSAGES.ID);
 		public static final UniqueKey<ProfileAnswersRecord> KEY_PROFILE_ANSWERS_PRIMARY = createUniqueKey(ProfileAnswers.PROFILE_ANSWERS, ProfileAnswers.PROFILE_ANSWERS.ID);
@@ -141,6 +151,8 @@ public class Keys {
 		public static final ForeignKey<EventRecord, DatingMappingRecord> DATING_MAPPING_FK_1 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_DATING_MAPPING_PRIMARY, Event.EVENT, Event.EVENT.MAPPING_ID);
 		public static final ForeignKey<EventDatersRecord, EventRecord> EVENT_ID_FK_1 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_EVENT_PRIMARY, EventDaters.EVENT_DATERS, EventDaters.EVENT_DATERS.EVENT_ID);
 		public static final ForeignKey<EventDatersRecord, DaterRecord> DATER_ID_FK_1 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_DATER_PRIMARY, EventDaters.EVENT_DATERS, EventDaters.EVENT_DATERS.DATER_ID);
+		public static final ForeignKey<EventStoriesRecord, EventRecord> EVENT_ID_FK_5 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_EVENT_PRIMARY, EventStories.EVENT_STORIES, EventStories.EVENT_STORIES.EVENT_ID);
+		public static final ForeignKey<EventStoriesRecord, StoryRecord> STORY_ID_FK_2 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_STORY_PRIMARY, EventStories.EVENT_STORIES, EventStories.EVENT_STORIES.STORY_ID);
 		public static final ForeignKey<ImageRecord, DaterRecord> DATER_ID_FK_2 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_DATER_PRIMARY, Image.IMAGE, Image.IMAGE.DATER_ID);
 		public static final ForeignKey<MessagesRecord, DaterRecord> DATER_ID_FK_7 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_DATER_PRIMARY, Messages.MESSAGES, Messages.MESSAGES.FROM_DATER_ID);
 		public static final ForeignKey<MessagesRecord, DaterRecord> DATER_ID_FK_8 = createForeignKey(com.markovlabs.eros.model.Keys.KEY_DATER_PRIMARY, Messages.MESSAGES, Messages.MESSAGES.TO_DATER_ID);

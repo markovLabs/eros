@@ -13,32 +13,33 @@
   <script src="jk-carousel.min.js"></script>
 </head>
 <body ng-app="profile" ng-controller="profileController" >
-	<script src="profile.js"></script>
-	
-	<div layout-gt-sm="row">
-		<div layout-gt-sm="column">
-			<h3>{{name}}</h3>
-			<img src="{{profileImage}}" class="avatar">
-		</div>
-		<div layout="column" layout-align="center center">
-			<md-card layout="column" layout-align="center center">
-			     <jk-carousel data="imageSrcs" ci="curImgIndex" item-template-url="'item-template.html'" max-width="500" max-height="300"> 
-			     </jk-carousel> 
-			</md-card>
-			<div layout-gt-sm="row">
-			    <input class="ng-hide" id="fileInput"  name="file" type="file" fileread="file" />
-				<md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();"> 
-				    <md-icon class="material-icons">add_circle</md-icon> 
-				</md-button>
-				<md-button class="md-icon-button" aria-label="icon" ng-click="onRemoveImage();"> 
-				    <md-icon class="material-icons">remove_circle</md-icon> 
-				</md-button>
-				 
-			</div>
-		</div>
-	</div>
+    <script src="profile.js"></script>
+       <jk-carousel data="imageSrcs" ci="curImgIndex" item-template-url="'item-template.html'" max-width="500" max-height="300"> 
+                 </jk-carousel> 
+    <div layout-gt-sm="row">
+        <div layout-gt-sm="column">
+            <h3>{{name}}</h3>
+            <img src="{{profileImage}}" class="avatar">
+        </div>
+        <div layout="column" layout-align="center center">
+            <md-card layout="column" layout-align="center center">
+                 <jk-carousel data="imageSrcs" ci="curImgIndex" item-template-url="'item-template.html'" max-width="500" max-height="300"> 
+                 </jk-carousel> 
+            </md-card>
+            <div layout-gt-sm="row">
+                <input class="ng-hide" id="fileInput"  name="file" type="file" fileread="file" filename="imgFilename"/>
+                <md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();"> 
+                    <md-icon class="material-icons">add_circle</md-icon> 
+                </md-button>
+                <md-button class="md-icon-button" aria-label="icon" ng-click="onRemoveImage();"> 
+                    <md-icon class="material-icons">remove_circle</md-icon> 
+                </md-button>
+                 
+            </div>
+        </div>
+    </div>
 
-	<md-button class="md-raised md-primary"
-		ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+    <md-button class="md-raised md-primary"
+        ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
 </body>
 </html>

@@ -5,10 +5,15 @@ import static com.markovlabs.eros.model.tables.Image.IMAGE;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
+
 import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Splitter;
+
 import javaslang.control.Try;
 
 public final class ImageService {
@@ -37,12 +42,23 @@ public final class ImageService {
 	}
 
 	public Image addImage(Image image) {
-		String imageName = "img" + (int) (1000000 * Math.random());
+		List<String> originalImgNameParts = Splitter.on(".").splitToList(image.getName());
+		String extension = originalImgNameParts.get(originalImgNameParts.size() - 1);
+		String imageName = "img" + (int) (1000000 * Math.random()) + "." + extension;
 		image.setName(imageName);
-		Path imagePath = Try.of(() -> Files.write(Paths.get(imageQueue + "/" + imageName), image.getContent().getBytes()))
+		byte[] imgContent = getImageContent(image.getContent(), extension);
+		Path imagePath = Try.of(() -> Files.write(Paths.get(imageQueue + "/" + imageName), imgContent))
 			.getOrElseThrow(ImageAccessException::new);
 		log.info("Image for dater " + image.getDaterId() + " stored at " + imagePath.toString());
 		return addRecord(erosDb, IMAGE, image);
+	}
+
+	private byte[] getImageContent(String content, String extension) {
+		String prefix = "data:image/" + extension + ";base64,";
+		if(extension.equals("jpg")) {
+			prefix = "data:image/jpeg;base64,";
+		}
+		return Base64.getDecoder().decode(content.substring(prefix.length()));
 	}
 
 	public void removeImageWithDaterId(long imageId, long daterId) {

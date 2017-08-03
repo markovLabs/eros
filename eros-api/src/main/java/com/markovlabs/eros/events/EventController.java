@@ -89,6 +89,31 @@ public class EventController {
 	public void removeDater(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId) {
 		 eventService.removeDaterFromEvent(daterId, eventId);
 	}
+	
+	@GET
+	@Path("/{event_id}/stories/")
+	public ListTO<EventStory> getEventStories(@PathParam("event_id") long eventId) {
+		return new ListTO<>("stories", eventService.getEventStories());
+	}
+	
+	@GET
+	@Path("/{event_id}/stories/{event_story_id}")
+	public EventStory getEventStory(@PathParam("event_id") long eventId, @PathParam("event_story_id") long eventStoryId) {
+		return eventService.getEventStory(eventStoryId);
+	}
+
+	@POST
+	@Path("/{event_id}/stories/")
+	public EventStory addEventStory(@PathParam("event_id") long eventId, EventStory eventStory) {
+		eventStory.setEventId(eventId);
+		return eventService.addEventStory(eventStory);
+	}
+
+	@DELETE
+	@Path("/{event_id}/stories/{event_story_id}")
+	public void removeEventStory(@PathParam("event_id") long eventId, @PathParam("event_story_id") long eventStoryId) {
+		 eventService.removeEventStory(eventStoryId);
+	}
 
 	@GET
 	@Path("/{event_id}/daters/{dater_id}/matches")
@@ -102,13 +127,13 @@ public class EventController {
 
 	private DaterMatchTO toDaterMatch(Match match) {
 		Dater dater = daterService.getDater(match.getMatchId());
-		return new DaterMatchTO(dater, match.getStoryLabel());
+		return new DaterMatchTO(dater, match.getStoryId());
 	}
 
 	private Matches getMatchesForThisEvent(long eventId) {
 		List<Long> daterIdsForThisEvent= eventService.getDaterIdsForEvent(eventId);
 		Long mappingId = eventService.getMappingId(eventId);
-		return matchesService.getMatches(mappingId, daterIdsForThisEvent);
+		return matchesService.getMatches(mappingId, daterIdsForThisEvent, eventId);
 	}
 
 	@GET

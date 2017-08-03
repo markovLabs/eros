@@ -141,11 +141,11 @@ app.controller("profileCreationController",
 	$scope.s7 = s7;
 	$scope.s8 = s8;
 	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
-	$scope.eventIdsByDesc = {};
+	$scope.eventIdsByDesc = new Map();
+	$scope.eventDescriptions = [];
 	$http.get($scope.erosBaseUrl + "/events").then(function(response){
-	    var idsByDec = getEventIdsByEventDescription(response.data.events);
-	    console.log(idsByDec);
-	    $scope.eventIdsByDesc = idsByDec;
+		$scope.eventIdsByDesc = getEventIdsByEventDescription(response.data.events);
+		$scope.eventDescriptions = Array.from($scope.eventIdsByDesc.keys());
 	});
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
