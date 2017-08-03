@@ -5,11 +5,15 @@ import java.util.Map;
 import static com.markovlabs.eros.JOOQRecordUtility.addRecord;
 import org.jooq.DSLContext;
 
+import com.markovlabs.eros.model.enums.EventStoriesLabel;
 import com.markovlabs.eros.model.tables.records.EventDatersRecord;
 import com.markovlabs.eros.model.tables.records.EventRecord;
+import com.markovlabs.eros.model.tables.records.EventStoriesRecord;
 
 import static com.markovlabs.eros.model.tables.Event.EVENT;
 import static com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
+import static com.markovlabs.eros.model.tables.EventStories.EVENT_STORIES;
+
 import javaslang.control.Try;
 
 public class EventService {
@@ -74,6 +78,39 @@ public class EventService {
 	public void removeDaterFromEvent(long daterId, long eventId) {
 		newEventDatersRecord(daterId, eventId).delete();
 	}
+
+	public List<EventStory> getEventStories() {
+		return erosDb.selectFrom(EVENT_STORIES).fetch().map(this::toEventStory);
+	}
+
+	public EventStory getEventStory(long eventStoryId) {
+		return getEventStories().stream().filter(eventStory -> eventStory.getId() == eventStoryId)
+				.findFirst()
+				.orElseThrow(EventStoryNotFoundException::new);
+	}
+	
+	private EventStory toEventStory(EventStoriesRecord record) {
+		EventStory eventStory = new EventStory();
+		eventStory.setEventId(record.getEventId());
+		eventStory.setLabel(record.getLabel().toString());
+		eventStory.setStoryId(record.getStoryId());
+		eventStory.setId(record.getId());
+		return eventStory;
+	}
+
+	public EventStory addEventStory(EventStory eventStory) {
+		EventStoriesRecord record = erosDb.newRecord(EVENT_STORIES);
+		record.setEventId(eventStory.getEventId());
+		record.setLabel(EventStoriesLabel.valueOf(eventStory.getLabel()));
+		record.setStoryId(eventStory.getStoryId());
+		record.insert();
+		record.refresh();
+		return toEventStory(record);
+	}
+	
+	public void removeEventStory(long eventStoryId) {
+		erosDb.deleteFrom(EVENT_STORIES).where(EVENT_STORIES.ID.equal(eventStoryId));
+	}
 	
 	public static class EventNotFoundException extends RuntimeException {
 
@@ -89,6 +126,14 @@ public class EventService {
 			super(message);
 		}
 		public EventNotFoundException(){
+			super();
+		}
+	}
+	public static class EventStoryNotFoundException extends RuntimeException {
+
+		private static final long serialVersionUID = 1L;
+		
+		public EventStoryNotFoundException(){
 			super();
 		}
 	}

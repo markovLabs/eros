@@ -24,19 +24,19 @@ public final class Matches {
 	public static final class Match {
 		
 		private final long matchId;
-		private final String storyLabel;
+		private final long storyId;
 		
-		public Match(long matchId, String storyLabel){
+		public Match(long matchId, long storyId){
 			this.matchId = matchId;
-			this.storyLabel = storyLabel;
+			this.storyId = storyId;
 		}
 
 		public long getMatchId() {
 			return matchId;
 		}
 
-		public String getStoryLabel() {
-			return storyLabel;
+		public long getStoryId() {
+			return storyId;
 		}
 	}
 

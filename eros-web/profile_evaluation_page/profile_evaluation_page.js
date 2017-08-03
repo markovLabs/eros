@@ -11,7 +11,7 @@ answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", 
 
 function setProfileImages($scope, $http){
 	$http.get($scope.erosBaseUrl + "/daters/" + $scope.matchId + "/images/").then(function(response){
-		var images = reponse.data.images;
+		var images = response.data.images;
 		var imgSrcs = []
 		for (var i = 0; i < images.length; i++) {
 			imgSrc = "../imgs/" + images[i].name;

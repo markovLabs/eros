@@ -6,7 +6,6 @@ package com.markovlabs.eros.model.tables;
 
 import com.markovlabs.eros.model.Eros;
 import com.markovlabs.eros.model.Keys;
-import com.markovlabs.eros.model.enums.StoryLabel;
 import com.markovlabs.eros.model.enums.StoryStoryType;
 import com.markovlabs.eros.model.tables.records.StoryRecord;
 
@@ -36,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Story extends TableImpl<StoryRecord> {
 
-	private static final long serialVersionUID = 146773947;
+	private static final long serialVersionUID = 582910000;
 
 	/**
 	 * The reference instance of <code>eros.STORY</code>
@@ -65,11 +64,6 @@ public class Story extends TableImpl<StoryRecord> {
 	 * The column <code>eros.STORY.STORY_TYPE</code>.
 	 */
 	public final TableField<StoryRecord, StoryStoryType> STORY_TYPE = createField("STORY_TYPE", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(com.markovlabs.eros.model.enums.StoryStoryType.class), this, "");
-
-	/**
-	 * The column <code>eros.STORY.LABEL</code>.
-	 */
-	public final TableField<StoryRecord, StoryLabel> LABEL = createField("LABEL", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(com.markovlabs.eros.model.enums.StoryLabel.class), this, "");
 
 	/**
 	 * The column <code>eros.STORY.QUESTION</code>.

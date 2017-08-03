@@ -1,7 +1,7 @@
 dbURL: jdbc:mysql://localhost:3306/eros
 dbUser: root
 dbPassword: MyNewPass
-imgQueue: ../web/imgs
+imgQueue: ${HOME}/markovLabs-wrk/imgs
 
 server:
   adminContextPath: /eros/v1/
@@ -18,7 +18,7 @@ server:
         - type : console
           threshold: INFO
         - type: file
-          currentLogFilename: ${HOME}/markovLabs-wrk/eros.log
+          currentLogFilename: ${HOME}/markovLabs-wrk/logs/eros.log
           archive: false
           timeZone: America/New_York
             
@@ -28,6 +28,6 @@ logging:
     - type: file
       currentLogFilename: ${HOME}/markovLabs-wrk/eros.log
       archive: true
-      archivedLogFilenamePattern: ${HOME}/markovLabs-wrk/eros-%d{yyyy/MM}.log.gz
+      archivedLogFilenamePattern: ${HOME}/markovLabs-wrk/logs/eros-%d{yyyy/MM}.log.gz
       archivedFileCount: 31
       timeZone: America/New_York

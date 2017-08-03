@@ -35,7 +35,8 @@ function set_arguments() {
 }
 
 function run_eros_api(){
-    java -jar ../lib/eros*.jar server ../conf/${ENV}/eros.api.yml &
+    cd .. 
+    java -jar lib/eros*.jar server conf/${ENV}/eros.api.yml &
     cd web 
     python -m SimpleHTTPServer &
     cd .. 

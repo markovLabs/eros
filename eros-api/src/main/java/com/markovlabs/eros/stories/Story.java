@@ -12,19 +12,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.markovlabs.eros.Deconstructable;
-import com.markovlabs.eros.model.enums.StoryLabel;
 import com.markovlabs.eros.model.enums.StoryStoryType;
 import com.markovlabs.eros.model.tables.records.StoryRecord;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"id", "content", "story_type", "label", "question", "answer_a", "answer_b"})
+@JsonPropertyOrder({"id", "content", "story_type", "question", "answer_a", "answer_b"})
 public final class Story implements Deconstructable {
 
 	private Long id = -1L;
 	private String content;
 	private String storyType;
-	private String label;
 	private String question;
 	private String answerA;
 	private String answerB;
@@ -66,24 +64,6 @@ public final class Story implements Deconstructable {
 	public StoryStoryType getStoryType() {
 		return storyType ==  null ? null : StoryStoryType.valueOf(storyType);
 	}
-	@JsonProperty("label")
-	public String getLabelAsString() {
-		return label;
-	}
-	@JsonProperty("label")
-	public Story setLabelAsString(String label) {
-		this.label = label;
-		return this;
-	}
-	@JsonIgnore
-	public Story setLabel(StoryLabel label) {
-		this.label = label.toString();
-		return this;
-	}
-	@JsonIgnore
-	public StoryLabel getLabel() {
-		return label == null ? null : StoryLabel.valueOf(label);
-	}
 
 	public String getQuestion() {
 		return question;
@@ -117,7 +97,6 @@ public final class Story implements Deconstructable {
 				.setId(storyRecord.getId())
 				.setContent(storyRecord.getContent())
 				.setStoryType(storyRecord.getStoryType())
-				.setLabel(storyRecord.getLabel())
 				.setQuestion(storyRecord.getQuestion())
 				.setAnswerA(storyRecord.getAnswerA())
 				.setAnswerB(storyRecord.getAnswerB());
@@ -134,7 +113,6 @@ public final class Story implements Deconstructable {
 				.add(Maps.immutableEntry("ANSWER_A", this.getAnswerA()))
 				.add(Maps.immutableEntry("ANSWER_B", this.getAnswerB()))
 				.add(Maps.immutableEntry("CONTENT", this.getContent()))
-				.add(Maps.immutableEntry("LABEL", this.getLabel()))
 				.add(Maps.immutableEntry("QUESTION", this.getQuestion()))
 				.add(Maps.immutableEntry("STORY_TYPE", this.getStoryType()))
 				.add(Maps.immutableEntry("ID", this.getId()))

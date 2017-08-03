@@ -5,19 +5,19 @@ import com.markovlabs.eros.daters.Dater;
 public final class DaterMatchTO {
 	
 	private final Dater match;
-	private final String storyLabel;
+	private final long storyId;
 	
-	public DaterMatchTO(Dater match, String storyLabel){
+	public DaterMatchTO(Dater match, long storyId){
 		this.match = match;
-		this.storyLabel = storyLabel;
+		this.storyId = storyId;
 	}
 
 	public Dater getMatch() {
 		return match;
 	}
 
-	public String getStoryLabel() {
-		return storyLabel;
+	public long getStoryId() {
+		return storyId;
 	}
 
 }

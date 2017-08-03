@@ -9,6 +9,7 @@ import com.markovlabs.eros.model.tables.DatingMapping;
 import com.markovlabs.eros.model.tables.EvaluationAnswers;
 import com.markovlabs.eros.model.tables.Event;
 import com.markovlabs.eros.model.tables.EventDaters;
+import com.markovlabs.eros.model.tables.EventStories;
 import com.markovlabs.eros.model.tables.Image;
 import com.markovlabs.eros.model.tables.Messages;
 import com.markovlabs.eros.model.tables.ProfileAnswers;
@@ -39,7 +40,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Eros extends SchemaImpl {
 
-	private static final long serialVersionUID = 1541263078;
+	private static final long serialVersionUID = 1141664039;
 
 	/**
 	 * The reference instance of <code>eros</code>
@@ -67,6 +68,7 @@ public class Eros extends SchemaImpl {
 			EvaluationAnswers.EVALUATION_ANSWERS,
 			Event.EVENT,
 			EventDaters.EVENT_DATERS,
+			EventStories.EVENT_STORIES,
 			Image.IMAGE,
 			Messages.MESSAGES,
 			ProfileAnswers.PROFILE_ANSWERS,
