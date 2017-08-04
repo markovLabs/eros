@@ -27,7 +27,7 @@ function setProfile(matches, $window, $scope, $http){
 var app = angular.module("msgEvaluation", ['ngMaterial', 'jkAngularCarousel']); 
 app.controller("msgEvaluationController",function($scope, $http, $window){ 
 	$scope.disableContinueButton = true;
-	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	var daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");

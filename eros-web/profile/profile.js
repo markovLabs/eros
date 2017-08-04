@@ -34,7 +34,7 @@ function getImages($http, baseURL, daterId, fn) {
 function getImageSrcs(images) {
 	var imgSrcs = []
 	for (var i = 0; i < images.length; i++) {
-		imgSrc = "../imgs/" + images[i].name;
+		imgSrc = "http://69.164.208.35:8001/imgs/" + images[i].name;
 		imgSrcs.push({src : imgSrc});
 	}
 	if(imgSrcs.length == 0) {
@@ -77,7 +77,7 @@ app.directive("fileread", [function () {
 
 app.controller("profileController",function($scope, $http, $window, $interval){
 	$scope.curImgIndex = 0;
-	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.daterId = $window.sessionStorage.getItem('dater_id');
 	$scope.file = "";
 	$scope.imgFilename = "";

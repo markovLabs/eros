@@ -49,7 +49,7 @@ var app = angular.module("profileEvaluation", ['ngMaterial', 'jkAngularCarousel'
 app.controller("profileEvaluationController",function($scope, $http, $window, $timeout){ 
 	$scope.q1 = q1;
 	$scope.q2 = q2;
-	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.disableContinueButton = true;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	var daterId = $window.sessionStorage.getItem("dater_id");

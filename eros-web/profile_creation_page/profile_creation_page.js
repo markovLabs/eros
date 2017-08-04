@@ -140,7 +140,7 @@ app.controller("profileCreationController",
 	$scope.s6 = s6;
 	$scope.s7 = s7;
 	$scope.s8 = s8;
-	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.eventIdsByDesc = new Map();
 	$scope.eventDescriptions = [];
 	$http.get($scope.erosBaseUrl + "/events").then(function(response){
