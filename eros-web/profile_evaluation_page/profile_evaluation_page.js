@@ -1,10 +1,10 @@
 var q1 = { 
-	id:1,
+	id:12,
 	content:" If I had to make a choice right now, I would choose to go on a date with this person.",
 	answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
 };
 
-var q2={id:1,
+var q2={id:13,
 content:" I am very confident in my answer to the previous question.",
 answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
 };
@@ -12,21 +12,19 @@ answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", 
 function setProfileImages($scope, $http){
 	$http.get($scope.erosBaseUrl + "/daters/" + $scope.matchId + "/images/").then(function(response){
 		var images = response.data.images;
-		var imgSrcs = []
 		for (var i = 0; i < images.length; i++) {
-			imgSrc = "../imgs/" + images[i].name;
-			imgSrcs.push({ src : imgSrc });
+			imgSrc = "http://69.164.208.35:8001/imgs/" + images[i].name;
+			$scope.slides.push({src : imgSrc, id:i});
 		}
-		$scope.imageSrcs = imgSrcs;
-		$scope.profileImage = imgSrcs[0].src;
+		$scope.profileImage = 	$scope.slides[0].src;
 	});
 }
 
 function setProfile(matches, $window, $scope, $http){
 	$scope.matchIndex = $window.sessionStorage.getItem("matches_index");
-	var match = matches[$scope.matchIndex];
-	$scope.matchId = match.getMatch().getId();
-	$scope.matchName = match.getMatch().getProfileName();
+	var matchAndStoryId = matches[$scope.matchIndex];
+	$scope.matchId = matchAndStoryId.match.id;
+	$scope.matchName = matchAndStoryId.match.profile_name;
 	setProfileImages($scope, $http);
 	if($scope.matchIndex == matches.length - 1) {
 		$scope.buttonLabel = "Go to Event Page";
@@ -49,13 +47,16 @@ var app = angular.module("profileEvaluation", ['ngMaterial', 'jkAngularCarousel'
 app.controller("profileEvaluationController",function($scope, $http, $window, $timeout){ 
 	$scope.q1 = q1;
 	$scope.q2 = q2;
-	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
+	$scope.slides = [{src:"../imgs/blank.jpg", id:0}]
+	$scope.profileImage = "../imgs/blank.jpg";
+	$scope.matchName = "";
 	$scope.disableContinueButton = true;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	var daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
 	if(angular.isUndefined(matches)){
-		$http.get($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/matches/").then(function(response){
+		$http.get($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId + "/matches/").then(function(response){
 			$window.sessionStorage.setItem("matches", response.data.matches);
 			$window.sessionStorage.setItem("matches_index", 0);
 			matches = $window.sessionStorage.getItem("matches");

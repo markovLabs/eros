@@ -14,10 +14,13 @@ import com.google.common.collect.Maps;
 import com.markovlabs.eros.Deconstructable;
 import com.markovlabs.eros.model.enums.DaterGender;
 import com.markovlabs.eros.model.tables.records.DaterRecord;
+import com.markovlabs.eros.model.tables.records.EventDatersRecord;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"id", "email", "pwd", "profile_name", "name", "last_name", "gender", "accepted_consent", "accepted_profile_questions", "profile_created", "rejected"})
+@JsonPropertyOrder({"id", "email", "pwd", "profile_name", "name", "last_name", "gender", "accepted_consent", 
+	"accepted_profile_questions", "profile_created", "rejected", "profile_evaluation_completed", 
+	"messaging_evaluation_completed"})
 public class Dater implements Deconstructable {
 
 	private Long id = -1L;
@@ -31,6 +34,8 @@ public class Dater implements Deconstructable {
 	private Boolean acceptedProfileQuestions;
 	private Boolean rejected;
 	private Boolean profileCreated;
+	private Boolean profileEvaluationCompleted;
+    private Boolean messagingEvaluationCompleted;
 
 	public Dater() {}
 
@@ -141,7 +146,10 @@ public class Dater implements Deconstructable {
 	public Long getId() {
 		return id == -1 ? null : id;
 	}
-
+	public static Dater of(DaterRecord daterRecord, EventDatersRecord eventDateRecord) {
+		return of(daterRecord).setProfileEvaluationCompleted(eventDateRecord.getProfileEvaluationCompletedFlag().intValue() == 1)
+				.setMessagingEvaluationCompleted(eventDateRecord.getMessagingEvaluationCompletedFlag().intValue() == 1);
+	}
 	public static Dater of(DaterRecord daterRecord) {
 		return new Dater()
 				.setId(daterRecord.getId())
@@ -175,6 +183,8 @@ public class Dater implements Deconstructable {
 				.add(Maps.immutableEntry("PWD", this.getPwd()))
 				.add(Maps.immutableEntry("REJECTED", this.getRejected()))
 				.add(Maps.immutableEntry("PROFILE_CREATION_PAGE_FLAG", this.getProfileCreationPageFlag()))
+				.add(Maps.immutableEntry("PROFILE_EVALUATION_COMPLETED_FLAG", this.getProfileEvaluationCompletedFlag()))
+				.add(Maps.immutableEntry("MESSAGING_EVALUATION_COMPLETED_FLAG", this.getMessagingEvaluationCompletedFlag()))
 				.build();
 	}
 
@@ -212,6 +222,32 @@ public class Dater implements Deconstructable {
 
 	public Dater setProfileCreated(Boolean profileCreated) {
 		this.profileCreated = profileCreated;
+		return this;
+	}
+	@JsonProperty("profile_evaluation_completed")
+	public Boolean getProfileEvaluationCompleted() {
+		return profileEvaluationCompleted;
+	}
+	@JsonIgnore
+	public Byte getProfileEvaluationCompletedFlag() {
+		return (profileEvaluationCompleted == null) ? null : ((profileEvaluationCompleted) ? (byte) 1 : 0);
+	}
+	@JsonProperty("profile_evaluation_completed")
+	public Dater setProfileEvaluationCompleted(Boolean profileEvaluationCompleted) {
+		this.profileEvaluationCompleted = profileEvaluationCompleted;
+		return this;
+	}
+	@JsonProperty("messaging_evaluation_completed")
+	public Boolean getMessagingEvaluationCompleted() {
+		return messagingEvaluationCompleted;
+	}
+	@JsonIgnore
+	public Byte getMessagingEvaluationCompletedFlag() {
+		return (messagingEvaluationCompleted == null) ? null : ((messagingEvaluationCompleted) ? (byte) 1 : 0);
+	}
+	@JsonProperty("messaging_evaluation_completed")
+	public Dater setMessagingEvaluationCompleted(Boolean messagingEvaluationCompleted) {
+		this.messagingEvaluationCompleted = messagingEvaluationCompleted;
 		return this;
 	}
 }

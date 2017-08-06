@@ -8,12 +8,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
 </head>
-<body ng-app="rejection" ng-controller="rejectionController" ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
+<body ng-app="rejection" ng-controller="rejectionController">
     <script src="rejection.js"></script>
-    <div>
-<h1>Rejection Page</h1>
-    </div>
 
+	<md-card> 
+	   <md-content>
+	       <p>We are sorry. You do not qualify for this study. If you believe
+		this to be a mistake, please contact the event organizer:</p>
+	       <p>Doug Zytko</p>
+	       <p>daz2@njit.edu</p>
+	   </md-content> 
+    </md-card>
 </body>
 </html>
 

@@ -6,6 +6,7 @@ import static com.markovlabs.eros.model.tables.EventStories.EVENT_STORIES;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,10 +34,14 @@ public final class MatchesService {
 		this.erosDb = erosDb;
 	}
 
-	public Matches getMatches(Long mappingId, List<Long> daterIds, long eventId) {
+	public Matches getMatches(Long mappingId, List<Long> maleDaterIds, List<Long> femaleDaterIds, long eventId) {
 		String mapping = getMatchMapping(mappingId).getMapping();
 		Map<Tuple2<Long, String>, Long> storyIdByEventIdAndStoryLabel = getStoryIdByEventIdAndStoryLabel();
-		return getMatches(mapping, i -> daterIds.get(i), label -> storyIdByEventIdAndStoryLabel.get(Tuple.of(eventId, label)));
+		return getMatches(mapping, findMapOf(maleDaterIds), findMapOf(femaleDaterIds), label -> storyIdByEventIdAndStoryLabel.get(Tuple.of(eventId, label)));
+	}
+	
+	private Function<Integer, Optional<Long>> findMapOf(List<Long> list){
+		return i -> (i >= list.size()) ? Optional.empty() : Optional.of(list.get(i));
 	}
 	
 	private Map<Tuple2<Long, String>, Long> getStoryIdByEventIdAndStoryLabel() {
@@ -51,7 +56,7 @@ public final class MatchesService {
 	}
 	
 	private  void assertMappingIsValid(String mapping) {
-		getMatches(mapping, i -> (long) i, label -> assertLabelAndGetAnyId(label));
+		getMatches(mapping, i -> Optional.of((long) i), i -> Optional.of((long) i), label -> assertLabelAndGetAnyId(label));
 	}
 	
 	private long assertLabelAndGetAnyId(String label) {
@@ -59,29 +64,49 @@ public final class MatchesService {
 		return 0;
 	}
 	
-	private Matches getMatches(String mapping, Function<Integer, Long> daterIdMapping, Function<String, Long> storyIdMapping) {
-		Function<JsonNode, Entry<Long, Match>> toDaterIdAndMatch = json -> toDaterIdAndMatch(json, daterIdMapping, storyIdMapping);
+	private Matches getMatches(String mapping, Function<Integer, Optional<Long>> maleDaterMapping, Function<Integer, Optional<Long>> femaleDaterMapping, Function<String, Long> storyIdMapping) {
+		Function<JsonNode, Optional<Entry<Long, Match>>> findDaterIdAndMatch = json -> findDaterIdAndMatch(json, maleDaterMapping, femaleDaterMapping, storyIdMapping);
 		ListMultimap<Long, Match> matchList = LinkedListMultimap.create();
 		Try.of(() -> new ObjectMapper().readTree(mapping))
 				.andThen(root -> Streams.stream(root.fields())
 						.map(Entry::getValue)
 						.flatMap(round -> Streams.stream(round.fields())
 								.map(Entry::getValue)
-								.map(toDaterIdAndMatch))
+								.map(findDaterIdAndMatch))
+						.filter(Optional::isPresent)
+						.map(Optional::get)
 						.forEach(daterIdAndMatch -> matchList.put(daterIdAndMatch.getKey(), daterIdAndMatch.getValue())))
 				.getOrElseThrow(MatchMappingAccessException::new);
 		return new Matches(matchList);
 	}
 	
-	private Entry<Long, Match> toDaterIdAndMatch(JsonNode json, Function<Integer, Long> daterIdMapping, Function<String, Long> storyIdMapping) {
+	private Optional<Entry<Long, Match>> findDaterIdAndMatch(JsonNode json, Function<Integer, Optional<Long>> maleDaterMapping, Function<Integer, Optional<Long>> femaleDaterMapping, Function<String, Long> storyIdMapping) {
 		String[] matchPair = json.get("mapping").asText().split(":");
 		String storyLabel = json.get("story_id").asText();
 		long storyId = storyIdMapping.apply(storyLabel);
 		String daterRank = String.valueOf(matchPair[0].charAt(1));
+		String genderDaterRank = String.valueOf(matchPair[0].charAt(0));
 		String matchedRank = String.valueOf(matchPair[1].charAt(1));
-		long daterId = daterIdMapping.apply(Integer.parseInt(daterRank) - 1);
-		long matchedId = daterIdMapping.apply(Integer.parseInt(matchedRank) - 1);
-		return Maps.immutableEntry(daterId, new Match(matchedId, storyId));
+		String genderMatchedRank = String.valueOf(matchPair[1].charAt(0));
+		Optional<Long> foundDaterId = findDaterId(genderDaterRank, daterRank, maleDaterMapping, femaleDaterMapping);
+		Optional<Long> foundMatchedId = findDaterId(genderMatchedRank, matchedRank, maleDaterMapping, femaleDaterMapping);
+		return getMatchEntry(foundDaterId, foundMatchedId, storyId);
+	}
+
+	private Optional<Entry<Long, Match>> getMatchEntry(Optional<Long> foundDaterId, Optional<Long> foundMatchedId, long storyId) {
+		if(foundDaterId.isPresent() && foundMatchedId.isPresent()){
+			return Optional.of(Maps.immutableEntry(foundDaterId.get(), new Match(foundMatchedId.get(), storyId)));
+		}
+		return Optional.empty();
+	}
+
+	private Optional<Long> findDaterId(String genderDaterRank, String daterRank, Function<Integer, Optional<Long>> maleDaterMapping, Function<Integer, Optional<Long>> femaleDaterMapping) {
+		if(genderDaterRank.equals("F")) {
+			return femaleDaterMapping.apply(Integer.parseInt(daterRank) - 1);
+		} else {
+			return maleDaterMapping.apply(Integer.parseInt(daterRank) - 1);
+		}
+		
 	}
 
 	public List<MatchMapping> getMatchMappings() {

@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.Map;
 import static com.markovlabs.eros.JOOQRecordUtility.addRecord;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 
+import com.markovlabs.eros.daters.Dater;
+import com.markovlabs.eros.model.enums.DaterGender;
 import com.markovlabs.eros.model.enums.EventStoriesLabel;
 import com.markovlabs.eros.model.tables.records.EventDatersRecord;
 import com.markovlabs.eros.model.tables.records.EventRecord;
 import com.markovlabs.eros.model.tables.records.EventStoriesRecord;
 
 import static com.markovlabs.eros.model.tables.Event.EVENT;
+import static com.markovlabs.eros.model.tables.Dater.DATER;
 import static com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
 import static com.markovlabs.eros.model.tables.EventStories.EVENT_STORIES;
 
@@ -40,11 +44,20 @@ public class EventService {
 				.getOrElseThrow(e -> new EventNotFoundException(e));
 	}
 
-	public List<Long> getDaterIdsForEvent(long eventId) {
-		return erosDb.select(EVENT_DATERS.DATER_ID)
+	public List<Long> getMaleDaterIdsForEvent(long eventId) {
+		return getDaterIdsForEvent(eventId, DaterGender.MALE);
+	}
+	
+	public List<Long> getFemaleDaterIdsForEvent(long eventId) {
+		return getDaterIdsForEvent(eventId, DaterGender.FEMALE);
+	}
+	
+	private List<Long> getDaterIdsForEvent(long eventId, DaterGender gender) {
+		return erosDb.select(EVENT_DATERS.EVENT_ID, EVENT_DATERS.DATER_ID, DATER.ID, DATER.GENDER)
 				.from(EVENT_DATERS)
-				.fetch()
-				.map(record -> record.getValue(EVENT_DATERS.DATER_ID));
+				.join(DATER).on(DATER.ID.equal(EVENT_DATERS.DATER_ID))
+				.where(EVENT_DATERS.EVENT_ID.equal(eventId).and(DATER.GENDER.equal(gender)))
+				.fetch(EVENT_DATERS.DATER_ID);
 	}
 	
 	public Long getMappingId(long eventId) {
@@ -58,10 +71,27 @@ public class EventService {
 	public Event updateEvent(long eventId, Event event) {
 		EventRecord record = erosDb.newRecord(EVENT);
 		Map<String, Object> fieldValues = event.asMap();
-		fieldValues.put("Id", eventId);
+		fieldValues.put("ID", eventId);
 		record.fromMap(fieldValues);
 		record.update();
 		return getEvent(eventId);
+	}
+	
+	public void updateDaterForEvent(long eventId, Dater dater) {
+		Long eventDaterId = erosDb.select(EVENT_DATERS.EVENT_ID, EVENT_DATERS.DATER_ID, EVENT_DATERS.ID)
+				.from(EVENT_DATERS)
+				.where(EVENT_DATERS.EVENT_ID.equal(eventId).and(EVENT_DATERS.DATER_ID.equal(dater.getId())))
+				.fetchOne(EVENT_DATERS.ID);
+		EventDatersRecord eventDaterRecord = newEventDatersRecord(eventId, dater.getId());
+		eventDaterRecord.setId(eventDaterId);
+		eventDaterRecord.setProfileEvaluationCompletedFlag(dater.getProfileEvaluationCompletedFlag());
+		eventDaterRecord.setMessagingEvaluationCompletedFlag(dater.getMessagingEvaluationCompletedFlag());
+		for (Field<?> f : eventDaterRecord.fields()) {
+			if (eventDaterRecord.getValue(f) == null) {
+				eventDaterRecord.changed(f, false);
+			}
+		}
+		eventDaterRecord.update();
 	}
 
 	public void addDaterForEvent(long daterId, long eventId) {

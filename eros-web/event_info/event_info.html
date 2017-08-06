@@ -10,12 +10,16 @@
 </head>
 <body ng-app="eventInfo" ng-controller="eventInfoController">
     <script src="event_info.js"></script>
-    <div>
-    <div>{{event.name}}</div>
-    <div>{{event.location}}</div>
-    <div>{{event.date}}</div>
-    <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+    <div layout="column" layout-align="center center" >
+    <md-card layout="column" layout-align="center center" style="width: 500px;height: 500px;">
+        <h1>{{event.name}}</h1>
+        <h1>{{event.location}}</h1>
+        <h1>{{event.date}}</h1>
+        <md-card-actions layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-disabled="disableProfileEvaluationButton || profileEvaluationCompleted" ng-click="onClickProfileEvaluation();">Go to Profile Evaluation</md-button>
+            <md-button class="md-raised md-primary" ng-disabled="disableProfileEvaluationButton || !profileEvaluationCompleted || messagingEvaluationCompleted" ng-click="onClickMessagingEvaluation();">Go to Messaging Evaluation</md-button>
+        </md-card-actions>
+    </md-card>
     </div>
-
 </body>
 </html>

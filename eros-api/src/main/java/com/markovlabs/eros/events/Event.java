@@ -55,10 +55,11 @@ public class Event implements Deconstructable {
 		return name;
 	}
 
+	@JsonProperty("started")
 	public boolean isStarted() {
 		return started;
 	}
-
+	@JsonProperty("ended")
 	public boolean isEnded() {
 		return ended;
 	}

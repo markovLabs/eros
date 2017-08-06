@@ -42,7 +42,7 @@ public class EventController {
 	}
 	
 	@GET
-	public ListTO<Event> getEvents(@QueryParam("next_event") String nextEvent) {
+	public ListTO<Event> getEvents(@QueryParam("next_event") String nextEvent, @QueryParam("dater_id") long daterId) {
 		List<Event> events = nextEvent == null ? eventService.getEvents() : ImmutableList.of(eventService.getNextEvent());
 		return new ListTO<>("events", events);
 	}
@@ -67,21 +67,28 @@ public class EventController {
 	@GET
 	@Path("/{event_id}/daters/")
 	public ListTO<Dater> getDaters(@PathParam("event_id") long eventId) {
-		List<Long> ids= eventService.getDaterIdsForEvent(eventId);
-		return new ListTO<>("daters", daterService.getDatersWithIds(ids));
-	}
-
-	@POST
-	@Path("/{event_id}/daters/")
-	public Dater addDater(@PathParam("event_id") long eventId, Dater dater) {
-		eventService.addDaterForEvent(dater.getId(), eventId);
-		return daterService.getDater(dater.getId());
+		return new ListTO<>("daters", daterService.getDatersForEvent(eventId));
 	}
 
 	@GET
 	@Path("/{event_id}/daters/{dater_id}")
 	public Dater getDater(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId) {
-		return daterService.getDaterOrThrow(eventService.getDaterIdsForEvent(eventId), daterId);
+		return daterService.getDaterForEvent(eventId, daterId);
+	}
+	
+	@POST
+	@Path("/{event_id}/daters/{dater_id}")
+	public Dater updateEventDaterInfo(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId, Dater dater) {
+		dater.setId(daterId);
+		eventService.updateDaterForEvent(eventId, dater);
+		return daterService.getDater(dater.getId());
+	}
+	
+	@POST
+	@Path("/{event_id}/daters/")
+	public Dater addDater(@PathParam("event_id") long eventId, Dater dater) {
+		eventService.addDaterForEvent(dater.getId(), eventId);
+		return daterService.getDater(dater.getId());
 	}
 	
 	@DELETE
@@ -118,7 +125,7 @@ public class EventController {
 	@GET
 	@Path("/{event_id}/daters/{dater_id}/matches")
 	public ListTO<DaterMatchTO> getMatches(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId) {
-		return new ListTO<>("events", getMatchesForThisEvent(eventId)
+		return new ListTO<>("matches", getMatchesForThisEvent(eventId)
 				.getMatchesForDater(daterId)
 				.stream()
 				.map(this::toDaterMatch)
@@ -131,9 +138,10 @@ public class EventController {
 	}
 
 	private Matches getMatchesForThisEvent(long eventId) {
-		List<Long> daterIdsForThisEvent= eventService.getDaterIdsForEvent(eventId);
+		List<Long> maleDaterIds = eventService.getMaleDaterIdsForEvent(eventId);
+		List<Long> femaleDaterIds = eventService.getFemaleDaterIdsForEvent(eventId);
 		Long mappingId = eventService.getMappingId(eventId);
-		return matchesService.getMatches(mappingId, daterIdsForThisEvent, eventId);
+		return matchesService.getMatches(mappingId, maleDaterIds, femaleDaterIds, eventId);
 	}
 
 	@GET
@@ -152,7 +160,7 @@ public class EventController {
 	public ListTO<EvaluationAnswer> getAnswers(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId,
 			@PathParam("match_id") long matchId) {
 		assertThatDatersAreMatched(eventId, daterId, matchId);
-		return new ListTO<>("evaluation_answer", answerService.getEvaluationAnswers(eventId, daterId, matchId));
+		return new ListTO<>("answers", answerService.getEvaluationAnswers(eventId, daterId, matchId));
 	}
 
 	private void assertThatDatersAreMatched(long eventId, long daterId, long matchId) {

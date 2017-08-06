@@ -14,6 +14,7 @@ public class ResponseInterceptor implements ContainerResponseFilter {
 	public void filter(ContainerRequestContext req, ContainerResponseContext resp) throws IOException {
 		resp.getHeaders().putSingle("Access-Control-Allow-Origin", "*");
 		resp.getHeaders().putSingle("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+		resp.getHeaders().putSingle("Access-Control-Allow-Methods", "OPTIONS, GET, POST, DELETE");
 	}
 
 }

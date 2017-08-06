@@ -13,3 +13,15 @@
   -webkit-transform: scale(0.70);
   -moz-transform:scale(0.70);
 }
+
+.carousel-div {
+  width: 500px;
+  height: 500px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+
+.carousel-div-img {
+    width: 100%;
+    min-height: 100%;
+}

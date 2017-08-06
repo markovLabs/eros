@@ -1,44 +1,44 @@
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <link rel="stylesheet" href="profile.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-  <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="jk-carousel.min.css" />
-  <script src="jk-carousel.min.js"></script>
-</head>
-<body ng-app="profile" ng-controller="profileController" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <link rel="stylesheet" href="profile.css">
     <script src="profile.js"></script>
-
-    <div layout-gt-sm="row">
-        <div layout-gt-sm="column">
-            <h3>{{name}}</h3>
-            <img src="{{profileImage}}" class="avatar">
-        </div>
-        <div layout="column" layout-align="center center">
-            <md-card layout="column" layout-align="center center">
-                 <jk-carousel data="imageSrcs" ci="curImgIndex" item-template-url="'item-template.html'" max-width="500" max-height="300"> 
-                 </jk-carousel> 
-            </md-card>
-            <div layout-gt-sm="row">
-                <input class="ng-hide" id="fileInput"  name="file" type="file" fileread="file" filename="imgFilename"/>
-                <md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();"> 
-                    <md-icon class="material-icons">add_circle</md-icon> 
-                </md-button>
-                <md-button class="md-icon-button" aria-label="icon" ng-click="onRemoveImage();"> 
-                    <md-icon class="material-icons">remove_circle</md-icon> 
-                </md-button>
-                 
-            </div>
-        </div>
-    </div>
-
-    <md-button class="md-raised md-primary"
-        ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+</head>
+<body ng-app="profile" ng-controller="profileController">
+    <div  layout="column" layout-align="center center">
+	<md-card layout="column" layout-align="center center"> 
+	   <md-content layout="row">
+	       <div layout-gt-sm="column" layout-align="center center">
+		      <h1>{{profileName}}</h3>
+		      <img src="{{profileImage}}" class="avatar">
+	       </div>
+		   <div uib-carousel active="0" interval="5000" no-wrap="false">
+		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
+				<img ng-src="{{slide.src}}" class="carousel-div-img">
+			  </div>
+		   </div>
+	   </md-content> 
+	   <md-card-actions layout="row" layout-align="end center">
+	       <input class="ng-hide" id="fileInput" name="file" type="file" fileread="file" filename="imgFilename" /> 
+	       <md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();">
+	           <md-icon class="material-icons">add_circle</md-icon>
+	       </md-button> 
+	       <md-button class="md-icon-button" aria-label="icon" ng-click="onRemoveImage();">
+	           <md-icon class="material-icons">remove_circle</md-icon> 
+	       </md-button> 
+	   </md-card-actions> 
+	</md-card>
+	<md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+	</div>
 </body>
 </html>
