@@ -19,6 +19,7 @@ import static com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
 import static com.markovlabs.eros.model.tables.EventStories.EVENT_STORIES;
 
 import javaslang.control.Try;
+import jersey.repackaged.com.google.common.collect.ImmutableList;
 
 public class EventService {
 
@@ -36,6 +37,20 @@ public class EventService {
 		return Try.of(() -> erosDb.selectFrom(EVENT).orderBy(EVENT.EVENT_DATE).limit(1).fetchOne())
 				.map(Event.EventBuilder::of)
 				.getOrElseThrow(e -> new EventNotFoundException(e));
+	}
+	
+	public List<Event> getNextEvent(Long daterId) {
+		List<Long> eventIds = erosDb.select(EVENT_DATERS.EVENT_ID, EVENT_DATERS.DATER_ID)
+				.from(EVENT_DATERS)
+				.where(EVENT_DATERS.DATER_ID.equal(daterId))
+				.fetch(EVENT_DATERS.EVENT_ID);
+		return ImmutableList.of(Try.of(() -> erosDb.selectFrom(EVENT)
+										.where(EVENT.ID.in(eventIds))
+										.orderBy(EVENT.EVENT_DATE)
+										.limit(1)
+										.fetchOne())
+								.map(Event.EventBuilder::of)
+								.getOrElseThrow(e -> new EventNotFoundException(e)));
 	}
 
 	public Event getEvent(long id) {

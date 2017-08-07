@@ -42,9 +42,18 @@ public class EventController {
 	}
 	
 	@GET
-	public ListTO<Event> getEvents(@QueryParam("next_event") String nextEvent, @QueryParam("dater_id") long daterId) {
-		List<Event> events = nextEvent == null ? eventService.getEvents() : ImmutableList.of(eventService.getNextEvent());
-		return new ListTO<>("events", events);
+	public ListTO<Event> getEvents(@QueryParam("next_event") String nextEvent, @QueryParam("dater_id") Long daterId) {
+		return new ListTO<>("events", getEventList(nextEvent, daterId));
+	}
+	
+	private List<Event> getEventList(String nextEvent, Long daterId) {
+		if(nextEvent != null && daterId != null) {
+			return eventService.getNextEvent(daterId);
+		} else if(nextEvent == null) {
+			return ImmutableList.of(eventService.getNextEvent());
+		} else {
+			return eventService.getEvents();
+		}
 	}
 
 	@GET

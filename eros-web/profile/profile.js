@@ -83,7 +83,6 @@ app.directive("fileread", [function () {
 }]);
 
 app.controller("profileController",function($scope, $http, $window, $interval){
-	$scope.curImgIndex = 0;
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.daterId = $window.sessionStorage.getItem('dater_id');
 	$scope.file = "";
@@ -118,8 +117,8 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 		}
 	};
 	$scope.onRemoveImage=function(){
-		var imageId = $scope.imagesMetadata[$scope.curImgIndex].id;
-		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + id, function(response){
+		var imageId = $scope.imagesMetadata[$scope.slide.id].id;
+		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + imageId, function(response){
 			updateImages($http, $scope);
 		});
 	};
