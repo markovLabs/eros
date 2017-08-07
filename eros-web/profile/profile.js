@@ -119,8 +119,9 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 	};
 	$scope.onRemoveImage=function(){
 		var imageId = $scope.imagesMetadata[$scope.curImgIndex].id;
-		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + id);
-		updateImages($http, $scope);
+		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + id, function(response){
+			updateImages($http, $scope);
+		});
 	};
 	$scope.onAddImage=function(){
 		document.querySelector('#fileInput').click();

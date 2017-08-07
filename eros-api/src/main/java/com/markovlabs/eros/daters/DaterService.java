@@ -3,14 +3,16 @@ package com.markovlabs.eros.daters;
 import static com.markovlabs.eros.JOOQRecordUtility.addRecord;
 import static com.markovlabs.eros.JOOQRecordUtility.updateRecord;
 import static com.markovlabs.eros.model.tables.Dater.DATER;
+import static com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
 import org.jooq.DSLContext;
 import org.jooq.Record;
 
 import javaslang.control.Try;
-import static com.markovlabs.eros.model.tables.EventDaters.EVENT_DATERS;
 
 public class DaterService {
 	
@@ -36,6 +38,7 @@ public class DaterService {
 				.map(id -> getDater(id))
 				.findFirst();
 	}
+
 
 	public List<Dater> getDaters(String email, String pwd) {
 		return erosDb.selectFrom(DATER)
@@ -87,15 +90,11 @@ public class DaterService {
 
 		private static final long serialVersionUID = 1L;
 		
-		public DaterNotFoundException(String message, Throwable e){
-			super(message, e);
-		}
+
 		public DaterNotFoundException(Throwable e){
 			super(e);
 		}
-		public DaterNotFoundException(String message){
-			super(message);
-		}
+	
 		public DaterNotFoundException(){
 			super();
 		}
