@@ -17,12 +17,12 @@
 <body ng-app="profile" ng-controller="profileController">
     <div  layout="column" layout-align="center center">
 	<md-card layout="column" layout-align="center center"> 
-	   <md-content layout="row">
+	   <md-content layout="row" style="padding-right:40px">
 	       <div layout-gt-sm="column" layout-align="center center">
 		      <h1>{{profileName}}</h3>
 		      <img src="{{profileImage}}" class="avatar">
 	       </div>
-		   <div uib-carousel active="0" interval="5000" no-wrap="false">
+		   <div uib-carousel active="0" interval="5000" no-wrap="false" no-transition="true">
 		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
 				<img ng-src="{{slide.src}}" class="carousel-div-img">
 			  </div>

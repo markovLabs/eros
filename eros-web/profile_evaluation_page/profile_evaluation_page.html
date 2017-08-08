@@ -23,7 +23,7 @@
 		      <h1>{{matchName}}</h1>
 		      <img src="{{profileImage}}" class="avatar">
 	        </div>
-	        <div uib-carousel active="0" interval="5000" no-wrap="false">
+	        <div uib-carousel active="0" interval="5000" no-wrap="false" no-transition="true">
 		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
 			     <img ng-src="{{slide.src}}" class="carousel-div-img">
 		      </div>

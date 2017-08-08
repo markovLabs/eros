@@ -122,7 +122,7 @@ public class EventService {
 	}
 	
 	public void removeDaterFromEvent(long daterId, long eventId) {
-		newEventDatersRecord(daterId, eventId).delete();
+		erosDb.deleteFrom(EVENT_DATERS).where(EVENT_DATERS.EVENT_ID.equal(eventId).and(EVENT_DATERS.DATER_ID.equal(daterId)));
 	}
 
 	public List<EventStory> getEventStories() {
