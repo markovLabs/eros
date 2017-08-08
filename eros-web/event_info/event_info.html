@@ -12,9 +12,14 @@
     <script src="event_info.js"></script>
     <div layout="column" layout-align="center center" >
     <md-card layout="column" layout-align="center center" style="width: 500px;height: 500px;">
-        <h1>{{event.name}}</h1>
-        <h1>{{event.location}}</h1>
-        <h1>{{event.date}}</h1>
+    <md-card-content>
+        <p>Your dating event is on {{event.date}} at 7 PM. The event will
+take place at {{event.name}}, {{event.location}}.</p>
+<p>The event will last approximately three hours. During the event
+you will use an experimental online dating system (with a
+computer that is provided to you at the event) and then engage
+in "speed dates" with other daters at the event.</p>
+</md-card-content>
         <md-card-actions layout="row" layout-align="center center">
             <md-button class="md-raised md-primary" ng-disabled="disableProfileEvaluationButton || profileEvaluationCompleted" ng-click="onClickProfileEvaluation();">Go to Profile Evaluation</md-button>
             <md-button class="md-raised md-primary" ng-disabled="disableProfileEvaluationButton || !profileEvaluationCompleted || messagingEvaluationCompleted" ng-click="onClickMessagingEvaluation();">Go to Messaging Evaluation</md-button>

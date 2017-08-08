@@ -72,7 +72,8 @@ public class EventService {
 				.from(EVENT_DATERS)
 				.join(DATER).on(DATER.ID.equal(EVENT_DATERS.DATER_ID))
 				.where(EVENT_DATERS.EVENT_ID.equal(eventId).and(DATER.GENDER.equal(gender)))
-				.fetch(EVENT_DATERS.DATER_ID);
+				.orderBy(DATER.ID)
+				.fetch(DATER.ID);
 	}
 	
 	public Long getMappingId(long eventId) {

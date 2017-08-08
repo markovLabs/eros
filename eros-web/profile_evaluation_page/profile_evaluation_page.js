@@ -33,14 +33,17 @@ function setProfile(matches, $window, $scope, $http){
 	}
 }
 
-function saveAnswers($http, $scope, baseURL, daterId){
+function saveAnswers($http, $scope, baseURL, daterId, afterAnswersSaved){
     var questionIds = [q1.id, q2.id]
     var answers = [$scope.answer1, $scope.answer2]
     var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"
-    for (var i = 0; i < questionIds.length; i++){
-        var answer = {question_id:questionIds[i], answer:answers[i]};
-        $http.post(url, answer);
+    var promise = $http.post(url, {question_id:questionIds[0], answer:answers[0]});
+    for (var i = 1; i < questionIds.length; i++){
+        promise.then(function(response){
+        	return $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+        });
     }
+    promise.then(afterAnswersSaved);
 }
 
 var app = angular.module("profileEvaluation", ['ngMaterial', 'jkAngularCarousel']); 
@@ -70,15 +73,22 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $t
 		$scope.disableContinueButton = false
 	}, 180000);
 	
+	var afterAnswersSaved = function(response){
+		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
+		if($scope.buttonLabel == "Go to Event Page") {
+			var dater = {profile_evaluation_completed:true}
+			$http.post($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId, dater)
+			.then(function(response){
+				$window.location.href="../event_info/event_info.html";
+			});
+		} else {
+			$window.location.href="profile_evaluation_page.html";
+		}
+	}
+	
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			saveAnswers($http, $scope, $scope.erosBaseUrl, daterId);
-			$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
-			if($scope.buttonLabel == "Go to Event Page") {
-				$window.location.href="../event_info/event_info.html";
-			} else {
-				$window.location.href="profile_evaluation_page.html";
-			}
+			saveAnswers($http, $scope, $scope.erosBaseUrl, daterId, afterAnswersSaved);
 		}
 	}
 })

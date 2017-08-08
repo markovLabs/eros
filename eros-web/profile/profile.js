@@ -104,7 +104,9 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 	}, 500)
 	$interval(function(){
 		if($scope.file != ""){
-			var img = {"content":$scope.file, "name":$scope.imgFilename};
+			var aFile = $scope.file;
+			$scope.file = ""
+			var img = {"content":aFile, "name":$scope.imgFilename};
 			$http.post($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/", img).then(function(){
 				$scope.file = "";
 				updateImages($http, $scope);
@@ -118,6 +120,12 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 	};
 	$scope.onRemoveImage=function(){
 		var imageId = $scope.imagesMetadata[$scope.slide.id].id;
+		var newSlideId = $scope.slide.id - 1;
+		if(newSlideId < 0) {
+			$scope.slide = {src:"../imgs/blank.jpg", id:0}
+		} else {
+			$scope.slide = $scope.slides[newSlideId]
+		}
 		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + imageId, function(response){
 			updateImages($http, $scope);
 		});

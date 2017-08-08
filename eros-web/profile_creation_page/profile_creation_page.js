@@ -82,27 +82,49 @@ a:"Yes, this was a good way for Courtney to reject Victor",
 b:"No, this was not a good way for Courtney to reject Victor"
 };
 
-function saveAnswers($http, $scope, baseURL, id){
+function saveAnswers($http, $scope, baseURL, id, afterAnswersSaved){
     var questionIds = [q1.id, q2.id, q3.id, q4.id]
     var answers = [$scope.answer1, $scope.answer2, $scope.answer3, $scope.answer4]
-    for (i = 0; i < questionIds.length; i++){
-        var url = baseURL + "/daters/" + id + "/profile_answers/"
-        var answer = {question_id:questionIds[i], answer:answers[i]}
-        $http.post(url, answer)
+    var url = baseURL + "/daters/" + id + "/profile_answers/"
+    var promise = $http.post(url, {question_id:questionIds[0], answer:answers[0]})
+    for (var i = 1; i < questionIds.length; i++){
+        promise.then(function(response){
+        	return $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+        });
+    }
+    promise.then(function(response){
+    	afterAnswersSaved();
+    })
+}
+
+function saveStories($http, $scope, baseURL, id, afterStoriesSaved){
+	return function(){
+		var storyIds = [s1.id, s2.id, s3.id, s4.id, s5.id, s6.id, s7.id, s8.id]
+    	var answers = [$scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10, $scope.answer11, $scope.answer12];
+    	var url = baseURL + "/daters/" + id + "/story_answers/"
+    	var promise = $http.post(url, {story_id:storyIds[0], answer:answers[0]});
+    	for (i = 1; i < storyIds.length; i++){
+        	promise.then(function(response){
+        		return $http.post(url, {story_id:storyIds[i], answer:answers[i]});
+        	});
+    	}
+    	promise.then(function(response){
+    		afterStoriesSaved();
+    	})
+	}
+}
+
+function saveEventSelected($http, baseURL, daterId, eventId, $window, afterSavedEventSelected){
+    return function(){
+    	var dater = {id:daterId};
+    	$http.post(baseURL + "/events/" + eventId + "/daters", dater)
+    		.then(function(response){
+    			afterSavedEventSelected($http, baseURL, daterId, eventId, $window)
+    		});
     }
 }
 
-function saveStories($http, $scope, baseURL, id){
-    var storyIds = [s1.id, s2.id, s3.id, s4.id, s5.id, s6.id, s7.id, s8.id]
-    var answers = [$scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10, $scope.answer11, $scope.answer12];
-    for (i = 0; i < storyIds.length; i++){
-        var url = baseURL + "/daters/" + id + "/story_answers/"
-        var answer = {story_id:storyIds[i], answer:answers[i]}
-        $http.post(url, answer)
-    }
-}
-
-function updateDater($http, baseURL, id, $window){
+var updateDater = function($http, baseURL, id, eventId, $window){
     var daterURL = baseURL + "/daters/" + id;
     var dater = {profile_created:true};
     $http.post(daterURL, dater).then(function(response){
@@ -120,10 +142,7 @@ function getEventIdsByEventDescription(events){
     return eventIdsByDescMap;
 }
 
-function saveEventSelected($http, baseURL, daterId, selectedEventId){
-    dater = {id:daterId};
-    $http.post(baseURL + "/events/" + selectedEventId + "/daters", dater);
-}
+
 
 var app = angular.module("profileCreation", [ 'ngMaterial' ]);
 app.controller("profileCreationController", 
@@ -150,10 +169,9 @@ app.controller("profileCreationController",
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
         var id = $window.sessionStorage.getItem('dater_id');
-        var selectedEventId = $scope.eventIdsByDesc.get($scope.selectedEventDesc);
-	    saveAnswers($http, $scope, baseURL, id);
-	    saveStories($http, $scope, baseURL, id);
-	    saveEventSelected($http, baseURL, id, selectedEventId);
-	    updateDater($http, baseURL, id, $window);
+        var eventId = $scope.eventIdsByDesc.get($scope.selectedEventDesc);
+	    var saveEventSelectedCallback = saveEventSelected($http, baseURL, daterId, eventId, $window, updateDater);
+	    var saveStoriesCallback = saveStories($http, $scope, baseURL, daterId, saveEventSelectedCallback);
+	    saveAnswers($http, $scope, baseURL, daterId, saveStoriesCallback); 
 	}
 });
