@@ -3,6 +3,7 @@ package com.markovlabs.eros.matches;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.markovlabs.eros.model.tables.records.DatingMappingRecord;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,7 +12,7 @@ import com.markovlabs.eros.model.tables.records.DatingMappingRecord;
 public final class MatchMapping {
 
 	private long id;
-	private String mapping;
+	@JsonRawValue private String mapping;
 
 	public MatchMapping() {}
 

@@ -1,8 +1,17 @@
+function fixedEncodeURIComponent(str) {
+  return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+    return '%' + c.charCodeAt(0).toString(16);
+  });
+}
+
+
 var app = angular.module("home", ['ngMaterial']); 
 app.controller("homeController",function($scope, $http, $window){ 
 	$scope.gender= "MALE";
     $scope.onSignIn=function(){
-    	var datersWithThisEmailAndPwdURL = $scope.erosBaseUrl + "/daters/?email=" + $scope.email + "&pwd=" + $scope.pwd
+    	var encodedEmail = fixedEncodeURIComponent($scope.email)
+    	var encodedPwd = fixedEncodeURIComponent($scope.pwd)
+    	var datersWithThisEmailAndPwdURL = $scope.erosBaseUrl + "/daters/?email=" + encodedEmail + "&pwd=" + encodedPwd
         $http.get(datersWithThisEmailAndPwdURL).then(function (response) {
             var daters = response.data.daters;
             if (daters.length > 0) {
