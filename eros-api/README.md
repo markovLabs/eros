@@ -101,7 +101,7 @@ curl -H "Content-Type: application/json" -X POST -d '{"id":3}' http://69.164.208
 
 Create event
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"name":"My Bar name", "location":"The bar address", "date":"2017-08-20"}' http://69.164.208.35:17320/eros/v1/events/1/
+curl -H "Content-Type: application/json" -X POST -d '{"name":"My Bar name", "location":"The bar address", "date":"2017-08-20"}' http://69.164.208.35:17320/eros/v1/events/
 ```
 
 Add a story to event 1
