@@ -1,8 +1,10 @@
 package com.markovlabs.eros.matches;
 
-import java.util.List;
 import static java.util.stream.Collectors.toList;
 
+import java.util.List;
+
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.ListMultimap;
 
 public final class Matches {
@@ -11,6 +13,10 @@ public final class Matches {
 
 	public Matches(ListMultimap<Long, Match> matchList) {
 		this.matchList = matchList;
+		ListMultimap<Long, Match> reverseMatchList = LinkedListMultimap.create();
+		this.matchList.entries().forEach(entry -> reverseMatchList.put(entry.getValue().getMatchId(),
+				new Match(entry.getKey(), entry.getValue().getStoryId())));
+		this.matchList.putAll(reverseMatchList);
 	}
 
 	public List<Match> getMatchesForDater(long daterId) {
