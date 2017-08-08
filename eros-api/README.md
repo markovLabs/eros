@@ -86,3 +86,47 @@ Base URL: http://${host}:${port}/eros/v1
 | GET | /stories/${story_id} | Story | None | None |
 | POST | /stories/${story_id} | Story | Story | None |
 | POST | /stories | Story | Story | None |
+
+# Examples
+
+Delete dater 1
+```
+curl -H "Content-Type: application/json" -X DELETE http://69.164.208.35:17320/eros/v1/daters/1
+```
+
+Delete dater 2 from event 1
+```
+curl -H "Content-Type: application/json" -X DELETE http://69.164.208.35:17320/eros/v1/events/1/daters/2
+```
+
+Add dater 3 to event 1
+```
+curl -H "Content-Type: application/json" -X POST -d '{"id":3}' http://69.164.208.35:17320/eros/v1/events/1/daters/
+```
+
+Create event
+```
+curl -H "Content-Type: application/json" -X POST -d '{"name":"My Bar name", "location":"The bar address", "date":"2017-08-20"}' http://69.164.208.35:17320/eros/v1/events/1/
+```
+
+Add a story to event 1
+```
+curl -H "Content-Type: application/json" -X POST -d '{"story_id":1, "label":"PA"}' http://69.164.208.35:17320/eros/v1/events/1/stories/
+```
+
+Set mapping id 1 for event 1
+```
+curl -H "Content-Type: application/json" -X POST -d '{"mapping_id":1}' http://69.164.208.35:17320/eros/v1/events/1/
+```
+
+Start event 1
+```
+curl -H "Content-Type: application/json" -X POST -d '{"started":true}' http://69.164.208.35:17320/eros/v1/events/1/
+```
+
+End event 1
+```
+curl -H "Content-Type: application/json" -X POST -d '{"ended":true}' http://69.164.208.35:17320/eros/v1/events/1/
+```
+
+
