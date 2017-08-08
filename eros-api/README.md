@@ -89,11 +89,6 @@ Base URL: http://${host}:${port}/eros/v1
 
 # Examples
 
-Delete dater 1
-```
-curl -H "Content-Type: application/json" -X DELETE http://69.164.208.35:17320/eros/v1/daters/1
-```
-
 Delete dater 2 from event 1
 ```
 curl -H "Content-Type: application/json" -X DELETE http://69.164.208.35:17320/eros/v1/events/1/daters/2
