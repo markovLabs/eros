@@ -49,7 +49,7 @@ public class EventController {
 	private List<Event> getEventList(String nextEvent, Long daterId) {
 		if(nextEvent != null && daterId != null) {
 			return eventService.getNextEvent(daterId);
-		} else if(nextEvent == null) {
+		} else if(nextEvent != null) {
 			return ImmutableList.of(eventService.getNextEvent());
 		} else {
 			return eventService.getEvents();
