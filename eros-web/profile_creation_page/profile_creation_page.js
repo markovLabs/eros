@@ -35,49 +35,49 @@ b:"No"
 };
 
 var s1={id:1,
-content:"1.     Jack and Stephanie are on their first date. They are having a good time together and the hours pass by quickly. It’s getting late and they both need to work tomorrow. They agree they want to go on a second date. Jack suggests this coming Thursday. Stephanie says: sorry I can't; I have a date scheduled with someone else that day. Jack is bothered by this. Is his reaction to Stephanie’s response justified?",
+content:"1.     Jack and Stephanie are on their first date. They are having a good time together and the hours pass by quickly. It's getting late and they both need to work tomorrow. They agree they want to go on a second date. Jack suggests this coming Thursday. Stephanie says: 'sorry I can't. I have a date scheduled with someone else that day.' Jack is bothered by this. Is his reaction to Stephanie's response justified?",
 a:"Yes, Jack should be bothered",
 b:"No, Jack should not be bothered"
 };
 
 var s2={id:2,
-content:"2.     Annabelle and Donald are at a bar/restaurant for their first date. They are having an easy-flowing conversation and they discovered that they have a lot in common. They both had one beer so far. Donald gets up to order more drinks at the bar and says, “the next one is on me.” He returns with a beer for Annabelle and a Sprite for himself. Annabelle is bothered by this. Is her reaction to Donald’s behavior justified?",
+content:"2.     Annabelle and Donald are at a bar/restaurant for their first date. They are having an easy-flowing conversation and they discovered that they have a lot in common. They both had one beer so far. Donald gets up to order more drinks at the bar and says, 'the next one is on me.' He returns with a beer for Annabelle and a Sprite for himself. Annabelle is bothered by this. Is her reaction to Donald's behavior justified?",
 a:"Yes, Annabelle should be bothered by Donald returning with a beer for her and a Sprite for him",
 b:"No, Annabelle should not be bothered by Donald returning with a beer for her and a Sprite for him"
 };
 
 var s3={id:3,
-content:"3.     Brian and Nancy are at a bar/restaurant for their first date. They are having an easy-flowing conversation and they discovered that they have a lot in common. While Nancy is telling a funny story about her job she hears a beep and takes her phone out of her purse to check a new text message she just received. Brian is bothered by this. Is his reaction to Nancy’s behavior justified?",
+content:"3.     Brian and Nancy are at a bar/restaurant for their first date. They are having an easy-flowing conversation and they discovered that they have a lot in common. While Nancy is telling a funny story about her job she hears a beep and takes her phone out of her purse to check a new text message she just received. Brian is bothered by this. Is his reaction to Nancy's behavior justified?",
 a:"Yes, Brian should be bothered by Nancy checking her new message",
 b:"No, Brian should not be bothered by Nancy checking her new message"
 };
 
 var s4={id:4,
-content:"4.     Frank and Lisa are on their first date and they are having a good time together. Near the end of the date they are discussing recent political topics including gay marriage when Lisa asks Frank, “have you ever had sex with another man?” Frank thinks about how he had a couple one-night stands with men in his younger adult years. He decides to answer “no.” Was it okay for Frank to lie in this situation?",
+content:"4.     Frank and Lisa are on their first date and they are having a good time together. Near the end of the date they are discussing recent political topics including gay marriage when Lisa asks Frank, 'have you ever had sex with another man?' Frank thinks about how he had a couple one-night stands with men in his younger adult years. He decides to answer 'no.' Was it okay for Frank to lie in this situation?",
 a:"Yes, it was okay for Frank to lie about his homosexual experiences",
 b:"No, it was not okay for Frank to lie about his homosexual experiences"
 };
 
 var s5={id:5,
-content:"5.     Harry and Danielle just finished their first date. They had an easy-flowing conversation and discovered they have a lot of things in common. However, Harry learned that Danielle is friends with his ex-girlfriend who he’s no longer on speaking terms with. This is a deal breaker for Harry—he decides not to go on any more dates with Danielle because she’s friends with his ex. Was this a good reason for Harry to reject Danielle?", 
+content:"5.     Harry and Danielle just finished their first date. They had an easy-flowing conversation and discovered they have a lot of things in common. However, Harry learned that Danielle is friends with his ex-girlfriend who he's no longer on speaking terms with. This is a deal breaker for Harry. He decides not to go on any more dates with Danielle because she's friends with his ex. Was this a good reason for Harry to reject Danielle?", 
 a:"Yes, Danielle being friends with his ex was a good reason for Harry to reject Danielle",
 b:"No, Danielle being friends with his ex was not a good reason for Harry to reject Danielle"
 };
 
 var s6={id:6,
-content:"6.     Tony and Joan just finished their first date. They had an easy-flowing conversation and discovered they have a lot in common. However, Joan, who is 5’3”, learned that Tony is actually 5’10”—he had told her before the date that he was 6’1”. This is a deal breaker for Joan—she decides to not go on any more dates with Tony because he lied about his height. Was this a good reason for Joan to reject Tony?",
-a:"Yes, Tony’s dishonesty about his height was a good reason for Joan to reject Tony",
-b:"No, Tony’s dishonesty about his height was not a good reason for Joan to reject Tony"
+content:"6.     Tony and Joan just finished their first date. They had an easy-flowing conversation and discovered they have a lot in common. However, Joan, who is 5'3'', learned that Tony is actually 5'10''. He had told her before the date that he was 6'1''. This is a deal breaker for Joan. She decides to not go on any more dates with Tony because he lied about his height. Was this a good reason for Joan to reject Tony?",
+a:"Yes, Tony's dishonesty about his height was a good reason for Joan to reject Tony",
+b:"No, Tony's dishonesty about his height was not a good reason for Joan to reject Tony"
 };
 
 var s7={id:7,
-content:"7.     Julia and Mark met on a dating app and they are going on their first date tonight. A few hours before their date, Mark sends Julia a selfie in the mirror with his date outfit. He asks “what do you think?” The picture makes Julia realize that she isn’t physically attracted to Mark at all. This is a deal breaker for Julia, and she decides that she’s going to cancel the date. Did she make the right decision?",
+content:"7.     Julia and Mark met on a dating app and they are going on their first date tonight. A few hours before their date, Mark sends Julia a selfie in the mirror with his date outfit. He asks 'what do you think?' The picture makes Julia realize that she isn't physically attracted to Mark at all. This is a deal breaker for Julia, and she decides that she's going to cancel the date. Did she make the right decision?",
 a:"Yes, Julia made the right decision",
 b:"No, Julia did not make the right decision"
 };
  
 var s8={id:8,
-content:"8.     Victor and Courtney had their first date a few nights ago. Courtney didn’t feel a connection and she doesn’t want to continue dating Victor. Today they are talking and Courtney plans to tell Victor that she doesn't want to go on a second date. She says, ”I’m sorry Victor, but you’re not my type physically. I think it’s best we stop seeing each other.” Was this a good way for Courtney to reject Victor?",
+content:"8.     Victor and Courtney had their first date a few nights ago. Courtney didn't feel a connection and she doesn't want to continue dating Victor. Today they are talking and Courtney plans to tell Victor that she doesn't want to go on a second date. She says, 'I'm sorry Victor, but you're not my type physically. I think it's best we stop seeing each other.' Was this a good way for Courtney to reject Victor?",
 a:"Yes, this was a good way for Courtney to reject Victor",
 b:"No, this was not a good way for Courtney to reject Victor"
 };
@@ -159,12 +159,12 @@ app.controller("profileCreationController",
 	$scope.s6 = s6;
 	$scope.s7 = s7;
 	$scope.s8 = s8;
-	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
-	$scope.eventIdsByDesc = new Map();
-	$scope.eventDescriptions = [];
+	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.eventIdsByDesc = {};
 	$http.get($scope.erosBaseUrl + "/events").then(function(response){
-		$scope.eventIdsByDesc = getEventIdsByEventDescription(response.data.events);
-		$scope.eventDescriptions = Array.from($scope.eventIdsByDesc.keys());
+	    var idsByDec = getEventIdsByEventDescription(response.data.events);
+	    console.log(idsByDec);
+	    $scope.eventIdsByDesc = idsByDec;
 	});
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
