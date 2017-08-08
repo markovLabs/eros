@@ -50,7 +50,7 @@ public class EventService {
 										.limit(1)
 										.fetchOne())
 								.map(Event.EventBuilder::of)
-								.getOrElseThrow(e -> new EventNotFoundException(e)));
+								.get());
 	}
 
 	public Event getEvent(long id) {
