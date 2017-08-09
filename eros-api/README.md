@@ -114,9 +114,9 @@ Set mapping id 1 for event 1
 curl -H "Content-Type: application/json" -X POST -d '{"mapping_id":1}' http://69.164.208.35:17320/eros/v1/events/1/
 ```
 
-Update mapping 1, ${new_mapping} must escape all double quotes.
+Add mapping, ${new_mapping} must escape all double quotes.
 ```
-curl -H "Content-Type: application/json" -X POST -d '{"mapping":"${new_mapping}"}' http://69.164.208.35:17320/eros/v1/matches/mappings/1
+curl -H "Content-Type: application/json" -X POST -d '{"mapping":"${new_mapping}"}' http://69.164.208.35:17320/eros/v1/matches/mappings/
 ```
 
 Start event 1
