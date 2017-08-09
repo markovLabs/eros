@@ -15,7 +15,7 @@
   <script src="messaging_evaluation_page.js"></script>
 </head>
 <body ng-app="msgEvaluation" ng-controller="msgEvaluationController">
-    <div  layout="column" layout-align="center center">
+    <div layout="column" layout-align="center center">
     <md-card layout="column" layout-align="center center"> 
       <md-card-content> layout="row" style="padding-right:40px">
            <div layout-gt-sm="column" layout-align="center center">
@@ -26,6 +26,11 @@
               <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
                 <img ng-src="{{slide.src}}" class="carousel-div-img">
               </div>
+           </div>
+           <div layout="column">
+                <p>{{s1.content}}</p>
+                <label>{{s1.answerA}}</label>
+                <label>{{s1.answerB}}</label>
            </div>
        </md-card-content>
        <md-card-actions layout="row" layout-align="end center">

@@ -37,7 +37,7 @@ VALUES
 ("If I had to make a choice right now, I would choose to go on a date with this person.", "Messaging Evaluation"),
 ("I am very confident in my answer to the previous question.", "Messaging Evaluation"),
 ("I was very engaged and interested in the discussion I had with this person in the messaging interface.", "Messaging Evaluation"),
-("How would you rate the overall “impact" that this person's statements had on you during your messaging interaction?", "Messaging Evaluation"),
+("How would you rate the overall “impact“ that this person's statements had on you during your messaging interaction?", "Messaging Evaluation"),
 ("Quality of the messaging interaction (How pleasant was it?)", "Messaging Evaluation"),
 ("Degree of disagreement/conflict throughout the entire messaging interaction", "Messaging Evaluation"),
 ("Degree of closeness/camaraderie during the messaging interaction", "Messaging Evaluation"),

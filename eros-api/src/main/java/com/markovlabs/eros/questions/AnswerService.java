@@ -49,6 +49,13 @@ public class AnswerService {
 				.fetch()
 				.map(StoryAnswer::of);
 	}
+	
+	public List<StoryAnswer> getStoryAnswers(long daterId, long storyId) {
+		return erosDb.selectFrom(STORY_ANSWERS)
+				.where(STORY_ANSWERS.DATER_ID.equal(daterId).and(STORY_ANSWERS.STORY_ID.equal(storyId)))
+				.fetch()
+				.map(StoryAnswer::of);
+	}
 
 	public StoryAnswer getStoryAnswer(long daterId, long answerId) {
 		return Try.of(() -> erosDb.selectFrom(STORY_ANSWERS)
