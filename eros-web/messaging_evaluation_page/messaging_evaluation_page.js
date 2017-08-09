@@ -1,35 +1,29 @@
 function setProfileImages($scope, $http){
 	$http.get($scope.erosBaseUrl + "/daters/" + $scope.matchId + "/images/").then(function(response){
 		var images = response.data.images;
-		var imgSrcs = []
 		for (var i = 0; i < images.length; i++) {
-			imgSrc = "../imgs/" + images[i].name;
-			imgSrcs.push({ src : imgSrc });
+			imgSrc = "http://69.164.208.35:8001/imgs/" + images[i].name;
+			$scope.slides.push({src : imgSrc, id:i});
 		}
-		$scope.imageSrcs = imgSrcs;
-		$scope.profileImage = imgSrcs[0].src;
+		$scope.profileImage = $scope.slides[0].src;
 	});
 }
 
 function setProfile(matches, $window, $scope, $http){
 	$scope.matchIndex = $window.sessionStorage.getItem("matches_index");
-	var match = matches[$scope.matchIndex];
-	$scope.matchId = match.getMatch().getId();
-	$scope.matchName = match.getMatch().getProfileName();
+	var matchAndStoryId = matches[$scope.matchIndex];
+	$scope.matchId = matchAndStoryId.match.id;
+	$scope.matchName = matchAndStoryId.match.profile_name;
 	setProfileImages($scope, $http);
-	if($scope.matchIndex == matches.length - 1) {
-		$scope.buttonLabel = "Go to Event Page";
-	} else {
-		$scope.buttonLabel = "Next Dater";
-	}
+	$scope.buttonLabel = "Take survey";
 }
 
-var app = angular.module("msgEvaluation", ['ngMaterial', 'jkAngularCarousel']); 
+var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
 app.controller("msgEvaluationController",function($scope, $http, $window){ 
 	$scope.disableContinueButton = true;
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
-	var daterId = $window.sessionStorage.getItem("dater_id");
+	$scope.daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
 	if(angular.isUndefined(matches)){
 		$http.get($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/matches/").then(function(response){
@@ -48,12 +42,7 @@ app.controller("msgEvaluationController",function($scope, $http, $window){
 	
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
-			if($scope.buttonLabel == "Go to Event Page") {
-				$window.location.href="../event_info/event_info.html";
-			} else {
-				$window.location.href="messaging_evaluation_page.html";
-			}
+			$window.location.href="survey_messaging_evaluation_page.html";
 		}
 	}
 })

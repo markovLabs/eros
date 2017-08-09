@@ -33,21 +33,22 @@ function setProfile(matches, $window, $scope, $http){
 	}
 }
 
-function saveAnswers($http, $scope, baseURL, daterId, afterAnswersSaved){
+function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     var questionIds = [q1.id, q2.id]
     var answers = [$scope.answer1, $scope.answer2]
     var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"
-    var promise = $http.post(url, {question_id:questionIds[0], answer:answers[0]});
-    for (var i = 1; i < questionIds.length; i++){
-        promise.then(function(response){
-        	return $http.post(url, {question_id:questionIds[i], answer:answers[i]});
-        });
+    var promises = []
+    for (var i = 0; i < questionIds.length; i++){
+        var promise = $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+        promises.push(promise)
     }
-    promise.then(afterAnswersSaved);
+    $q.all(promises).then(function(){
+    	afterAnswersSaved();
+    })
 }
 
 var app = angular.module("profileEvaluation", ['ngMaterial', 'jkAngularCarousel']); 
-app.controller("profileEvaluationController",function($scope, $http, $window, $timeout){ 
+app.controller("profileEvaluationController",function($scope, $http, $window, $timeout, $q){ 
 	$scope.q1 = q1;
 	$scope.q2 = q2;
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
@@ -56,7 +57,7 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $t
 	$scope.matchName = "";
 	$scope.disableContinueButton = true;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
-	var daterId = $window.sessionStorage.getItem("dater_id");
+	$scope.daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
 	if(angular.isUndefined(matches)){
 		$http.get($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId + "/matches/").then(function(response){
@@ -88,7 +89,7 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $t
 	
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			saveAnswers($http, $scope, $scope.erosBaseUrl, daterId, afterAnswersSaved);
+			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
 		}
 	}
 })

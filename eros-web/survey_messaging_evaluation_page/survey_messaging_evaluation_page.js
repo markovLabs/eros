@@ -1,5 +1,3 @@
-
-
 var q2={id:18,
 content:"How would you rate the overall 'impact' that this person's statements had on you during your messaging interaction?",
 answers: ["Super negative", "Negative", "Neutral","Positive", "Super positive"]
@@ -55,6 +53,51 @@ label2:"More than expected/hoped for",
 answers:[1,2,3,4,5,6,7]
 };
 
+function setMatch(matches, $window, $scope, $http){
+	$scope.matchIndex = $window.sessionStorage.getItem("matches_index");
+	var matchAndStoryId = matches[$scope.matchIndex];
+	$scope.matchId = matchAndStoryId.match.id;
+	$scope.storyId = matchAndStoryId.story_id;
+	$scope.matchName = matchAndStoryId.match.profile_name;
+	if($scope.matchIndex == matches.length - 1) {
+		$scope.buttonLabel = "Go to Event Page";
+	} else {
+		$scope.buttonLabel = "Next Dater";
+	}
+}
+var q1;
+function setQ1($http, $scope) {
+	$http.get($scope.erosBaseUrl + "/stories/" + $scope.storyId).then(function(response) {
+		var storyType = response.data.story_type;
+		if (storyType == "Prompted") {
+			q1 = {
+				id : 14,
+				content : "Regardless of your initial opinion choices, did the conversation you just had end with an agreement of opinion choice?",
+				answers: ["Yes, we agreed on an opinion choice", "No, we could not agree on an opinion choice"],
+				html: '<md-input>  <h5>{{q1.content}}</h5>  <md-radio-group ng-model="answer1" layout-gt-sm="row">      <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}">          {{ answer }}      </md-radio-button>  </md-radio-group></md-input>'
+			}
+		}
+	});
+}
+
+function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
+    var questionIds = [q2.id, q3.id, q4.id, q5.id, q6.id, q7.id, q8.id, q9.id, q10.id]
+    var answers = [$scope.answer2, $scope.answer3, $scope.answer4, $scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10]
+    if(angular.isDefined(q1)){
+    	questionIds.push(q1.id)
+    	answers.push($scope.answer1)
+    }
+    var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"
+    var promises = []
+    for (var i = 0; i < questionIds.length; i++){
+        var promise = $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+        promises.push(promise)
+    }
+    $q.all(promises).then(function(){
+    	afterAnswersSaved();
+    })
+}
+
 
 var app = angular.module("surveyMsgEvaluation", ['ngMaterial']); 
 app.controller("surveyMsgEvaluationController",function($scope, $http, $window){ 
@@ -68,7 +111,42 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window){
 	$scope.q8 = q8;
 	$scope.q9 = q9;
 	$scope.q10 = q10;
+	$scope.disableContinueButton = true;
+	$scope.eventId = $window.sessionStorage.getItem("event_id");
+	$scope.daterId = $window.sessionStorage.getItem("dater_id");
+	var matches = $window.sessionStorage.getItem("matches");
+	if(angular.isUndefined(matches)){
+		$http.get($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId + "/matches/").then(function(response){
+			$window.sessionStorage.setItem("matches", response.data.matches);
+			$window.sessionStorage.setItem("matches_index", 0);
+			matches = $window.sessionStorage.getItem("matches");
+			setMatch(matches, $window, $scope, $http);
+		});
+	} else {
+		setMatch(matches, $window, $scope, $http);
+	}
+	
+	setQ1($http, $scope);
+	
+	$timeout(function(){
+		$scope.disableContinueButton = false
+	}, 180000);
+	
+	var afterAnswersSaved = function(response){
+		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
+		if($scope.buttonLabel == "Go to Event Page") {
+			var dater = {messaging_evaluation_completed:true}
+			$http.post($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId, dater)
+			.then(function(response){
+				$window.location.href="../event_info/event_info.html";
+			});
+		} else {
+			$window.location.href="messaging_evaluation_page.html";
+		}
+	}
 	$scope.onContinue=function(){
-
+		if(!$scope.disableContinueButton){
+			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, daterId, afterAnswersSaved);
+		}
 	}
 });

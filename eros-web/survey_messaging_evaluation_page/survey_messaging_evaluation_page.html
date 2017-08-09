@@ -10,8 +10,20 @@
 </head>
 <body ng-app="surveyMsgEvaluation" ng-controller="surveyMsgEvaluationController">
     <script src="survey_messaging_evaluation_page.js"></script>
-    <div layout-gt-sm="column">
-
+    <div  layout="column" layout-align="center center">
+        <md-card layout="column" layout-align="center center"> 
+            <md-card-actions layout="column">
+            <h1>Answer the following question about your messaging interaction with {{matchName}}:</h1>
+            {{q1.html}}
+  <md-input>
+    <h5>{{q2.content}}</h5>
+    <md-radio-group ng-model="answer2" layout-gt-sm="row">
+        <md-radio-button ng-repeat="answer in q2.answers" ng-value="answer" aria-label="{{ answer }}">
+            {{ answer }}
+        </md-radio-button>
+    </md-radio-group>
+  </md-input>
+  
   <md-input>
     <h5>{{q3.content}}</h5>
     <md-radio-group ng-model=""answer3"" layout-gt-sm="row">
@@ -103,7 +115,9 @@
       <label>{{q10.label2}}</label>
     </md-input>
   </md-input>
-    
+        </md-card-actions>
+  </md-card>
+    <md-button class="md-raised md-primary" ng-disabled="disableContinueButton" ng-click="onContinue();">{{buttonLabel}}</md-button>
    </div>
 
 </body>

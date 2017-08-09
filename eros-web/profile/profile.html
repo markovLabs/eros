@@ -17,7 +17,7 @@
 <body ng-app="profile" ng-controller="profileController">
     <div  layout="column" layout-align="center center">
 	<md-card layout="column" layout-align="center center"> 
-	   <md-content layout="row" style="padding-right:40px">
+	   <md-card-content layout="row" style="padding-right:40px">
 	       <div layout-gt-sm="column" layout-align="center center">
 		      <h1>{{profileName}}</h3>
 		      <img src="{{profileImage}}" class="avatar">
@@ -27,7 +27,7 @@
 				<img ng-src="{{slide.src}}" class="carousel-div-img">
 			  </div>
 		   </div>
-	   </md-content> 
+	   </md-card-content> 
 	   <md-card-actions layout="row" layout-align="end center">
 	       <input class="ng-hide" id="fileInput" name="file" type="file" fileread="file" filename="imgFilename" /> 
 	       <md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();">
