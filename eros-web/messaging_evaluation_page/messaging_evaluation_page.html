@@ -17,7 +17,7 @@
 <body ng-app="msgEvaluation" ng-controller="msgEvaluationController">
     <div layout="column" layout-align="center center">
     <md-card layout="column" layout-align="center center"> 
-      <md-card-content> layout="row" style="padding-right:40px">
+      <md-card-content layout="row" style="padding-right:40px">
            <div layout-gt-sm="column" layout-align="center center">
               <h1>{{matchName}}</h3>
               <img src="{{profileImage}}" class="avatar">
@@ -32,12 +32,23 @@
                 <label>{{s1.answerA}}</label>
                 <label>{{s1.answerB}}</label>
            </div>
+           <div class="msgPanel" ng-repeat="msg in msgs">      
+                <md-card layout="row" style="padding-up:40px" >
+                    <md-card-content>
+                        <img src="{{profileImgs[msg.from]}}" class="miniAvatar">
+                        <div>{{msg.content}}</div>
+                    </md-card-content>
+                </md-card>
+           </div>
        </md-card-content>
        <md-card-actions layout="row" layout-align="end center">
-
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Send message</label>
+                <input ng-click="onSendMsg();" ng-model="msgSent">
+            </md-input-container>
        </md-card-actions> 
     </md-card>
-    <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+        <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
     </div>
 </body>
 </html>
