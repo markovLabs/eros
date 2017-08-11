@@ -125,7 +125,7 @@ app.controller("profileController",function($scope, $http, $window, $interval, $
 	var removeImage=function(){
 		var imageId = $scope.imagesMetadata[$scope.active].id;
 		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + imageId).then(function(response){
-			$mdToast.simple().textContent('Image deleted.').hideDelay(3000)
+			$mdToast.show($mdToast.simple().textContent('Image deleted.').hideDelay(3000));
 			updateImages($http, $scope)
 		});
 	}
