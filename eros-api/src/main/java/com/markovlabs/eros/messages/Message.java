@@ -68,12 +68,12 @@ public final class Message {
 		return this;
 	}
 	@JsonProperty("time_received")
-	private Message setTimeReceivedAsString(String timeReceived) {
+	public Message setTimeReceivedAsString(String timeReceived) {
 		this.timeReceived = timeReceived;
 		return this;
 	}
 	@JsonProperty("time_received")
-	private String getTimeReceivedAsString() {
+	public String getTimeReceivedAsString() {
 		return timeReceived;
 	}
 	@JsonIgnore

@@ -111,7 +111,7 @@ app.controller("profileController",function($scope, $http, $window, $interval, $
 			$scope.file = ""
 			var img = {"content":aFile, "name":$scope.imgFilename};
 			$http.post($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/", img).then(function(){
-				$scope.file = "";
+				$mdToast.show($mdToast.simple().textContent('Image added.').hideDelay(3000));
 				updateImages($http, $scope);
 			});
 		}

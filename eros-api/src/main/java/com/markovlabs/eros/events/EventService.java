@@ -101,7 +101,7 @@ public class EventService {
 				.from(EVENT_DATERS)
 				.where(EVENT_DATERS.EVENT_ID.equal(eventId).and(EVENT_DATERS.DATER_ID.equal(dater.getId())))
 				.fetchOne(EVENT_DATERS.ID);
-		EventDatersRecord eventDaterRecord = newEventDatersRecord(eventId, dater.getId());
+		EventDatersRecord eventDaterRecord = newEventDatersRecord(dater.getId(), eventId);
 		eventDaterRecord.setId(eventDaterId);
 		eventDaterRecord.setProfileEvaluationCompletedFlag(dater.getProfileEvaluationCompletedFlag());
 		eventDaterRecord.setMessagingEvaluationCompletedFlag(dater.getMessagingEvaluationCompletedFlag());

@@ -9,11 +9,14 @@ content:" I am very confident in my answer to the previous question.",
 answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
 };
 
+const TIMER_INTERVAL_IN_MS = 60000;
+
 function setProfileImages($scope, $http){
 	$http.get($scope.erosBaseUrl + "/daters/" + $scope.matchId + "/images/").then(function(response){
 		var images = response.data.images;
+		$scope.slides.splice(0, $scope.slides.length)
 		for (var i = 0; i < images.length; i++) {
-			imgSrc = "http://69.164.208.35:8001/imgs/" + images[i].name;
+			var imgSrc = "http://69.164.208.35:8001/imgs/" + images[i].name;
 			$scope.slides.push({src : imgSrc, id:i});
 		}
 		$scope.profileImage = 	$scope.slides[0].src;
@@ -21,7 +24,7 @@ function setProfileImages($scope, $http){
 }
 
 function setProfile(matches, $window, $scope, $http){
-	$scope.matchIndex = $window.sessionStorage.getItem("matches_index");
+	$scope.matchIndex = parseInt($window.sessionStorage.getItem("matches_index"));
 	var matchAndStoryId = matches[$scope.matchIndex];
 	$scope.matchId = matchAndStoryId.match.id;
 	$scope.matchName = matchAndStoryId.match.profile_name;
@@ -47,32 +50,39 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     })
 }
 
-var app = angular.module("profileEvaluation", ['ngMaterial', 'jkAngularCarousel']); 
-app.controller("profileEvaluationController",function($scope, $http, $window, $timeout, $q){ 
+var app = angular.module("profileEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
+app.controller("profileEvaluationController",function($scope, $http, $window, $interval, $q, $mdToast){ 
 	$scope.q1 = q1;
 	$scope.q2 = q2;
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
 	$scope.slides = [{src:"../imgs/blank.jpg", id:0}]
-	$scope.profileImage = "../imgs/blank.jpg";
+	$scope.profileImage = "../imgs/blank.jpg" ;
 	$scope.matchName = "";
 	$scope.disableContinueButton = true;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	$scope.daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
-	if(angular.isUndefined(matches)){
+	if(angular.isUndefined(matches) || matches == null){
 		$http.get($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId + "/matches/").then(function(response){
-			$window.sessionStorage.setItem("matches", response.data.matches);
+			$window.sessionStorage.setItem("matches", JSON.stringify(response.data.matches));
 			$window.sessionStorage.setItem("matches_index", 0);
-			matches = $window.sessionStorage.getItem("matches");
+			matches = JSON.parse($window.sessionStorage.getItem("matches"));
 			setProfile(matches, $window, $scope, $http);
 		});
 	} else {
-		setProfile(matches, $window, $scope, $http);
+		setProfile(JSON.parse(matches), $window, $scope, $http);
 	}
 	
-	$timeout(function(){
-		$scope.disableContinueButton = false
-	}, 180000);
+	var tick = 0;
+	$interval(function(){
+		tick = tick + 1;
+		if(tick == 2){
+			$mdToast.show($mdToast.simple().textContent('1 min left to answer all the questions.').hideDelay(3000));
+		}
+		if(tick >= 3){
+			$scope.disableContinueButton = false
+		}
+	}, TIMER_INTERVAL_IN_MS);
 	
 	var afterAnswersSaved = function(response){
 		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
@@ -80,6 +90,8 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $t
 			var dater = {profile_evaluation_completed:true}
 			$http.post($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId, dater)
 			.then(function(response){
+				$window.sessionStorage.removeItem("matches_index");
+				$window.sessionStorage.removeItem("matches");
 				$window.location.href="../event_info/event_info.html";
 			});
 		} else {

@@ -30,20 +30,27 @@
   -moz-transform:scale(0.70);
 }
 
-.msgPanel {
-	
-}
-
 .carousel-div {
   width: 500px;
-  height: 500px;
+  height: 350px;
   overflow: hidden;
   border: 1px solid black;
 }
 
 .carousel-div-img {
-    min-height: 500px;
-    max-height: 500px;
+    min-height: 350px;
+    max-height: 350px;
     min-width: 500px;
     max-width: 500px;
 }
+
+md-list.make-scrollable {
+    height: 300px; 
+    overflow-y: scroll;
+}
+
+.round {
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+

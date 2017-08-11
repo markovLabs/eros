@@ -54,7 +54,7 @@ answers:[1,2,3,4,5,6,7]
 };
 
 function setMatch(matches, $window, $scope, $http){
-	$scope.matchIndex = $window.sessionStorage.getItem("matches_index");
+	$scope.matchIndex = parseInt($window.sessionStorage.getItem("matches_index"));
 	var matchAndStoryId = matches[$scope.matchIndex];
 	$scope.matchId = matchAndStoryId.match.id;
 	$scope.storyId = matchAndStoryId.story_id;
@@ -100,7 +100,7 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
 
 
 var app = angular.module("surveyMsgEvaluation", ['ngMaterial']); 
-app.controller("surveyMsgEvaluationController",function($scope, $http, $window){ 
+app.controller("surveyMsgEvaluationController",function($scope, $http, $window, $q){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.q2 = q2;
 	$scope.q3 = q3;
@@ -111,26 +111,23 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window){
 	$scope.q8 = q8;
 	$scope.q9 = q9;
 	$scope.q10 = q10;
-	$scope.disableContinueButton = true;
+	$scope.matchName = "";
+	$scope.disableContinueButton = false;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	$scope.daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
-	if(angular.isUndefined(matches)){
+	if(angular.isUndefined(matches) || matches == null){
 		$http.get($scope.erosBaseUrl +"/events/"+ $scope.eventId + "/daters/" + $scope.daterId + "/matches/").then(function(response){
 			$window.sessionStorage.setItem("matches", response.data.matches);
 			$window.sessionStorage.setItem("matches_index", 0);
-			matches = $window.sessionStorage.getItem("matches");
+			matches = JSON.parse($window.sessionStorage.getItem("matches"));
 			setMatch(matches, $window, $scope, $http);
 		});
 	} else {
-		setMatch(matches, $window, $scope, $http);
+		setMatch(JSON.parse(matches), $window, $scope, $http);
 	}
 	
 	setQ1($http, $scope);
-	
-	$timeout(function(){
-		$scope.disableContinueButton = false
-	}, 180000);
 	
 	var afterAnswersSaved = function(response){
 		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
@@ -141,12 +138,12 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window){
 				$window.location.href="../event_info/event_info.html";
 			});
 		} else {
-			$window.location.href="messaging_evaluation_page.html";
+			$window.location.href="../messaging_evaluation_page/messaging_evaluation_page.html";
 		}
 	}
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, daterId, afterAnswersSaved);
+			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
 		}
 	}
 });

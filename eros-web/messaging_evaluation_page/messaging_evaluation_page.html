@@ -17,9 +17,15 @@
   <script src="messaging_evaluation_page.js"></script>
 </head>
 <body ng-app="msgEvaluation" ng-controller="msgEvaluationController">
-    <div layout="column" layout-align="center center">
-    <md-card layout="column" layout-align="center center"> 
-      <md-card-content layout="row" style="padding-right:40px">
+    <div layout="column" layout-align="center center" style="padding-bottom:40px">
+        <md-toolbar class="md-accent" style="height:100px">
+          <div class="md-toolbar-tools" layout="row" style="padding-top: 20px">
+            <img src="../imgs/EROS_LOGO.png" style="width: 160px; height: 160px; padding-top: 20px">
+          </div>
+        </md-toolbar>
+    <md-card layout="column" layout-align="center center" style="padding-bottom:10px"> 
+      <md-card-content  layout="column">
+        <div layout="row">
            <div layout-gt-sm="column" layout-align="center center">
               <h1>{{matchName}}</h3>
               <img src="{{profileImage}}" class="avatar">
@@ -29,28 +35,32 @@
                 <img ng-src="{{slide.src}}" class="carousel-div-img">
               </div>
            </div>
-           <div layout="column">
-                <p>{{s1.content}}</p>
+           </div>
+           <div layout="column" style="margin-top:20px">
+                <label>{{s1.content}}</label>
                 <label>{{s1.answerA}}</label>
                 <label>{{s1.answerB}}</label>
            </div>
-           <div class="msgPanel" ng-repeat="msg in msgs">      
-                <md-card layout="row" style="padding-up:40px" >
-                    <md-card-content>
-                        <img src="{{profileImgs[msg.from]}}" class="miniAvatar">
-                        <div>{{msg.content}}</div>
-                    </md-card-content>
-                </md-card>
-           </div>
+           <md-list class="md-dense make-scrollable round" flex>
+            <md-list-item class="md-3-line md-long-text" ng-repeat="msg in msgs track by msg.id" ng-click="null">
+                <img ng-src="{{profileImgs.get(msg.msg.from_dater_id)}}" class="md-avatar"  />
+                <div class="md-list-item-text" layout="column">
+                    <p>{{msg.msg.content}}</p>
+                </div>
+            </md-list-item>
+           </md-list>
        </md-card-content>
-       <md-card-actions layout="row" layout-align="end center">
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Send message</label>
-                <input ng-click="onSendMsg();" ng-model="msgSent">
-            </md-input-container>
+       <md-card-actions layout="row" class="round" style="padding-left:20px;padding-right:20px;">
+                <md-input-container style="width:400px;height:50px" class="md-block" flex-gt-sm>
+                    <label>Type message</label>
+                    <input ng-model="msgSent">
+                </md-input-container>
+                <md-button class="md-raised md-primary" style="height:20px;margin-top:20px;margin-left:10px" ng-click="onSendMsg();">
+                    Send
+                </md-button>
        </md-card-actions> 
     </md-card>
-        <md-button class="md-raised md-primary" ng-disabled="{{disableContinueButton}}" ng-click="onContinue();">Go to event</md-button>
+        <md-button class="md-raised md-primary" ng-disabled="disableContinueButton" ng-click="onContinue();">{{buttonLabel}}</md-button>
     </div>
 </body>
 </html>
