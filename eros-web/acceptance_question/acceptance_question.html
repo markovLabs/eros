@@ -1,17 +1,25 @@
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-</head>
-<body ng-app="acceptanceQuestion" ng-controller="acceptanceQuestionController" ng-init="erosBaseUrl='http://69.164.208.35:17320/eros/v1'">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <link rel="stylesheet" href="acceptance_question.css" />
     <script src="acceptance_question.js"></script>
-    
-         <div layout-gt-sm="column">
+</head>
+<body ng-app="acceptanceQuestion" ng-controller="acceptanceQuestionController">
+<div layout="column" layout-align="center center">
+  <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
+    <md-card layout-gt-sm="column" style="padding-left:20px;padding-right:20px;">
+      <md-card-actions>
           <md-input>
             <h5>{{question1.content}}</h5>
             <input name="question1" ng-model="answer1" type="radio" value="{{question1.answer1}}" />{{question1.answer1}}
@@ -34,10 +42,10 @@
 		  </md-select> 
 		</md-input>
 
-	</div>
-        <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
-    
-
+	</md-card-actions>
+	</md-card>
+    <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
+    </div>
 </body>
 </html>
 

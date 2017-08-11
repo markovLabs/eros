@@ -1,17 +1,26 @@
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <link rel="stylesheet" href="profile_creation_page.css">
+    <script src="profile_creation_page.js"></script>
 </head>
 <body ng-app="profileCreation" ng-controller="profileCreationController">
-    <script src="profile_creation_page.js"></script>
-    
-    <div layout-gt-sm="column">
+    <div layout="column" layout-align="center center" style="padding-bottom:50px">
+  <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px; padding-bottom:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
+    <div style="padding-left:20px; padding-right:20px;">
+    <md-card layout-gt-sm="column" >
+    <md-card-actions>
          <md-input>
             <h5>1.Which dating event are you signing up for?</h5>
             <md-select ng-model="selectedEventDesc" aria-label="Select"> 
@@ -94,7 +103,10 @@
     <input name="s8" ng-model="answer12" type="radio" value="{{s8.a}}" />{{s8.a}}
     <br><input name="s8" ng-model="answer12" type="radio" value="{{s8.b}}" />{{s8.b}}
 </md-input>
+	</md-card-actions>
+	</md-card>
 	</div>
-        <md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
+        <md-button class="md-raised md-primary" ng-click="onContinue();" style="margin-top:20px">Continue</md-button>
+        </div>
 </body>
 </html>

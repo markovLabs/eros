@@ -58,6 +58,7 @@ function saveAnswers($q, $http, $scope, baseURL, id, afterAnswersSaved){
 var app = angular.module("acceptanceQuestion", [ 'ngMaterial' ]);
 app.controller("acceptanceQuestionController",
         function($scope, $http, $window, $q) {
+			$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
             $scope.question1 = question1;
             $scope.question2 = question2;
             $scope.question3 = question3;

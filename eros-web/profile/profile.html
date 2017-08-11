@@ -16,13 +16,18 @@
 </head>
 <body ng-app="profile" ng-controller="profileController">
     <div  layout="column" layout-align="center center">
+          <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
 	<md-card layout="column" layout-align="center center"> 
 	   <md-card-content layout="row" style="padding-right:40px">
 	       <div layout-gt-sm="column" layout-align="center center">
 		      <h1>{{profileName}}</h3>
 		      <img src="{{profileImage}}" class="avatar">
 	       </div>
-		   <div uib-carousel active="0" interval="5000" no-wrap="false" no-transition="true">
+		   <div uib-carousel active="active" interval="5000" no-wrap="false" no-transition="true">
 		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
 				<img ng-src="{{slide.src}}" class="carousel-div-img">
 			  </div>
