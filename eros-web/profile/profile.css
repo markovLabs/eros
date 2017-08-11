@@ -1,7 +1,7 @@
 .avatar {
   position:relative;
-  width: 350px;
-  height:350px;
+  width: 250px;
+  height:250px;
   border: 1px solid #ddd;
   border-radius: 50%;
   display: inline-block;
@@ -15,15 +15,15 @@
 }
 
 .carousel-div {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 430px;
   overflow: hidden;
   border: 1px solid black;
 }
 
 .carousel-div-img {
-	min-height: 500px;
-	max-height: 500px;
-	min-width: 500px;
-	max-width: 500px;
+	min-height: 430px;
+	max-height: 430px;
+	min-width: 400px;
+	max-width: 400px;
 }

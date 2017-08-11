@@ -1,20 +1,41 @@
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <link rel="stylesheet" href="survey_messaging_evaluation_page.css">
+   <script src="survey_messaging_evaluation_page.js"></script>
 </head>
 <body ng-app="surveyMsgEvaluation" ng-controller="surveyMsgEvaluationController">
-    <script src="survey_messaging_evaluation_page.js"></script>
-    <div layout-gt-sm="column">
-
+    <div layout="column" layout-align="center center" style="padding-bottom:20px">
+  <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
+        <md-card layout="column" layout-align="center center"> 
+            <md-card-content layout="column" layout-align="center center">
+                  <h3>Answer the following question about your messaging interaction with {{matchName}}:</h3>
+            {{q1.html}}
+            </md-card-content>
+            <md-card-actions layout="column" style="padding-bottom:40px">
+  <md-input>
+    <h5>{{q2.content}}</h5>
+    <md-radio-group ng-model="answer2" layout-gt-sm="row" class="md-raised md-primary">
+        <md-radio-button ng-repeat="answer in q2.answers" ng-value="answer" aria-label="{{ answer }}">
+            {{ answer }}
+        </md-radio-button>
+    </md-radio-group>
+  </md-input>
+  
   <md-input>
     <h5>{{q3.content}}</h5>
-    <md-radio-group ng-model=""answer3"" layout-gt-sm="row">
+    <md-radio-group ng-model="answer3" layout-gt-sm="row" class="md-raised md-primary">
         <md-radio-button ng-repeat="answer in q3.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
         </md-radio-button>
@@ -23,7 +44,7 @@
 
  <md-input>
     <h5>{{q4.content}}</h5>
-    <md-radio-group ng-model=""answer4" layout-gt-sm="row">
+    <md-radio-group ng-model="answer4" layout-gt-sm="row" class="md-raised md-primary">
         <md-radio-button ng-repeat="answer in q4.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
         </md-radio-button>
@@ -32,7 +53,7 @@
 
  <md-input>
     <h5>{{q5.content}}</h5>
-    <md-radio-group ng-model="answer5" layout-gt-sm="row">
+    <md-radio-group ng-model="answer5" layout-gt-sm="row" class="md-raised md-primary">
         <md-radio-button ng-repeat="answer in q5.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
         </md-radio-button>
@@ -42,68 +63,70 @@
   <md-input>
     <h5>{{q6.content}}</h5>
     <md-input" layout-gt-sm="row">
-      <label>{{q6.label1}}</label>
-      <md-radio-group ng-model="answer5" layout-gt-sm="row">
+      <label style="padding-right:10px">{{q6.label1}}</label>
+      <md-radio-group ng-model="answer6" layout-gt-sm="row" class="md-raised md-primary">
           <md-radio-button ng-repeat="answer in q6.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
           </md-radio-button>
       </md-radio-group>
-      <label>{{q6.label2}}</label>
+      <label style="padding-left:10px">{{q6.label2}}</label>
     </md-input>
   </md-input>
 
   <md-input>
     <h5>{{q7.content}}</h5>
     <md-input" layout-gt-sm="row">
-      <label>{{q7.label1}}</label>
-      <md-radio-group ng-model="answer5" layout-gt-sm="row">
+      <label style="padding-right:10px">{{q7.label1}}</label>
+      <md-radio-group ng-model="answer7" layout-gt-sm="row" class="md-raised md-primary">
           <md-radio-button ng-repeat="answer in q7.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
           </md-radio-button>
       </md-radio-group>
-      <label>{{q7.label2}}</label>
+      <label style="padding-left:10px">{{q7.label2}}</label>
     </md-input>
   </md-input>
 
   <md-input>
     <h5>{{q8.content}}</h5>
     <md-input" layout-gt-sm="row">
-      <label>{{q8.label1}}</label>
-      <md-radio-group ng-model="answer5" layout-gt-sm="row">
+      <label style="padding-right:10px">{{q8.label1}}</label>
+      <md-radio-group ng-model="answer8" layout-gt-sm="row" class="md-raised md-primary">
           <md-radio-button ng-repeat="answer in q8.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
           </md-radio-button>
       </md-radio-group>
-      <label>{{q8.label2}}</label>
+      <label style="padding-left:10px">{{q8.label2}}</label>
     </md-input>
   </md-input>
 
   <md-input>
     <h5>{{q9.content}}</h5>
     <md-input" layout-gt-sm="row">
-      <label>{{q9.label1}}</label>
-      <md-radio-group ng-model="answer5" layout-gt-sm="row">
+      <label style="padding-right:10px">{{q9.label1}}</label>
+      <md-radio-group ng-model="answer9" layout-gt-sm="row" class="md-raised md-primary">
           <md-radio-button ng-repeat="answer in q9.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
           </md-radio-button>
       </md-radio-group>
-      <label>{{q9.label2}}</label>
+      <label style="padding-left:10px">{{q9.label2}}</label>
     </md-input>
   </md-input>
 
   <md-input>
     <h5>{{q10.content}}</h5>
     <md-input" layout-gt-sm="row">
-      <label>{{q10.label1}}</label>
-      <md-radio-group ng-model="answer5" layout-gt-sm="row">
+      <label style="padding-right:10px">{{q10.label1}}</label>
+      <md-radio-group ng-model="answer10" layout-gt-sm="row" class="md-raised md-primary">
           <md-radio-button ng-repeat="answer in q10.answers" ng-value="answer" aria-label="{{ answer }}">
             {{ answer }}
           </md-radio-button>
       </md-radio-group>
-      <label>{{q10.label2}}</label>
+      <label style="padding-left:10px">{{q10.label2}}</label>
     </md-input>
   </md-input>
-    
+        </md-card-actions>
+  </md-card>
+    <md-button class="md-raised md-primary" ng-disabled="disableContinueButton" ng-click="onContinue();">{{buttonLabel}}</md-button>
    </div>
 
 </body>

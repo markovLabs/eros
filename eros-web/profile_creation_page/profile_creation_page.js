@@ -82,35 +82,39 @@ a:"Yes, this was a good way for Courtney to reject Victor",
 b:"No, this was not a good way for Courtney to reject Victor"
 };
 
-function saveAnswers($http, $scope, baseURL, id, afterAnswersSaved){
+function saveAnswers($q, $http, $scope, baseURL, id, afterAnswersSaved){
     var questionIds = [q1.id, q2.id, q3.id, q4.id]
     var answers = [$scope.answer1, $scope.answer2, $scope.answer3, $scope.answer4]
     var url = baseURL + "/daters/" + id + "/profile_answers/"
-    var promise = $http.post(url, {question_id:questionIds[0], answer:answers[0]})
-    for (var i = 1; i < questionIds.length; i++){
-        promise.then(function(response){
-        	return $http.post(url, {question_id:questionIds[i], answer:answers[i]});
-        });
+    var promises = [];
+    for (var i = 0; i < questionIds.length; i++){
+    	var promise = $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+    	promises.push(promise);
     }
-    promise.then(function(response){
+    $q.all(promises).then(function(){
     	afterAnswersSaved();
     })
 }
 
-function saveStories($http, $scope, baseURL, id, afterStoriesSaved){
+function saveStories($q, $http, $scope, baseURL, id, afterStoriesSaved){
 	return function(){
 		var storyIds = [s1.id, s2.id, s3.id, s4.id, s5.id, s6.id, s7.id, s8.id]
-    	var answers = [$scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10, $scope.answer11, $scope.answer12];
+		var stories = [s1, s2, s3, s4, s5, s6, s7, s8]
+		for(var i  = 0; i < stories.length; i++) {
+			stories[i].answer = {}
+			stories[i].answer[stories[i].a] = 'A'
+			stories[i].answer[stories[i].b] = 'B'
+		}
+    	var answers = [s1.answer[$scope.answer5], s2.answer[$scope.answer6], s3.answer[$scope.answer7], s4.answer[$scope.answer8], s5.answer[$scope.answer9], s6.answer[$scope.answer10], s7.answer[$scope.answer11], s8.answer[$scope.answer12]];
     	var url = baseURL + "/daters/" + id + "/story_answers/"
-    	var promise = $http.post(url, {story_id:storyIds[0], answer:answers[0]});
-    	for (i = 1; i < storyIds.length; i++){
-        	promise.then(function(response){
-        		return $http.post(url, {story_id:storyIds[i], answer:answers[i]});
-        	});
+    	var promises = [];
+    	for (var i = 0; i < storyIds.length; i++){
+        	var promise = $http.post(url, {story_id:storyIds[i], answer:answers[i]});
+        	promises.push(promise);
     	}
-    	promise.then(function(response){
-    		afterStoriesSaved();
-    	})
+        $q.all(promises).then(function(){
+        	afterStoriesSaved();
+        })
 	}
 }
 
@@ -134,7 +138,7 @@ var updateDater = function($http, baseURL, id, eventId, $window){
 
 function getEventIdsByEventDescription(events){
     var eventIdsByDescMap = new Map();
-    for(i = 0; i < events.length; i++){
+    for(var i = 0; i < events.length; i++){
         event = events[i];
         desc = event.name + "," + event.location + "," + event.date;
         eventIdsByDescMap.set(desc, event.id);
@@ -146,7 +150,7 @@ function getEventIdsByEventDescription(events){
 
 var app = angular.module("profileCreation", [ 'ngMaterial' ]);
 app.controller("profileCreationController", 
-		function($scope, $http, $window) {
+		function($scope, $http, $window, $q) {
 	$scope.q1 = q1;
 	$scope.q2 = q2;
 	$scope.q3 = q3;
@@ -159,19 +163,20 @@ app.controller("profileCreationController",
 	$scope.s6 = s6;
 	$scope.s7 = s7;
 	$scope.s8 = s8;
-	$scope.erosBaseUrl = 'http://localhost:17320/eros/v1'
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.eventIdsByDesc = {};
+	$scope.eventDescriptions = []
 	$http.get($scope.erosBaseUrl + "/events").then(function(response){
 	    var idsByDec = getEventIdsByEventDescription(response.data.events);
-	    console.log(idsByDec);
 	    $scope.eventIdsByDesc = idsByDec;
+	    $scope.eventDescriptions = Array.from(idsByDec.keys());
 	});
 	$scope.onContinue=function(){
 	    var baseURL = $scope.erosBaseUrl
         var id = $window.sessionStorage.getItem('dater_id');
         var eventId = $scope.eventIdsByDesc.get($scope.selectedEventDesc);
-	    var saveEventSelectedCallback = saveEventSelected($http, baseURL, daterId, eventId, $window, updateDater);
-	    var saveStoriesCallback = saveStories($http, $scope, baseURL, daterId, saveEventSelectedCallback);
-	    saveAnswers($http, $scope, baseURL, daterId, saveStoriesCallback); 
+	    var saveEventSelectedCallback = saveEventSelected($http, baseURL, id, eventId, $window, updateDater);
+	    var saveStoriesCallback = saveStories($q, $http, $scope, baseURL, id, saveEventSelectedCallback);
+	    saveAnswers($q, $http, $scope, baseURL, id, saveStoriesCallback); 
 	}
 });

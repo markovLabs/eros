@@ -9,11 +9,12 @@ function setNextEvent($http, baseURL, daterId, onResponse){
 	});
 }
 
-function setEvent($scope, $http){
+function setEvent($scope, $http, $window){
 	return function(){
 		setNextEvent($http, $scope.erosBaseUrl,$scope.daterId, function(event){
 			if(angular.isDefined(event)) {
 				$scope.event = event
+				$window.sessionStorage.setItem('event_id', event.id);
 				if(event.started) {
 					$scope.disableProfileEvaluationButton = false
 				} else{
@@ -51,8 +52,8 @@ app.controller("eventInfoController",function($scope, $http, $window, $interval)
     $scope.profileEvaluationCompleted = false;
 	$scope.messagingEvaluationCompleted = false;
 	$scope.daterId = $window.sessionStorage.getItem('dater_id');
-	setEvent($scope, $http).apply();
-	$interval(setEvent($scope, $http), 3000);
+	setEvent($scope, $http, $window).apply();
+	$interval(setEvent($scope, $http, $window), 3000);
 	setEvaluationFlags($scope, $http).apply();
 	$interval(setEvaluationFlags($scope, $http), 3000);
 	$scope.onClickProfileEvaluation=function(){

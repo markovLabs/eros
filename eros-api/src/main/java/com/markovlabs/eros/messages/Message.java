@@ -14,16 +14,16 @@ import com.markovlabs.eros.model.tables.records.MessagesRecord;
 @JsonPropertyOrder({"id", "from_dater_id", "to_dater_id", "event_id", "content", "time_received"})
 public final class Message {
 	
-	private long id;
-	private long fromDaterId;
-	private long toDaterId;
-	private long eventId;
+	private Long id;
+	private Long fromDaterId;
+	private Long toDaterId;
+	private Long eventId;
 	private String content;
 	private String timeReceived;
 	
 	public Message(){}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -32,7 +32,7 @@ public final class Message {
 		return this;
 	}
 
-	public long getFromDaterId() {
+	public Long getFromDaterId() {
 		return fromDaterId;
 	}
 
@@ -41,7 +41,7 @@ public final class Message {
 		return this;
 	}
 
-	public long getToDaterId() {
+	public Long getToDaterId() {
 		return toDaterId;
 	}
 
@@ -50,7 +50,7 @@ public final class Message {
 		return this;
 	}
 
-	public long getEventId() {
+	public Long getEventId() {
 		return eventId;
 	}
 
@@ -68,12 +68,12 @@ public final class Message {
 		return this;
 	}
 	@JsonProperty("time_received")
-	private Message setTimeReceivedAsString(String timeReceived) {
+	public Message setTimeReceivedAsString(String timeReceived) {
 		this.timeReceived = timeReceived;
 		return this;
 	}
 	@JsonProperty("time_received")
-	private String getTimeReceivedAsString() {
+	public String getTimeReceivedAsString() {
 		return timeReceived;
 	}
 	@JsonIgnore

@@ -34,11 +34,11 @@ public final class MessageServiceFacade {
 				.getMsg();
 	}
 	
-	public List<Message> getLastMessages(long fromDater, long toDater, int messagesReceived) {
-		Message msg = new Message().setFromDaterId(fromDater)
-			.setToDaterId(toDater);
-		MessageTO messageTO = new MessageTO(msg, messagesReceived); 
+	public List<Message> getLastMessages(MessageTO messageTO) {
 		return msgService.getMessages(messageTO);
+	}
+	public List<Message> getLastMessagesBetweenDaters(MessageTO messageTO) {
+		return msgService.getMessagesBetweenDaters(messageTO);
 	}
 	
 	public static class MessageNotFoundException extends RuntimeException {

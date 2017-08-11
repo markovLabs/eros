@@ -11,7 +11,12 @@
 <body ng-app="eventInfo" ng-controller="eventInfoController">
     <script src="event_info.js"></script>
     <div layout="column" layout-align="center center" >
-    <md-card layout="column" layout-align="center center" style="width: 500px;height: 500px;">
+      <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
+    <md-card layout="column" layout-align="center center" style="margin-left:20px;margin-right:20px;padding-top:30px;padding-bottom:30px">
     <md-card-content>
         <p>Your dating event is on {{event.date}} at 7 PM. The event will
 take place at {{event.name}}, {{event.location}}.</p>

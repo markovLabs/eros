@@ -82,8 +82,12 @@ public class DaterController {
 
 	@GET
 	@Path("/{dater_id}/story_answers/")
-	public ListTO<StoryAnswer> getStoryAnswers(@PathParam("dater_id") long daterId) {
-		return new ListTO<>("story_answers", answerService.getStoryAnswers(daterId));
+	public ListTO<StoryAnswer> getStoryAnswers(@PathParam("dater_id") long daterId, @QueryParam("story_id") Long storyId) {
+		if(storyId != null) {
+			return new ListTO<>("story_answers", answerService.getStoryAnswers(daterId, storyId));
+		} else {
+			return new ListTO<>("story_answers", answerService.getStoryAnswers(daterId));
+		}
 	}
 
 	@GET

@@ -8,6 +8,7 @@ function fixedEncodeURIComponent(str) {
 var app = angular.module("home", ['ngMaterial']); 
 app.controller("homeController",function($scope, $http, $window){ 
 	$scope.gender= "MALE";
+	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
     $scope.onSignIn=function(){
     	var encodedEmail = fixedEncodeURIComponent($scope.email)
     	var encodedPwd = fixedEncodeURIComponent($scope.pwd)

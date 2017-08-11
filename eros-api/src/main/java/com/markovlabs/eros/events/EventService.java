@@ -2,7 +2,6 @@ package com.markovlabs.eros.events;
 
 import java.util.List;
 import java.util.Map;
-import static com.markovlabs.eros.JOOQRecordUtility.addRecord;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 
@@ -81,7 +80,11 @@ public class EventService {
 	}
 
 	public Event addEvent(Event event) {
-		return addRecord(erosDb, EVENT, event);
+		EventRecord record = erosDb.newRecord(EVENT);
+		record.fromMap(event.asMap());
+		record.insert();
+		record.refresh();
+		return getEvent(record.getId());
 	}
 	
 	public Event updateEvent(long eventId, Event event) {
@@ -98,7 +101,7 @@ public class EventService {
 				.from(EVENT_DATERS)
 				.where(EVENT_DATERS.EVENT_ID.equal(eventId).and(EVENT_DATERS.DATER_ID.equal(dater.getId())))
 				.fetchOne(EVENT_DATERS.ID);
-		EventDatersRecord eventDaterRecord = newEventDatersRecord(eventId, dater.getId());
+		EventDatersRecord eventDaterRecord = newEventDatersRecord(dater.getId(), eventId);
 		eventDaterRecord.setId(eventDaterId);
 		eventDaterRecord.setProfileEvaluationCompletedFlag(dater.getProfileEvaluationCompletedFlag());
 		eventDaterRecord.setMessagingEvaluationCompletedFlag(dater.getMessagingEvaluationCompletedFlag());

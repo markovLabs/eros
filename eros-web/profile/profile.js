@@ -57,6 +57,8 @@ function updateImages($http, $scope){
 	}); 
 }
 
+
+
 var app = angular.module("profile", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
 
 app.directive("fileread", [function () {
@@ -82,10 +84,11 @@ app.directive("fileread", [function () {
     }
 }]);
 
-app.controller("profileController",function($scope, $http, $window, $interval){
+app.controller("profileController",function($scope, $http, $window, $interval, $mdDialog, $mdToast){
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.daterId = $window.sessionStorage.getItem('dater_id');
 	$scope.file = "";
+	$scope.active = 0;
 	$scope.imgFilename = "";
 	$scope.imagesMetadata = []
 	$scope.slides = [{src:"../imgs/blank.jpg", id:0}]
@@ -108,7 +111,7 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 			$scope.file = ""
 			var img = {"content":aFile, "name":$scope.imgFilename};
 			$http.post($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/", img).then(function(){
-				$scope.file = "";
+				$mdToast.show($mdToast.simple().textContent('Image added.').hideDelay(3000));
 				updateImages($http, $scope);
 			});
 		}
@@ -118,17 +121,20 @@ app.controller("profileController",function($scope, $http, $window, $interval){
 	    	$window.location.href="../event_info/event_info.html";
 		}
 	};
-	$scope.onRemoveImage=function(){
-		var imageId = $scope.imagesMetadata[$scope.slide.id].id;
-		var newSlideId = $scope.slide.id - 1;
-		if(newSlideId < 0) {
-			$scope.slide = {src:"../imgs/blank.jpg", id:0}
-		} else {
-			$scope.slide = $scope.slides[newSlideId]
-		}
-		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + imageId, function(response){
-			updateImages($http, $scope);
+
+	var removeImage=function(){
+		var imageId = $scope.imagesMetadata[$scope.active].id;
+		$http.delete($scope.erosBaseUrl + "/daters/" + $scope.daterId + "/images/" + imageId).then(function(response){
+			$mdToast.show($mdToast.simple().textContent('Image deleted.').hideDelay(3000));
+			updateImages($http, $scope)
 		});
+	}
+	$scope.onRemoveImage=function(){
+		var removeImageConfirm = $mdDialog.confirm()
+	      .title('Would you like to delete the current image?')
+	      .ok('Delete')
+	      .cancel('Cancel');
+		$mdDialog.show(removeImageConfirm).then(removeImage, angular.noop());
 	};
 	$scope.onAddImage=function(){
 		document.querySelector('#fileInput').click();

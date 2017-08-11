@@ -32,25 +32,33 @@ function loadPage($window, page){
 }
 
 function updateDater($http, baseURL, id, dater, loadPage){
-    var daterURL = baseURL + "/daters/" + id;
-    $http.post(daterURL, dater).then(function(response){
-       loadPage()
-    });
+	return function(){
+	    var daterURL = baseURL + "/daters/" + id;
+	    $http.post(daterURL, dater).then(function(response){
+	       loadPage()
+	    });
+	}
 }
 
-function saveAnswers($http, $scope, baseURL, id){
+function saveAnswers($q, $http, $scope, baseURL, id, afterAnswersSaved){
     var questionIds = [question1.id, question2.id, question3.id]
     var answers = [$scope.answer1, $scope.answer2, $scope.answer3]
-    for (i = 0; i < questionIds.length; i++){
-        var url = baseURL + "/daters/" + id + "/profile_answers/"
+    var url = baseURL + "/daters/" + id + "/profile_answers/"
+    var promises = []
+    for (var i = 0; i < questionIds.length; i++){
         var answer = {question_id:questionIds[i], answer:answers[i]}
-        $http.post(url, answer)
+        var promise = $http.post(url, answer)
+        promises.push(promise)
     }
+    $q.all(promises).then(function(){
+    	afterAnswersSaved();
+    })
 }
 
 var app = angular.module("acceptanceQuestion", [ 'ngMaterial' ]);
 app.controller("acceptanceQuestionController",
-        function($scope, $http, $window) {
+        function($scope, $http, $window, $q) {
+			$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
             $scope.question1 = question1;
             $scope.question2 = question2;
             $scope.question3 = question3;
@@ -62,11 +70,11 @@ app.controller("acceptanceQuestionController",
                 var id = $window.sessionStorage.getItem('dater_id')
                 if($scope.answer1 == question1.answer3 || $scope.answer2 == question2.answer2){
                     var dater = {rejected:true};
-                    updateDater($http, baseURL, id, dater, loadRejectionPage);
+                    updateDater($http, baseURL, id, dater, loadRejectionPage).apply();
                 } else {
-                    saveAnswers($http, $scope, baseURL, id)
                     var dater = {accepted_profile_questions:true};
-                    updateDater($http, baseURL, id, dater, loadProfileCreation);
+                    var updateDaterCallback = updateDater($http, baseURL, id, dater, loadProfileCreation);
+                    saveAnswers($q, $http, $scope, baseURL, id, updateDaterCallback)
                 }
             }
 

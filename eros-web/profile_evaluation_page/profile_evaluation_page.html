@@ -16,41 +16,47 @@
   <script src="profile_evaluation_page.js"></script>
 </head>
 <body ng-app="profileEvaluation" ng-controller="profileEvaluationController">
-    <div  layout="column" layout-align="center center">
-    <md-card layout="column" layout-align="center center"> 
-        <md-card-content layout-gt-sm="row">
-            <div layout-gt-sm="column" layout-align="center center">
-		      <h1>{{matchName}}</h1>
-		      <img src="{{profileImage}}" class="avatar">
-	        </div>
-	        <div uib-carousel active="0" interval="5000" no-wrap="false" no-transition="true">
-		      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
-			     <img ng-src="{{slide.src}}" class="carousel-div-img">
+	<div layout="column" layout-align="center center">
+		<md-toolbar class="md-accent" style="height:100px">
+		  <div class="md-toolbar-tools" layout="row" style="padding-top: 20px">
+			<img src="../imgs/EROS_LOGO.png" style="width: 160px; height: 160px; padding-top: 20px">
+		  </div>
+		</md-toolbar>
+		<md-card layout="column" layout-align="center center"> 
+		  <md-card-content layout-gt-sm="row">
+		      <div layout-gt-sm="column" layout-align="center center">
+			     <h1>{{matchName}}</h1>
+			     <img src="{{profileImage}}" class="avatar">
 		      </div>
-	        </div>
-	    </md-card-content>
-    
-        <md-card-actions layout="column">
-            <md-input>
-                <h5>{{q1.content}}</h5>
-                <md-radio-group ng-model="answer1" layout-gt-sm="row">
-                    <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}">
-                        {{ answer }}
-                    </md-radio-button>
-                </md-radio-group>
-            </md-input>
-            <md-input>
-                <h5>{{q2.content}}</h5>
-                <md-radio-group ng-model="answer2" layout-gt-sm="row">
-                    <md-radio-button ng-repeat="answer in q2.answers" ng-value="answer" aria-label="{{ answer }}">
-                        {{ answer }}
-                    </md-radio-button>
-                </md-radio-group>
-            </md-input>
-        </md-card-actions>
-    </md-card>
-    <md-button class="md-raised md-primary" ng-disabled="disableContinueButton" ng-click="onContinue();">{{buttonLabel}}</md-button>
-    </div>
+		      <div uib-carousel active="0" interval="5000" no-wrap="false" no-transition="true">
+			     <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id" class="carousel-div">
+				    <img ng-src="{{slide.src}}" class="carousel-div-img">
+			     </div>
+		      </div>
+		  </md-card-content> 
+		<md-card-actions layout="column"> 
+		  <label>Please review this dater's pictures and answer the following survey questions. </label> 
+		  <md-input>
+		      <h5>{{q1.content}}</h5>
+		      <md-radio-group ng-model="answer1" layout-gt-sm="row" class="md-raised md-primary">
+		          <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}"> 
+		              {{ answer }} 
+		          </md-radio-button> 
+		      </md-radio-group> 
+		  </md-input> 
+		  <md-input>
+		      <h5>{{q2.content}}</h5>
+		      <md-radio-group ng-model="answer2" layout-gt-sm="row" class="md-raised md-primary">
+		          <md-radio-button ng-repeat="answer in q2.answers" ng-value="answer" aria-label="{{ answer }}"> 
+		              {{ answer }} 
+		          </md-radio-button> 
+		      </md-radio-group> 
+		  </md-input> 
+		 </md-card-actions> 
+	   </md-card>
+		
+	   <md-button class="md-raised md-primary" ng-disabled="disableContinueButton" ng-click="onContinue();">{{buttonLabel}}</md-button>
+	</div>
 
 </body>
 </html>

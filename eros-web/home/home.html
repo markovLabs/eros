@@ -1,44 +1,63 @@
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <link rel="stylesheet" href="home.css" />
+  <script src="home.js"></script>
 </head>
-<body ng-app="home" ng-controller="homeController" ng-init="erosBaseUrl='http://69.164.208.35:17320/eros/v1'" ng-cloak>
-	<script src="home.js"></script>
-	<div>
-		<table cellspacing="0" role="presentation" id="sign_in_section">
-			<tbody>
-				<tr>
-					<td><label for="email">Email</label></td>
-					<td><label for="pass">Password</label></td>
-				</tr>
-				<tr>
-					<td><input type="email" class="inputtext" ng-model="email"
-						name="email" tabindex="1"></td>
-					<td><input type="password" class="inputtext" ng-model="pwd"
-						name="pass" tabindex="2"></td>
-					<td><input value="Log In" tabindex="4" type="submit"
-						ng-click="onSignIn();"></td>
-				</tr>
-			</tbody>
-		</table>
-
-		<form id="sign_up_section">
-			<h1>Sign Up</h1>
-			First Name<br> <input type="text" ng-model="name">
-			<br>Email<br><input type="email" ng-model="emailForSignUp"> 
-			<br>Password<br><input type="password" ng-model="pwdForSignUp"> 
-			<br><input type="radio" name="gender" value="MALE"  ng-model="gender" />
-			Male<br> <input type="radio" name="gender" ng-model="gender"  value="FEMALE" /> 
-			Female<br> 
-			<md-button type="submit" class="md-raised md-primary" ng-click="onSignUp();">Create Account</md-button>
-		</form>
-	</div>
-
+<body ng-app="home" ng-controller="homeController"  >
+<div layout="column" layout-align="center center">
+ <md-toolbar class="md-accent" style="height:100px">
+    <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+       <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+       <span flex></span>
+       <div layout="column" >
+                <label>Email</label>
+                <input type="email" ng-model="email" name="email">
+       </div>
+       <div layout="column" style="padding-left:10px;">
+                <label>Password</label>
+                <input type="password" ng-model="pwd" name="password">
+       </div>
+      <md-button type="submit" class="md-raised md-primary" style="height:30px; margin-top:20px" aria-label="Log In" ng-click="onSignIn();">Log In</md-button>
+     </div>
+   </md-toolbar>
+	
+	<md-card style="padding-bottom:20px;width: 500px;height: 440px;margin-top:50px;" layout="column" layout-align="center center" >
+	   <md-card-content>
+	       <h2>Sign Up</h2>
+	   </md-card-content>
+	   <md-card-actions>
+	        <div layout="column" style="width:200px;">
+                <label>First Name</label>
+                <input type="text" ng-model="name">
+            </div>
+            <div layout="column" style="width:200px;padding-top:20px;">
+                <label>Email</label>
+                <input type="email" ng-model="emailForSignUp"> 
+            </div>
+            <div layout="column" style="width:200px;padding-top:20px;">
+                <label>Password</label>
+                <input type="password" ng-model="pwdForSignUp">  
+            </div>
+                <md-radio-group ng-model="gender" layout-gt-sm="column" style="padding-top:20px;">
+                    <md-radio-button value="MALE" class="md-raised md-primary" aria-label="Male">
+                        Male
+                    </md-radio-button>
+                    <md-radio-button value="FEMALE"  class="md-raised md-primary" aria-label="Female">
+                        Female
+                    </md-radio-button>
+                </md-radio-group>
+          
+            <md-button type="submit" class="md-raised md-primary" ng-click="onSignUp();">Create Account</md-button>
+	   </md-card-actions>
+	  </md-card>
+</div>
 </body>
 </html>

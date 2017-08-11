@@ -1,25 +1,32 @@
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-<link rel="stylesheet" href="consent_page.css">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
-</head>
-<body ng-app="consentPage" ng-controller="consentPageController"
-  ng-init="erosBaseUrl='http://localhost:17320/eros/v1'">
-  <script src="consent_page.js"></script>
-<div layout="column" ng-cloak>
-  <md-toolbar class="md-warn">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex">CONSENT TO PARTICIPATE IN A RESEARCH STUDY</h2>
-    </div>
-  </md-toolbar>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
 
-  <md-content flex layout-padding>
+  <link rel="stylesheet" href="consent_page.css">
+  <script src="consent_page.js"></script>
+</head>
+<body ng-app="consentPage" ng-controller="consentPageController">
+
+<div layout="column" layout-align="center center">
+  <md-toolbar class="md-accent" style="height:100px">
+   <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
+      <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
+    </div>
+</md-toolbar>
+<md-card style="padding-left:10px;margin-left:10px; padding-right:10px;margin-right:10px">
+    <md-card-title layout="column" layout-align="center center" style="margin-bottom:10px">
+            <md-card-title-text>
+               <span class = "md-headline">CONSENT TO PARTICIPATE IN A RESEARCH STUDY</span>
+            </md-card-title-text>
+         </md-card-title>
+  <md-card-content flex layout-padding>
   
 <p>RESEARCH STUDY:
 I have been asked to participate in a research study under the direction of Dr. Quentin Jones. 
@@ -84,10 +91,9 @@ irb@njit.edu/ farzan@njit.edu
 SIGNATURE OF PARTICIPANT:
 I have read this entire form, or it has been read to me, and I understand it completely.  All of my questions regarding this form or this study have been answered to my complete satisfaction.  I agree to participate in this research study. </p>
 
-  </md-content>
-
-</div>
-     <div layout-gt-sm="row">
+  </md-card-content>
+  <md-card-actions>
+        <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>First name</label>
             <input ng-model="firstName">
@@ -103,7 +109,10 @@ I have read this entire form, or it has been read to me, and I understand it com
           I agree to participate in this study.
         </md-checkbox>
          <br><md-button class="md-raised md-primary" ng-click="onContinue();">Continue</md-button>
-        <md-input-container/>
+        </md-input-container>
+    </md-card-actions>
+    </md-card>
+    </div>
 </body>
 </html>
 
