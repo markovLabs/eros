@@ -9,8 +9,6 @@ content:" I am very confident in my answer to the previous question.",
 answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
 };
 
-const TIMER_INTERVAL_IN_MS = 60000;
-
 function setProfileImages($scope, $http){
 	$http.get($scope.erosBaseUrl + "/daters/" + $scope.matchId + "/images/").then(function(response){
 		var images = response.data.images;
@@ -51,7 +49,7 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
 }
 
 var app = angular.module("profileEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
-app.controller("profileEvaluationController",function($scope, $http, $window, $interval, $q, $mdToast){ 
+app.controller("profileEvaluationController",function($scope, $http, $window, $q){ 
 	$scope.q1 = q1;
 	$scope.q2 = q2;
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
@@ -72,17 +70,6 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $i
 	} else {
 		setProfile(JSON.parse(matches), $window, $scope, $http);
 	}
-	
-	var tick = 0;
-	$interval(function(){
-		tick = tick + 1;
-		if(tick == 2){
-			$mdToast.show($mdToast.simple().textContent('1 min left to answer all the questions.').hideDelay(3000));
-		}
-		if(tick >= 3){
-			$scope.disableContinueButton = false
-		}
-	}, TIMER_INTERVAL_IN_MS);
 	
 	var afterAnswersSaved = function(response){
 		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
