@@ -129,7 +129,7 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window, 
 	
 	setQ1($http, $scope);
 	
-	var afterAnswersSaved = function(response){
+	var afterAnswersSaved = function(){
 		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);
 		if($scope.buttonLabel == "Go to Event Page") {
 			var dater = {messaging_evaluation_completed:true}
