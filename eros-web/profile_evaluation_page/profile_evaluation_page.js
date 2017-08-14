@@ -56,7 +56,7 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $q
 	$scope.slides = [{src:"../imgs/blank.jpg", id:0}]
 	$scope.profileImage = "../imgs/blank.jpg" ;
 	$scope.matchName = "";
-	$scope.disableContinueButton = true;
+	$scope.disableContinueButton = false;
 	$scope.eventId = $window.sessionStorage.getItem("event_id");
 	$scope.daterId = $window.sessionStorage.getItem("dater_id");
 	var matches = $window.sessionStorage.getItem("matches");
