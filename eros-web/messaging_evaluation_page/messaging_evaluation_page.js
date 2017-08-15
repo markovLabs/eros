@@ -91,11 +91,12 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 			$window.sessionStorage.setItem("matches_index", 0);
 			matches = JSON.parse($window.sessionStorage.getItem("matches"));
 			setProfile(matches, $window, $scope, $http);
+			setStory($q, $http, $scope);
 		});
 	} else {
 		setProfile(JSON.parse(matches), $window, $scope, $http);
+		setStory($q, $http, $scope);
 	}
-	setStory($q, $http, $scope)
 	$interval(function() {
 		var url = $scope.erosBaseUrl + "/messages/?from=" + $scope.matchId
 				+ "&to=" + $scope.daterId + "&messages_received="
