@@ -21,9 +21,9 @@
         <md-card layout="column" layout-align="center center"> 
             <md-card-content layout="column" layout-align="center center">
                   <h3>Answer the following question about your messaging interaction with {{matchName}}:</h3>
-            {{q1.html}}
             </md-card-content>
             <md-card-actions layout="column" style="padding-bottom:40px">
+            <div ng-bind-html="q1.html"></div>
   <md-input>
     <h5>{{q2.content}}</h5>
     <md-radio-group ng-model="answer2" layout-gt-sm="row" class="md-raised md-primary">
