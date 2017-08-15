@@ -65,12 +65,11 @@ function setMatch(matches, $window, $scope, $http){
 		$scope.buttonLabel = "Next Dater";
 	}
 }
-var q1;
 function setQ1($http, $scope) {
 	$http.get($scope.erosBaseUrl + "/stories/" + $scope.storyId).then(function(response) {
 		var storyType = response.data.story_type;
 		if (storyType == "Prompted") {
-			q1 = {
+			$scope.q1 = {
 				id : 14,
 				content : "Regardless of your initial opinion choices, did the conversation you just had end with an agreement of opinion choice?",
 				answers: ["Yes, we agreed on an opinion choice", "No, we could not agree on an opinion choice"],
@@ -83,8 +82,8 @@ function setQ1($http, $scope) {
 function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     var questionIds = [q2.id, q3.id, q4.id, q5.id, q6.id, q7.id, q8.id, q9.id, q10.id]
     var answers = [$scope.answer2, $scope.answer3, $scope.answer4, $scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10]
-    if(angular.isDefined(q1)){
-    	questionIds.push(q1.id)
+    if(angular.isDefined($scope.q1)){
+    	questionIds.push($scope.q1.id)
     	answers.push($scope.answer1)
     }
     var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"

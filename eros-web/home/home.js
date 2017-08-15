@@ -18,6 +18,9 @@ app.controller("homeController",function($scope, $http, $window){
             if (daters.length > 0) {
                 var dater = daters[0]; 
                 $window.sessionStorage.setItem('dater_id', dater.id);
+                $window.sessionStorage.removeItem("event_id");
+                $window.sessionStorage.removeItem("matches");
+                $window.sessionStorage.removeItem("matches_index");
                 if(dater.rejected) {
                     $window.location.href="../rejection/rejection.html";
                 } else if (dater.profile_created) {
