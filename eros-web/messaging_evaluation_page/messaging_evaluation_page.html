@@ -37,9 +37,10 @@
            </div>
            </div>
            <div layout="column" style="margin-top:20px">
-                <label>{{s1.content}}</label>
-                <label>{{s1.answerA}}</label>
-                <label>{{s1.answerB}}</label>
+                <label>"{{s1.storyContent}}"</label>
+                <label>{{s1.storyLabel}}</label>
+                <label>{{s1.answerA}} <span style="color:red">{{s1.labelA}}</span></label>
+                <label>{{s1.answerB}} <span style="color:red">{{s1.labelB}}</span></label>
            </div>
            <md-list class="md-dense make-scrollable round" flex>
             <md-list-item class="md-3-line md-long-text" ng-repeat="msg in msgs track by msg.id" ng-click="null">

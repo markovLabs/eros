@@ -51,10 +51,13 @@ function setStory($q, $http, $scope) {
 	var promises = [daterStoryAnswerPromise, matchStoryAnswerPromise, storyPromise];
     $q.all(promises).then(function(){
     	$scope.s1 = {}
-    	$scope.s1.content =  $scope.story.content + $scope.story.question
+    	$scope.s1.storyContent =  $scope.story.content 
+    	$scope.s1.storyQuestion = $scope.story.question
     	if($scope.story.story_type != "Unprompted") {
-        	$scope.s1.answerA =  $scope.story.answer_a + getStoryLabel("A", $scope.daterStoryAnswer, $scope.matchStoryAnswer)
-        	$scope.s1.answerB =  $scope.story.answer_b + getStoryLabel("B", $scope.daterStoryAnswer, $scope.matchStoryAnswer)
+        	$scope.s1.answerA =  $scope.story.answer_a 
+        	$scope.s1.labelA = getStoryLabel("A", $scope.daterStoryAnswer, $scope.matchStoryAnswer)
+        	$scope.s1.answerB =  $scope.story.answer_b 
+        	$scope.s1.labelB = getStoryLabel("B", $scope.daterStoryAnswer, $scope.matchStoryAnswer)
     	}
     })
 }
