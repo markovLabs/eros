@@ -90,7 +90,8 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"
     var promises = []
     for (var i = 0; i < questionIds.length; i++){
-        var promise = $http.post(url, {question_id:questionIds[i], answer:answers[i]});
+    	var payload = {question_id:questionIds[i], answer:answers[i]};
+    	var promise = $http.post(url, payload);
         promises.push(promise)
     }
     $q.all(promises).then(function(){
@@ -122,12 +123,12 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window, 
 			$window.sessionStorage.setItem("matches_index", 0);
 			matches = JSON.parse($window.sessionStorage.getItem("matches"));
 			setMatch(matches, $window, $scope, $http);
+			setQ1($http, $scope);
 		});
 	} else {
 		setMatch(JSON.parse(matches), $window, $scope, $http);
+		setQ1($http, $scope);
 	}
-	
-	setQ1($http, $scope);
 	
 	var afterAnswersSaved = function(){
 		$window.sessionStorage.setItem("matches_index", $scope.matchIndex + 1);

@@ -97,17 +97,25 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 		setProfile(JSON.parse(matches), $window, $scope, $http);
 		setStory($q, $http, $scope);
 	}
+	$scope.retrieveMsgsLock = "open"
 	$interval(function() {
-		var url = $scope.erosBaseUrl + "/messages/?from=" + $scope.matchId
+		if($scope.retrieveMsgsLock == "open") {
+			$scope.retrieveMsgsLock = "closed";
+			var url = $scope.erosBaseUrl + "/messages/?from=" + $scope.matchId
 				+ "&to=" + $scope.daterId + "&messages_received="
 				+ $scope.msgs.length + "&event_id=" + $scope.eventId + "&between=true";
-		$http.get(url).then(function(response) {
-			var msgs = response.data.messages;
-			for (var i = 0; i < msgs.length; i++) {
-				$scope.msgs.push({msg:msgs[i], id:$scope.msgs.length})
-			}
-			$scope.$apply();
-		});
+			$http.get(url).then(function(response) {
+				var msgs = response.data.messages;
+				for (var i = 0; i < msgs.length; i++) {
+					$scope.msgs.push({msg:msgs[i], id:$scope.msgs.length})
+				}
+				$scope.$apply();
+				$scope.retrieveMsgsLock = "open";
+			}, function(err){
+				console.log(err.data)
+				$scope.retrieveMsgsLock = "open";
+			});
+		}
 	}, 100);
 	
 	var tick = 0;
