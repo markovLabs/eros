@@ -99,7 +99,7 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
 }
 
 
-var app = angular.module("surveyMsgEvaluation", ['ngMaterial']); 
+var app = angular.module("surveyMsgEvaluation", ['ngMaterial', 'ngSanitize']); 
 app.controller("surveyMsgEvaluationController",function($scope, $http, $window, $q){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.q2 = q2;
