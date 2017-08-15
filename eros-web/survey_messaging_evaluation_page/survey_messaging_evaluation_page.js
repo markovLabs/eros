@@ -73,7 +73,7 @@ function setQ1($http, $scope) {
 				id : 14,
 				content : "Regardless of your initial opinion choices, did the conversation you just had end with an agreement of opinion choice?",
 				answers: ["Yes, we agreed on an opinion choice", "No, we could not agree on an opinion choice"],
-				html: '<md-input>  <h5>{{q1.content}}</h5>  <md-radio-group ng-model="answer1" layout-gt-sm="row">      <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}">          {{ answer }}      </md-radio-button>  </md-radio-group></md-input>'
+				html: '<md-input>  <h5>{{q1.content}}</h5>  <md-radio-group ng-model="answer1" layout-gt-sm="row" class="md-raised md-primary">      <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}">          {{ answer }}      </md-radio-button>  </md-radio-group></md-input>'
 			}
 		}
 	});
@@ -99,7 +99,7 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
 }
 
 
-var app = angular.module("surveyMsgEvaluation", ['ngMaterial', 'ngSanitize']); 
+var app = angular.module("surveyMsgEvaluation", ['ngMaterial', 'angular-bind-html-compile']); 
 app.controller("surveyMsgEvaluationController",function($scope, $http, $window, $q){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1'
 	$scope.q2 = q2;
