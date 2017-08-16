@@ -1,12 +1,20 @@
 # eros
 
 ## Build
-mvn clean install
-mvn clean install -Pmodel-gen (build and update db model)
+``` 
+mvn clean install 
+```
+``` 
+mvn clean install -Pmodel-gen (build and update db model) 
+```
 
 ## Run
-``` cd bin && ./run.sh ```
-``` cd bin && ./run.sh --env=dev (For development) ```
+``` 
+cd bin && ./run.sh 
+```
+``` 
+cd bin && ./run.sh --env=dev (For development) 
+```
 
 ## Admin Operations
 
