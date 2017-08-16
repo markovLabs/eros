@@ -3,7 +3,7 @@
 EVENT_ID=0
 START_EVENT="false"
 END_EVENT="false"
-MAPPING_FOR="8"
+MAPPING_FOR="0"
 
 function print_help(){
     echo $1
@@ -64,7 +64,7 @@ function main(){
         curl -H "Content-Type: application/json" -X POST -d '{"started":true}' http://69.164.208.35:17320/eros/v1/events/${EVENT_ID} 
     elif [[ ${END_EVENT} -eq "true" ]]; then
         curl -H "Content-Type: application/json" -X POST -d '{"ended":true}' http://69.164.208.35:17320/eros/v1/events/${EVENT_ID}
-    else 
+    elif [[ ${MAPPING_FOR} -ne "0" ]]; then
         local mapping_id=$(get_mapping_id)
         curl -H "Content-Type: application/json" -X POST -d '{"mapping_id":${mapping_id}}' http://69.164.208.35:17320/eros/v1/events/1/
     fi
