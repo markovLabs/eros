@@ -125,7 +125,9 @@ public class EventService {
 	}
 	
 	public void removeDaterFromEvent(long daterId, long eventId) {
-		erosDb.deleteFrom(EVENT_DATERS).where(EVENT_DATERS.EVENT_ID.equal(eventId).and(EVENT_DATERS.DATER_ID.equal(daterId)));
+		erosDb.deleteFrom(EVENT_DATERS).where(EVENT_DATERS.EVENT_ID.equal(eventId)
+				.and(EVENT_DATERS.DATER_ID.equal(daterId)))
+			.execute();
 	}
 
 	public List<EventStory> getEventStories() {
@@ -158,7 +160,7 @@ public class EventService {
 	}
 	
 	public void removeEventStory(long eventStoryId) {
-		erosDb.deleteFrom(EVENT_STORIES).where(EVENT_STORIES.ID.equal(eventStoryId));
+		erosDb.deleteFrom(EVENT_STORIES).where(EVENT_STORIES.ID.equal(eventStoryId)).execute();
 	}
 	
 	public static class EventNotFoundException extends RuntimeException {

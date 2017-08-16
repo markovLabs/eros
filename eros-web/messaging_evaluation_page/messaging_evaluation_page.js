@@ -109,7 +109,9 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 				for (var i = 0; i < msgs.length; i++) {
 					$scope.msgs.push({msg:msgs[i], id:$scope.msgs.length})
 				}
-				$scope.$apply();
+				if(msgs.length > 0) {
+					$scope.$apply();
+				}
 			}, function(err){
 				console.log(err.data)
 			});

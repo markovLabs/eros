@@ -45,7 +45,7 @@
            <md-list class="md-dense make-scrollable round" flex>
             <md-list-item class="md-3-line md-long-text" ng-repeat="msg in msgs track by msg.id" ng-click="null">
                 <img ng-src="{{profileImgs.get(msg.msg.from_dater_id)}}" class="md-avatar"  />
-                <div class="md-list-item-text" layout="column">
+                <div class="md-list-item-text" layout="column" id="msg-{{msg.id}}">
                     <p>{{msg.msg.content}}</p>
                 </div>
             </md-list-item>
