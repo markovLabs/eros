@@ -109,6 +109,11 @@ Add a story to event 1
 curl -H "Content-Type: application/json" -X POST -d '{"story_id":1, "label":"PA"}' http://69.164.208.35:17320/eros/v1/events/1/stories/
 ```
 
+Delete a story (with id: x) from event 1
+```
+curl -H "Content-Type: application/json" -X DELETE http://69.164.208.35:17320/eros/v1/events/1/stories/x
+```
+
 Set mapping id 1 for event 1
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"mapping_id":1}' http://69.164.208.35:17320/eros/v1/events/1/
