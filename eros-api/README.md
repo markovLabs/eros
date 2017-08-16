@@ -11,6 +11,9 @@ Base URL: http://${host}:${port}/eros/v1
 | GET | /events/ | Event | None | next_event={true\|false} |
 | GET | /events/${eventId} | Event | None | None |
 | POST | /events/ | Event | Event | None |
+| GET | /events/{eventId}/stories/ | ListTo\<Stories\> | None | None |
+| POST | /events/{eventId}/stories/ | Stories | Stories | None |
+| GET | /events/{eventId}/stories/${storyId} | Story | Story | None |
 | GET | /events/${eventId}/daters/ | ListTO\<Dater\> | None | None |
 | POST | /events/${eventId}/daters/ | Dater | Dater | None |
 | GET | /events/${eventId}/daters/${daterId} | Dater | None | None |
