@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ENV="prod"
+declare -r PARAM_REQUIRED=1
 
 function print_help(){
     echo $1

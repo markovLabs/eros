@@ -7,6 +7,8 @@ ARTIFACT="eros*"
 ARTIFACT_PATH="target"
 USER="root"
 
+declare -r PARAM_REQUIRED=1
+
 function print_help(){
     echo $1
     echo -e "Usage is:\n --host  Set host where its going to be deployed."
@@ -57,12 +59,12 @@ function main(){
     set -o errexit
     
     set_arguments "$@"
-    scp ${ARTIFACT_PATH}/${ARTIFACT} ${USER}@${HOST}:~/
-    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}"
-    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}/web/eros* && rm ${ARTIFACT}/web/eros*gz && mv ${ARTIFACT}/web/eros*/* ${ARTIFACT}/web/ && rm -rf ${ARTIFACT}/web/eros*"
+    scp "${ARTIFACT_PATH}/${ARTIFACT}.tar.gz" ${USER}@${HOST}:~/
     ssh ${USER}@${HOST} "pid=$(ps -o pid,args -C bash | awk 'eros.api { print $1 }') && kill ${pid}"
     wait 10s
-    ssh ${USER}@${HOST} "${ARTIFACT}/bin/run.sh"
+    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}.tar.gz"
+    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}/web/eros* && rm ${ARTIFACT}/web/eros*gz && mv ${ARTIFACT}/web/eros*/* ${ARTIFACT}/web/ && rm -rf ${ARTIFACT}/web/eros*"
+    ssh ${USER}@${HOST} "cd ${ARTIFACT}/bin/ && ./run.sh"
 }
 
 main "$@"

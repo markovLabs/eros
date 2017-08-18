@@ -5,6 +5,8 @@ MYSQL_PWD="MyNewPass"
 HOST="localhost"
 SQL="show databases;"
 
+declare -r PARAM_REQUIRED=1
+
 function print_help(){
     echo $1
     echo -e "Usage is:\n --mysql_user  Set MySQL user"
