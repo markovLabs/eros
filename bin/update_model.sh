@@ -4,6 +4,7 @@ MYSQL_USER="root"
 MYSQL_PWD="MyNewPass"
 
 declare -r EROS_MODEL_DIR="../eros-api/src/generated-sources/java/com/"
+declare -r PARAM_REQUIRED=1
 
 function print_help(){
     echo $1

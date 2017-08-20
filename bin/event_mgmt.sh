@@ -5,6 +5,8 @@ START_EVENT="false"
 END_EVENT="false"
 MAPPING_FOR="0"
 
+declare -r PARAM_REQUIRED=1
+
 function print_help(){
     echo $1
     echo -e "Usage is:\n event_id=${event_id} --mapping_for=${num_of_daters_per_gender} Set mapping for given event."

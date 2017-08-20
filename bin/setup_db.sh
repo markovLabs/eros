@@ -2,6 +2,7 @@
 
 declare -r CREATE_EROS_DB="eros_db_schema.sql"
 declare -r CREATE_EROS_DB_BASE_DATA="eros_db_base_data.sql"
+declare -r PARAM_REQUIRED=1
 
 MYSQL_USER="root"
 MYSQL_PWD="MyNewPass"
