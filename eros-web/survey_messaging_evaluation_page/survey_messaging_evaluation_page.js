@@ -14,7 +14,7 @@ answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", 
 };
 
 var q5={id:17,
-content:"I was very engaged and interested in the discussion I had with this person in the messaging",
+content:"I was very engaged and interested in the discussion I had with this person in the messaging interface.",
 answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
 };
 

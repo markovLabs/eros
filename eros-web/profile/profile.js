@@ -136,7 +136,11 @@ app.controller("profileController",function($scope, $http, $window, $interval, $
 	      .cancel('Cancel');
 		$mdDialog.show(removeImageConfirm).then(removeImage, angular.noop());
 	};
+	var inputElem = document.querySelector('#fileInput')
+	inputElem.onclick = function () {
+	    this.value = null;
+	};
 	$scope.onAddImage=function(){
-		document.querySelector('#fileInput').click();
+		inputElem.click();
 	};
 })

@@ -64,7 +64,7 @@ function setStory($q, $http, $scope) {
 
 function getStoryLabel(answerType, daterAnswer, matchAnswer){
 	if(answerType == daterAnswer && answerType == matchAnswer){
-		return "(Both picked)";
+		return "(You both picked)";
 	} else if (answerType == daterAnswer) {
 		return "(You picked)";
 	} else if (answerType == matchAnswer){

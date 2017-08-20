@@ -15,12 +15,16 @@
     <script src="profile.js"></script>
 </head>
 <body ng-app="profile" ng-controller="profileController">
+
     <div  layout="column" layout-align="center center">
           <md-toolbar class="md-accent" style="height:100px">
    <div class="md-toolbar-tools" layout="row" style="padding-top:20px">
       <img src="../imgs/EROS_LOGO.png" style="width:160px; height:160px; padding-top:20px">
     </div>
 </md-toolbar>
+<div class="instructions">
+Please add two pictures of yourself. Other daters at the dating event will see these - please use accurate pictures! This step must be completed in order to participate in the dating event.
+</div>
 	<md-card layout="column" layout-align="center center"> 
 	   <md-card-content layout="row" style="padding-right:40px">
 	       <div layout-gt-sm="column" layout-align="center center">
@@ -34,12 +38,12 @@
 		   </div>
 	   </md-card-content> 
 	   <md-card-actions layout="row" layout-align="end center">
-	       <input class="ng-hide" id="fileInput" name="file" type="file" fileread="file" filename="imgFilename" /> 
-	       <md-button class="md-icon-button" aria-label="icon" ng-click="onAddImage();">
-	           <md-icon class="material-icons">add_circle</md-icon>
-	       </md-button> 
-	       <md-button class="md-icon-button" aria-label="icon" ng-click="onRemoveImage();">
-	           <md-icon class="material-icons">remove_circle</md-icon> 
+	       <input class="ng-hide" id="fileInput" name="file" type="file" fileread="file" filename="imgFilename" accept="image/*" /> 
+	       <md-button ng-click="onAddImage();" style="text-transform: none;">
+	           <md-icon class="material-icons">add_circle</md-icon>Add Image 
+	       </md-button>       
+	       <md-button ng-click="onRemoveImage();" style="text-transform: none;">
+	           <md-icon class="material-icons">remove_circle</md-icon> Remove Current Image
 	       </md-button> 
 	   </md-card-actions> 
 	</md-card>

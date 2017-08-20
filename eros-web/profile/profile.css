@@ -27,3 +27,11 @@
 	min-width: 400px;
 	max-width: 400px;
 }
+
+.instructions
+{
+  width: 45%;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: larger;
+}
