@@ -88,7 +88,6 @@ public final class MatchesService {
 	private Optional<Entry<Long, Match>> findDaterIdAndMatch(JsonNode json, Function<Integer, Optional<Long>> maleDaterMapping, Function<Integer, Optional<Long>> femaleDaterMapping, Function<String, Long> storyIdMapping) {
 		String[] matchPair = json.get("mapping").asText().split(":");
 		String storyLabel = json.get("story_id").asText();
-		log.info("matchPair " + matchPair + " and story label " + storyLabel);
 		Optional<Long> foundStoryId = Optional.ofNullable(storyIdMapping.apply(storyLabel));
 		String daterRank = String.valueOf(matchPair[0].charAt(1));
 		String genderDaterRank = String.valueOf(matchPair[0].charAt(0));
