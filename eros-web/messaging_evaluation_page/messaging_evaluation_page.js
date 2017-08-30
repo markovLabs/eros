@@ -78,7 +78,7 @@ const TIMER_INTERVAL_IN_MS = 5000;//60000;
 
 var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
 
-app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast){ 
+app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast, $timeout){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
 	$scope.slides = [{src:"../imgs/blank.jpg", id:0}]
 	$scope.profileImage = "../imgs/blank.jpg" ;
@@ -110,7 +110,15 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 					$scope.msgs.push({msg:msgs[i], id:$scope.msgs.length})
 				}
 				if(msgs.length > 0) {
-					$scope.$apply();
+					try {
+						$scope.$apply();
+					} finally {
+						$timeout(function(){
+							var listOfMsgContainer = document.querySelector('#msgList');
+							listOfMsgContainer.scrollTop =  listOfMsgContainer.scrollHeight;
+							$scope.$apply();
+						}, 0, false);
+					}
 				}
 			}, function(err){
 				console.log(err.data)

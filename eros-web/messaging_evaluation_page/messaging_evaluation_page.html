@@ -42,7 +42,7 @@
                 <label>{{s1.answerA}} <span style="color:red">{{s1.labelA}}</span></label>
                 <label>{{s1.answerB}} <span style="color:red">{{s1.labelB}}</span></label>
            </div>
-           <md-list class="md-dense make-scrollable round" flex>
+           <md-list class="md-dense make-scrollable round" id="msgList" flex>
             <md-list-item class="md-3-line md-long-text" ng-repeat="msg in msgs track by msg.id" ng-click="null">
                 <img ng-src="{{profileImgs.get(msg.msg.from_dater_id)}}" class="md-avatar"  />
                 <div class="md-list-item-text" layout="column" id="msg-{{msg.id}}">
