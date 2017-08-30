@@ -130,12 +130,12 @@ public class EventService {
 			.execute();
 	}
 
-	public List<EventStory> getEventStories() {
-		return erosDb.selectFrom(EVENT_STORIES).fetch().map(this::toEventStory);
+	public List<EventStory> getEventStories(long eventId) {
+		return erosDb.selectFrom(EVENT_STORIES).where(EVENT_STORIES.EVENT_ID.equal(eventId)).fetch().map(this::toEventStory);
 	}
 
-	public EventStory getEventStory(long eventStoryId) {
-		return getEventStories().stream().filter(eventStory -> eventStory.getId() == eventStoryId)
+	public EventStory getEventStory(long eventId, long eventStoryId) {
+		return getEventStories(eventId).stream().filter(eventStory -> eventStory.getId() == eventStoryId)
 				.findFirst()
 				.orElseThrow(EventStoryNotFoundException::new);
 	}

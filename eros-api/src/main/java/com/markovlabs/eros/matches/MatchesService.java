@@ -12,6 +12,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.jooq.DSLContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +29,8 @@ import javaslang.control.Try;
 
 public final class MatchesService {
 	
+	private static final Logger log = LoggerFactory.getLogger(MatchesService.class);
+	
 	private final DSLContext erosDb;
 
 	public MatchesService(DSLContext erosDb) {
@@ -35,8 +39,11 @@ public final class MatchesService {
 
 	public Matches getMatches(Long mappingId, List<Long> maleDaterIds, List<Long> femaleDaterIds, long eventId) {
 		String mapping = getMatchMapping(mappingId).getMapping();
-		Map<String, Long> storyIdByEventIdAndStoryLabel = getStoryIdByStoryLabel(eventId);
-		return getMatches(mapping, findMapOf(maleDaterIds), findMapOf(femaleDaterIds), label -> storyIdByEventIdAndStoryLabel.get(label));
+		log.info("Using mapping id " + mappingId + " which is " + mapping);
+		Map<String, Long> storyIdByStoryLabel = getStoryIdByStoryLabel(eventId);
+		log.info("Story id by label " + storyIdByStoryLabel);
+		log.info("Male dater ids " + maleDaterIds + " and female dater ids:" + femaleDaterIds);
+		return getMatches(mapping, findMapOf(maleDaterIds), findMapOf(femaleDaterIds), label -> storyIdByStoryLabel.get(label));
 	}
 	
 	private Function<Integer, Optional<Long>> findMapOf(List<Long> list){
@@ -88,6 +95,7 @@ public final class MatchesService {
 		String genderMatchedRank = String.valueOf(matchPair[1].charAt(0));
 		Optional<Long> foundDaterId = findDaterId(genderDaterRank, daterRank, maleDaterMapping, femaleDaterMapping);
 		Optional<Long> foundMatchedId = findDaterId(genderMatchedRank, matchedRank, maleDaterMapping, femaleDaterMapping);
+		log.info("For matchPair " + matchPair + " and story label " + storyLabel + " found (daterId, matchId, storyId)=(" +foundDaterId + "," + foundMatchedId + "," + foundStoryId + ")");
 		return getMatchEntry(foundDaterId, foundMatchedId, foundStoryId);
 	}
 

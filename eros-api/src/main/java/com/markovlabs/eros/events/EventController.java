@@ -109,13 +109,13 @@ public class EventController {
 	@GET
 	@Path("/{event_id}/stories/")
 	public ListTO<EventStory> getEventStories(@PathParam("event_id") long eventId) {
-		return new ListTO<>("stories", eventService.getEventStories());
+		return new ListTO<>("stories", eventService.getEventStories(eventId));
 	}
 	
 	@GET
 	@Path("/{event_id}/stories/{event_story_id}")
 	public EventStory getEventStory(@PathParam("event_id") long eventId, @PathParam("event_story_id") long eventStoryId) {
-		return eventService.getEventStory(eventStoryId);
+		return eventService.getEventStory(eventId, eventStoryId);
 	}
 
 	@POST
