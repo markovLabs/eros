@@ -48,6 +48,24 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     })
 }
 
+function validateAnswers(answers, $window, fn) {
+	var invalid = false;
+	for(var i = 0; i < answers.length && !invalid; i++) {
+		if(angular.isUndefined(answers[i]) || answers[i] == ""){
+			$window.alert("All fields must be filled.");
+			invalid = true;
+		} 
+	}
+	if(!invalid) {
+		fn();
+	}
+}
+
+function validateAndSave($scope, $window, fn) {
+	var allAnswers = [$scope.answer1, $scope.answer2]
+    validateAnswers(allAnswers, $window, fn)
+}
+
 var app = angular.module("profileEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
 app.controller("profileEvaluationController",function($scope, $http, $window, $q){ 
 	$scope.q1 = q1;
@@ -88,7 +106,10 @@ app.controller("profileEvaluationController",function($scope, $http, $window, $q
 	
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
+			var saveAnswersCallback = function(){
+				saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
+			}
+			validateAndSave($scope, $window, saveAnswersCallback)
 		}
 	}
 })

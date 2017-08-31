@@ -1,5 +1,6 @@
 package com.markovlabs.eros.events;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import org.jooq.DSLContext;
@@ -35,7 +36,14 @@ public class EventService {
 	public Event getNextEvent() {
 		return Try.of(() -> erosDb.selectFrom(EVENT).orderBy(EVENT.EVENT_DATE).limit(1).fetchOne())
 				.map(Event.EventBuilder::of)
+				.filter(this::eventNotOccurredYet)
 				.getOrElseThrow(e -> new EventNotFoundException(e));
+	}
+	
+	private boolean eventNotOccurredYet(Event event){
+		LocalDate curDate = LocalDate.now();
+		LocalDate eventDate = LocalDate.parse(event.getDate());
+		return !event.isEnded() && (eventDate.isAfter(curDate) || eventDate.isEqual(curDate));
 	}
 	
 	public List<Event> getNextEvent(Long daterId) {

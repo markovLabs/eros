@@ -40,19 +40,36 @@ function updateDater($http, baseURL, id, dater, loadPage){
 	}
 }
 
-function saveAnswers($q, $http, $scope, baseURL, id, afterAnswersSaved){
+function validateAnswers(answers, $window, fn) {
+	var invalid = false;
+	for(var i = 0; i < answers.length && !invalid; i++) {
+		if(angular.isUndefined(answers[i]) || answers[i] == ""){
+			$window.alert("All fields must be filled.");
+			invalid = true;
+		} 
+	}
+	if(!invalid) {
+		fn();
+	}
+}
+
+function saveAnswers($q, $http, $scope, baseURL, id, afterAnswersSaved, $window){
     var questionIds = [question1.id, question2.id, question3.id]
     var answers = [$scope.answer1, $scope.answer2, $scope.answer3]
-    var url = baseURL + "/daters/" + id + "/profile_answers/"
-    var promises = []
-    for (var i = 0; i < questionIds.length; i++){
-        var answer = {question_id:questionIds[i], answer:answers[i]}
-        var promise = $http.post(url, answer)
-        promises.push(promise)
-    }
-    $q.all(promises).then(function(){
-    	afterAnswersSaved();
-    })
+    var storeAnswers = function(){
+        var url = baseURL + "/daters/" + id + "/profile_answers/"
+        var promises = []
+        for (var i = 0; i < questionIds.length; i++){
+            var answer = {question_id:questionIds[i], answer:answers[i]}
+            var promise = $http.post(url, answer)
+            promises.push(promise)
+        }
+        $q.all(promises).then(function(){
+        	afterAnswersSaved();
+        })
+    } 
+
+    validateAnswers(answers, $window, storeAnswers);
 }
 
 var app = angular.module("acceptanceQuestion", [ 'ngMaterial' ]);
@@ -74,7 +91,7 @@ app.controller("acceptanceQuestionController",
                 } else {
                     var dater = {accepted_profile_questions:true};
                     var updateDaterCallback = updateDater($http, baseURL, id, dater, loadProfileCreation);
-                    saveAnswers($q, $http, $scope, baseURL, id, updateDaterCallback)
+                    saveAnswers($q, $http, $scope, baseURL, id, updateDaterCallback, $window)
                 }
             }
 
