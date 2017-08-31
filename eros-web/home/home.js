@@ -4,6 +4,18 @@ function fixedEncodeURIComponent(str) {
   });
 }
 
+function validateAnswers(answers, $window, fn) {
+	var invalid = false;
+	for(var i = 0; i < answers.length && !invalid; i++) {
+		if(angular.isUndefined(answers[i]) || answers[i] == ""){
+			$window.alert("All fields must be filled.");
+			invalid = true;
+		} 
+	}
+	if(!invalid) {
+		fn();
+	}
+}
 
 var app = angular.module("home", ['ngMaterial']); 
 app.controller("homeController",function($scope, $http, $window){ 
@@ -42,9 +54,13 @@ app.controller("homeController",function($scope, $http, $window){
     $scope.onSignUp=function(){
     	var newDaterURL = $scope.erosBaseUrl + "/daters/"
     	var newDater = {email:$scope.emailForSignUp, pwd:$scope.pwdForSignUp, profile_name:$scope.name, gender:$scope.gender};
-    	$http.post(newDaterURL, newDater).then(function(response){
-    		$window.sessionStorage.setItem('dater_id', response.data.id);
-    		$window.location.href="../consent_page/consent_page.html";
-    	});
+    	var answers = [$scope.emailForSignUp, $scope.pwdForSignUp, $scope.name, $scope.gender]
+    	var saveAnswers = function(){
+        	$http.post(newDaterURL, newDater).then(function(response){
+        		$window.sessionStorage.setItem('dater_id', response.data.id);
+        		$window.location.href="../consent_page/consent_page.html";
+        	});
+    	}
+    	validateAnswers(answers, $window, saveAnswers);
     }
 }); 

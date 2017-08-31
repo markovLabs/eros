@@ -79,13 +79,20 @@ function setQ1($http, $scope) {
 	});
 }
 
+function getAnswers($scope){
+	   var answers = [$scope.answer2, $scope.answer3, $scope.answer4, $scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10]
+	    if(angular.isDefined($scope.q1)){
+	    	answers.push($scope.answer1)
+	    }
+	   return answers;
+}
+
 function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     var questionIds = [q2.id, q3.id, q4.id, q5.id, q6.id, q7.id, q8.id, q9.id, q10.id]
-    var answers = [$scope.answer2, $scope.answer3, $scope.answer4, $scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10]
     if(angular.isDefined($scope.q1)){
     	questionIds.push($scope.q1.id)
-    	answers.push($scope.answer1)
     }
+    var answers = getAnswers($scope)
     var url = baseURL + "/events/" + $scope.eventId + "/daters/" + daterId + "/matches/" + $scope.matchId + "/answers/"
     var promises = []
     for (var i = 0; i < questionIds.length; i++){
@@ -98,6 +105,23 @@ function saveAnswers($q, $http, $scope, baseURL, daterId, afterAnswersSaved){
     })
 }
 
+function validateAnswers(answers, $window, fn) {
+	var invalid = false;
+	for(var i = 0; i < answers.length && !invalid; i++) {
+		if(angular.isUndefined(answers[i]) || answers[i] == ""){
+			$window.alert("All fields must be filled.");
+			invalid = true;
+		} 
+	}
+	if(!invalid) {
+		fn();
+	}
+}
+
+function validateAndSave($scope, $window, fn) {
+	var answers = getAnswers($scope)
+    validateAnswers(answers, $window, fn)
+}
 
 var app = angular.module("surveyMsgEvaluation", ['ngMaterial', 'angular-bind-html-compile']); 
 app.controller("surveyMsgEvaluationController",function($scope, $http, $window, $q){ 
@@ -143,7 +167,10 @@ app.controller("surveyMsgEvaluationController",function($scope, $http, $window, 
 	}
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
-			saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
+			var saveAnswersCallback = function(){
+				saveAnswers($q, $http, $scope, $scope.erosBaseUrl, $scope.daterId, afterAnswersSaved);
+			};
+			validateAndSave($scope, $window, saveAnswersCallback);
 		}
 	}
 });

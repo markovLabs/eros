@@ -146,7 +146,25 @@ function getEventIdsByEventDescription(events){
     return eventIdsByDescMap;
 }
 
+function validateAnswers(answers, $window, fn) {
+	var invalid = false;
+	for(var i = 0; i < answers.length && !invalid; i++) {
+		if(angular.isUndefined(answers[i]) || answers[i] == ""){
+			$window.alert("All fields must be filled.");
+			invalid = true;
+		} 
+	}
+	if(!invalid) {
+		fn();
+	}
+}
 
+function validateAndSave($scope, $window, fn) {
+	var storyAnswers = [$scope.answer5, $scope.answer6, $scope.answer7, $scope.answer8, $scope.answer9, $scope.answer10, $scope.answer11, $scope.answer12];
+    var questionAnswers = [$scope.answer1, $scope.answer2, $scope.answer3, $scope.answer4];
+    var allAnswers = storyAnswers.concat(questionAnswers)
+    validateAnswers(allAnswers, $window, fn)
+}
 
 var app = angular.module("profileCreation", [ 'ngMaterial' ]);
 app.controller("profileCreationController", 
@@ -177,6 +195,9 @@ app.controller("profileCreationController",
         var eventId = $scope.eventIdsByDesc.get($scope.selectedEventDesc);
 	    var saveEventSelectedCallback = saveEventSelected($http, baseURL, id, eventId, $window, updateDater);
 	    var saveStoriesCallback = saveStories($q, $http, $scope, baseURL, id, saveEventSelectedCallback);
-	    saveAnswers($q, $http, $scope, baseURL, id, saveStoriesCallback); 
+	    var saveAnswersCallback = function(){
+		    saveAnswers($q, $http, $scope, baseURL, id, saveStoriesCallback); 
+	    }
+	    validateAndSave($scope, $window, saveAnswersCallback);
 	}
 });
