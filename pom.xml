@@ -4,7 +4,7 @@
 
 	<groupId>com.markovLabs</groupId>
 	<artifactId>eros</artifactId>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
 	<name>eros</name>
 	<packaging>pom</packaging>
 
