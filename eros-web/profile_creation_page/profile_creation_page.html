@@ -21,14 +21,23 @@
     <div style="padding-left:20px; padding-right:20px;">
     <md-card layout-gt-sm="column" >
     <md-card-actions>
-         <md-input>
+         <!--<md-input>
             <h5>1.Which dating event are you signing up for?</h5>
             <md-select ng-model="selectedEventDesc" aria-label="Select"> 
                 <md-optgroup label="Events">
                     <md-option ng-value="eventDesc" ng-repeat="eventDesc in eventDescriptions">{{eventDesc}}</md-option>
                 </md-optgroup> 
             </md-select> 
-          </md-input>
+          </md-input>-->
+
+           <md-input>
+		      <h5>Which dating event are you signing up for?</h5>
+		      <md-radio-group ng-model="selectEventDesc" class="md-raised md-primary">
+		          <md-radio-button ng-repeat="eventDesc in eventDescriptions" ng-value="eventDesc" aria-label="{{eventDesc}}"> 
+		            {{eventDesc}}
+		          </md-radio-button> 
+		      </md-radio-group> 
+		  </md-input> 
         
           <md-input>
             <h5>{{q1.content}}</h5>
