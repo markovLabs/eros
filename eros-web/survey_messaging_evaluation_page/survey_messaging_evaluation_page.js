@@ -5,51 +5,51 @@ answers: ["Super negative", "Negative", "Neutral","Positive", "Super positive"]
 
 var q3 = { id:15,
 	content:"If I had to make a choice right now, I would choose to go on a date with this person.",
-	answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
+	answers:["Disagree strongly", "Disagree moderately", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree moderately", "Agree strongly"]
 };
 
 var q4={id:16,
-content:"I am very confident in my answer to the previous question.",
-answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
+content:"I am very confident that my answer to the previous question won't change after I meet this person face-to-face at this event.",
+answers:["Disagree strongly", "Disagree moderately", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree moderately", "Agree strongly"]
 };
 
 var q5={id:17,
 content:"I was very engaged and interested in the discussion I had with this person in the messaging interface.",
-answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
+answers:["Disagree strongly", "Disagree moderately", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree moderately", "Agree strongly"]
 };
 
 var q6={id:19,
 content:"Quality of the messaging interaction (How pleasant was it?)",
-label1:"Unpleasant",
-label2:"Very pleasant",
+label1:"Unpleasant--",
+label2:"--Very pleasant",
 answers:[1,2,3,4,5,6,7]
 };
 
 var q7={id:20,
 content:"Degree of disagreement/conflict throughout the entire messaging interaction",
-label1:"Very little",
-label2:"A great deal",
+label1:"Very little--",
+label2:"--A great deal",
 answers:[1,2,3,4,5,6,7]
 };
 
 var q8={id:21,
 content:"Degree of closeness/camaraderie during the messaging interaction",
-label1:"Very little",
-label2:"A great deal",
+label1:"Very little--",
+label2:"--A great deal",
 answers:[1,2,3,4,5,6,7]
 };
 
 var q9={id:22,
 content:"My level of satisfaction with the messaging interaction",
-label1:"Dissatisfied",
-label2:"Very Satisfied",
+label1:"Dissatisfied--",
+label2:"--Very Satisfied",
 answers:[1,2,3,4,5,6,7]
 };
 
 var q10={id:23,
-content:"I got from this messaging interaction ...",
-label1:"Less than expected/hoped for",
-label2:"More than expected/hoped for",
+content:"I got from this messaging interaction...",
+label1:"Less than expected/hoped for--",
+label2:"--More than expected/hoped for",
 answers:[1,2,3,4,5,6,7]
 };
 

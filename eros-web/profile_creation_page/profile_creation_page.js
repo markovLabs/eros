@@ -1,6 +1,6 @@
 var q1={id:8,
-content:"2.How many total months have you been a user of at least one online dating system? (Online dating systems include mobile dating apps and online dating websites).",
-a:"0 months (I have never been a user of an online dating system before)",
+content:"2.How many total months have you been a user of at least one dating app/website?",
+a:"0 months (I have never been a user)",
 b:"1-3 months",
 c:"4-6 months",
 d:"7-12 months",
@@ -29,7 +29,7 @@ e:"Other"
 };
 
 var q4={id:11,
-content:"5.Are his Hispanic/Latino?",
+content:"5.Are you Hispanic/Latino?",
 a:"Yes",
 b:"No"
 };

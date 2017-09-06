@@ -27,3 +27,7 @@
     min-width: 400px;
     max-width: 400px;
 }
+
+.bullet{
+  margin-left: -9;
+}

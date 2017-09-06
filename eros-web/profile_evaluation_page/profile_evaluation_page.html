@@ -40,7 +40,7 @@
 		      <h5>{{q1.content}}</h5>
 		      <md-radio-group ng-model="answer1" layout-gt-sm="row" class="md-raised md-primary">
 		          <md-radio-button ng-repeat="answer in q1.answers" ng-value="answer" aria-label="{{ answer }}"> 
-		              {{ answer }} 
+		            <div class="bullet">{{ answer }}</div>
 		          </md-radio-button> 
 		      </md-radio-group> 
 		  </md-input> 
@@ -48,7 +48,7 @@
 		      <h5>{{q2.content}}</h5>
 		      <md-radio-group ng-model="answer2" layout-gt-sm="row" class="md-raised md-primary">
 		          <md-radio-button ng-repeat="answer in q2.answers" ng-value="answer" aria-label="{{ answer }}"> 
-		              {{ answer }} 
+		           <div class="bullet">{{ answer }}</div>
 		          </md-radio-button> 
 		      </md-radio-group> 
 		  </md-input> 

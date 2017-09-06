@@ -1,12 +1,12 @@
 var q1 = { 
 	id:12,
 	content:" If I had to make a choice right now, I would choose to go on a date with this person.",
-	answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
+	answers:["Disagree strongly", "Disagree moderately", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree moderately", "Agree strongly"]
 };
 
 var q2={id:13,
-content:" I am very confident in my answer to the previous question.",
-answers:["Disagree strongly 1", "Disagree moderately 2", "Disagree a little 3", "Neither agree nor disagree 4", "Agree a little 5", "Agree moderately 6", "Agree strongly 7"]
+content:" I am very confident that my answer to the previous question won't change after I meet this person face-to-face at this event.",
+answers:["Disagree strongly", "Disagree moderately", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree moderately", "Agree strongly"]
 };
 
 function setProfileImages($scope, $http){
