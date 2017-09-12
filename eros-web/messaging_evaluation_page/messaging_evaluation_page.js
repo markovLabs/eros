@@ -74,7 +74,7 @@ function getStoryLabel(answerType, daterAnswer, matchAnswer){
 	}
 }
 
-const TIMER_INTERVAL_IN_MS = 5000;//60000;
+const TIMER_INTERVAL_IN_MS = 60000;
 
 var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
 
