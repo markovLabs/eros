@@ -76,7 +76,7 @@ function getStoryLabel(answerType, daterAnswer, matchAnswer){
 
 const TIMER_INTERVAL_IN_MS = 60000;
 
-var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']); 
+var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-bind-html-compile']); 
 
 app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast, $timeout){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
