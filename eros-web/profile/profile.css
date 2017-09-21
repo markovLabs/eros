@@ -22,9 +22,9 @@
 }
 
 .carousel-div-img {
-	min-height: 430px;
-	max-height: 430px;
-	min-width: 400px;
+	/*min-height: 430px;*/
+	/*max-height: 430px;*/
+	min-width: 200px;
 	max-width: 400px;
 }
 
