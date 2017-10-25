@@ -49,9 +49,9 @@
                                     <groupId>com.markovLabs</groupId>
                                     <artifactId>eros-web</artifactId>
                                     <version>RELEASE</version>
-                                    <type>tar.gz</type>
+                                    <type>jar</type>
                                     <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/web</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                 </artifactItem>
 							</artifactItems>
 						</configuration>
