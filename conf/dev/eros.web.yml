@@ -1,0 +1,30 @@
+
+server:
+  rootPath: /api/*
+  applicationConnectors:
+    - type: http
+      port: 8000
+  adminConnectors:
+    - type: http
+      port: 9000
+      
+  requestLog:
+    timeZone: America/New_York
+    appenders:
+        - type : console
+          threshold: INFO
+        - type: file
+          currentLogFilename: ${HOME}/markovLabs-wrk/logs/eros-web.log
+          archive: false
+          timeZone: America/New_York
+            
+logging:
+  level: INFO
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: ${HOME}/markovLabs-wrk/logs/eros-web.log
+      archive: true
+      archivedLogFilenamePattern: ${HOME}/markovLabs-wrk/logs/eros-web-%d{yyyy/MM}.log.gz
+      archivedFileCount: 31
+      timeZone: America/New_York
