@@ -21,10 +21,6 @@
 			<outputDirectory>lib</outputDirectory>
 		</fileSet>
 		<fileSet>
-            <directory>${basedir}/target/web</directory>
-            <outputDirectory>web</outputDirectory>
-        </fileSet>
-		<fileSet>
 			<directory>${basedir}/target/</directory>
 			<includes>
 				<include>version.txt</include>
