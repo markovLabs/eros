@@ -187,7 +187,7 @@ public class EventController {
 	}
 
 	@GET
-	@Path("/{event_id}/daters/{dater_id}/matches/{match_id}/answers/${answer_id}")
+	@Path("/{event_id}/daters/{dater_id}/matches/{match_id}/answers/{answer_id}")
 	public EvaluationAnswer getAnswer(@PathParam("event_id") long eventId, @PathParam("dater_id") long daterId,
 			@PathParam("match_id") long matchId, @PathParam("answer_id") long answerId) {
 		assertThatDatersAreMatched(eventId, daterId, matchId);
