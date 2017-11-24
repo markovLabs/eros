@@ -74,8 +74,6 @@ function getStoryLabel(answerType, daterAnswer, matchAnswer){
 	}
 }
 
-const TIMER_INTERVAL_IN_MS = 60000;
-
 var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-bind-html-compile']); 
 
 app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast, $timeout){ 
@@ -125,33 +123,25 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 			});
 	}, 100);
 	
-	var tick = 0;
-	$interval(function(){
-		tick = tick + 1;
-		if(tick == 2){
-			$mdToast.show($mdToast.simple().textContent('1 min left to finish the conversation.').hideDelay(3000));
-		}
-		if(tick >= 3){
-			$scope.disableContinueButton = false
-		}
-	}, TIMER_INTERVAL_IN_MS);
-	
+	$scope.disableContinueButton = false
 	$scope.onContinue=function(){
 		if(!$scope.disableContinueButton){
 			$window.location.href="../survey_messaging_evaluation_page/survey_messaging_evaluation_page.html";
 		}
 	}
-	
+
 	$scope.onSendMsg=function(){
 		var url = $scope.erosBaseUrl + "/messages/";
 		var msgContent = $scope.msgSent;
 		$scope.msgSent = "";
-		var msg = {from_dater_id:$scope.daterId, to_dater_id:$scope.matchId, event_id:$scope.eventId, content:msgContent}
-		$http.post(url, msg).then(function(response){
-			console.log(response.data.id)
-		}, function(err){
-			$mdToast.simple().textContent('Message was not sent. Please try again.').hideDelay(3000)
-			console.log(err.data)
-		});
+		if(msgContent != "" || msgContent != null){
+			var msg = {from_dater_id:$scope.daterId, to_dater_id:$scope.matchId, event_id:$scope.eventId, content:msgContent}
+			$http.post(url, msg).then(function(response){
+				console.log(response.data.id)
+			}, function(err){
+				$mdToast.simple().textContent('Message was not sent. Please try again.').hideDelay(3000)
+				console.log(err.data)
+			});
+		}
 	}
 })
