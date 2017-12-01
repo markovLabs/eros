@@ -54,7 +54,7 @@
        <md-card-actions layout="row" class="round" style="padding-left:20px;padding-right:20px;">
                 <md-input-container style="width:400px;height:50px" class="md-block" flex-gt-sm>
                     <label>Type message</label>
-                    <input ng-model="msgSent">
+                    <input ng-model="msgSent" ng-init="msgSent=''">
                 </md-input-container>
                 <md-button class="md-raised md-primary" style="height:20px;margin-top:20px;margin-left:10px" ng-click="onSendMsg();">
                     Send
