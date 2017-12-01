@@ -74,7 +74,13 @@ function getStoryLabel(answerType, daterAnswer, matchAnswer){
 	}
 }
 
-var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-bind-html-compile']); 
+function copyList(fromList, toList){
+	for(var i = 0; i < fromList.length; i++){
+		toList.push(fromList[i]);
+	}
+}
+
+var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-bind-html-compile']);
 
 app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast, $timeout){ 
 	$scope.erosBaseUrl = 'http://69.164.208.35:17320/eros/v1';
@@ -98,29 +104,33 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 		setProfile(JSON.parse(matches), $window, $scope, $http);
 		setStory($q, $http, $scope);
 	}
+
 	$interval(function() {
 			var url = $scope.erosBaseUrl + "/messages/?from=" + $scope.matchId
 				+ "&to=" + $scope.daterId + "&messages_received="
 				+ $scope.msgs.length + "&event_id=" + $scope.eventId + "&between=true";
-			$http.get(url).then(function(response) {
-				var msgs = response.data.messages;
-				for (var i = 0; i < msgs.length; i++) {
-					$scope.msgs.push({msg:msgs[i], id:$scope.msgs.length})
-				}
-				if(msgs.length > 0) {
-					try {
-						$scope.$apply();
-					} finally {
+				$http.get(url).then(function(response) {
+					var msgs = response.data.messages;
+					if(msgs.length > 0) {
+						newMsgs = []
+						copyList($scope.msgs, newMsgs)
+						for (var i = 0; i < msgs.length; i++) {
+							newMsgs.push({msg:msgs[i], id:newMsgs.length})
+						}
+						$scope.msgs = newMsgs;
 						$timeout(function(){
 							var listOfMsgContainer = document.querySelector('#msgList');
 							listOfMsgContainer.scrollTop =  listOfMsgContainer.scrollHeight;
-							$scope.$apply();
+							try {
+								$scope.$apply();
+							} catch(e){
+								console.log(e);
+							}
 						}, 0, false);
 					}
-				}
-			}, function(err){
-				console.log(err.data)
-			});
+				}, function(err){
+					console.log(err.data)
+				})
 	}, 100);
 	
 	$scope.disableContinueButton = false
@@ -133,11 +143,11 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 	$scope.onSendMsg=function(){
 		var url = $scope.erosBaseUrl + "/messages/";
 		var msgContent = $scope.msgSent;
-		$scope.msgSent = "";
-		if(msgContent != "" || msgContent != null){
+		if(msgContent != "" && msgContent != null){
 			var msg = {from_dater_id:$scope.daterId, to_dater_id:$scope.matchId, event_id:$scope.eventId, content:msgContent}
+			$scope.msgSent = "";
 			$http.post(url, msg).then(function(response){
-				console.log(response.data.id)
+				console.log(response.data.id);
 			}, function(err){
 				$mdToast.simple().textContent('Message was not sent. Please try again.').hideDelay(3000)
 				console.log(err.data)

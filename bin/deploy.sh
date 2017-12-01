@@ -1,5 +1,9 @@
 #!/bin/bash
 
+##############################################
+# Upload artifact and reestart eros. 
+#############################################
+
 declare -r ENV="prod"
 
 HOST="localhost"
@@ -59,12 +63,15 @@ function main(){
     set -o errexit
     
     set_arguments "$@"
+    echo "Uploading artifact"
     scp "${ARTIFACT_PATH}/${ARTIFACT}.tar.gz" ${USER}@${HOST}:~/
-    ssh ${USER}@${HOST} "pid=$(ps -o pid,args -C bash | awk 'eros.api { print $1 }') && kill ${pid}"
+    echo "Unzipping artifact"
+    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}.tar.gz && mv ${ARTIFACT} eros"
+    echo "Stopping eros"
+    ssh ${USER}@${HOST} "eros/bin/stop.sh"
     wait 10s
-    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}.tar.gz"
-    ssh ${USER}@${HOST} "tar -xvf ${ARTIFACT}/web/eros* && rm ${ARTIFACT}/web/eros*gz && mv ${ARTIFACT}/web/eros*/* ${ARTIFACT}/web/ && rm -rf ${ARTIFACT}/web/eros*"
-    ssh ${USER}@${HOST} "cd ${ARTIFACT}/bin/ && ./run.sh"
+    echo "Run eros"
+    ssh ${USER}@${HOST} "screen -r 11710.pts-2.people && eros/bin/run.sh"
 }
 
 main "$@"

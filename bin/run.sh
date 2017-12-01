@@ -1,5 +1,9 @@
 #!/bin/bash
 
+##############################################################################################################
+# Run eros from home dir. Assume eros is not running, eros dirname is eros and the script is being run from ~  
+###############################################################################################################
+
 ENV="prod"
 declare -r PARAM_REQUIRED=1
 
@@ -35,12 +39,9 @@ function set_arguments() {
     done
 }
 
-function run_eros_api(){
-    cd .. 
-    java -jar lib/eros*.jar server conf/${ENV}/eros.api.yml &
-    cd web 
-    python -m SimpleHTTPServer &
-    cd .. 
+function run_eros(){
+    java -jar ~/eros/lib/eros*api*.jar server ~/eros/conf/${ENV}/eros.api.yml &
+    java -jar ~/eros/lib/eros*web*.jar server ~/eros/conf/${ENV}/eros.web.yml &
 }
 
 function main(){
@@ -48,7 +49,7 @@ function main(){
     set -o errexit
     
     set_arguments "$@"
-    run_eros_api
+    run_eros
 }
 
 main "$@"
