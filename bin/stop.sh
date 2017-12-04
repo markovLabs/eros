@@ -4,7 +4,7 @@ function stop_service(){
     local service=$1
     local pid=$(ps -ef | grep eros | grep ${service} | awk -F' ' '{ print $2}')
     kill ${pid}
-    wait 3s
+    sleep 3s
 }
 
 function main(){
