@@ -74,12 +74,6 @@ function getStoryLabel(answerType, daterAnswer, matchAnswer){
 	}
 }
 
-function copyList(fromList, toList){
-	for(var i = 0; i < fromList.length; i++){
-		toList.push(fromList[i]);
-	}
-}
-
 var app = angular.module("msgEvaluation", ['ngMaterial', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angular-bind-html-compile']);
 
 app.controller("msgEvaluationController",function($scope, $http, $window, $q, $interval, $mdToast, $timeout){ 
@@ -106,14 +100,13 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 	}
 
 	$interval(function() {
+		if(!angular.isUndefined($scope.matchId)) {
 			var url = $scope.erosBaseUrl + "/messages/?from=" + $scope.matchId
-				+ "&to=" + $scope.daterId + "&messages_received="
-				+ $scope.msgs.length + "&event_id=" + $scope.eventId + "&between=true";
-				$http.get(url).then(function(response) {
+				+ "&to=" + $scope.daterId  + "&event_id=" + $scope.eventId + "&between=true";
+			$http.get(url).then(function(response) {
 					var msgs = response.data.messages;
-					if(msgs.length > 0) {
-						newMsgs = []
-						copyList($scope.msgs, newMsgs)
+					if(msgs.length > $scope.msgs.length) {
+						var newMsgs = []
 						for (var i = 0; i < msgs.length; i++) {
 							newMsgs.push({msg:msgs[i], id:newMsgs.length})
 						}
@@ -131,6 +124,7 @@ app.controller("msgEvaluationController",function($scope, $http, $window, $q, $i
 				}, function(err){
 					console.log(err.data)
 				})
+		}
 	}, 100);
 	
 	$scope.disableContinueButton = false
